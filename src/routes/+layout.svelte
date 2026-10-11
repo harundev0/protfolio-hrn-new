@@ -199,7 +199,7 @@
 
     <!-- Right Section: GitHub, LinkedIn, Theme Toggle, Contact CTA -->
     <div class="flex items-stretch">
-      <div class="hidden lg:flex items-center gap-4 px-4 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55">
+      <div class="hidden sm:flex items-center gap-3 md:gap-4 px-3 sm:px-4 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55">
         <a 
           href="https://github.com/harunbahrudin" 
           target="_blank" 
