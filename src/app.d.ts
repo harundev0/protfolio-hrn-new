@@ -3,7 +3,9 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			lang: import('#lib/i18n/index.ts').Locale;
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

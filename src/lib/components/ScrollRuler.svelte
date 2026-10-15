@@ -2,6 +2,9 @@
   import { onMount } from 'svelte';
 
   import { page } from '$app/state';
+  import { getI18n } from '#lib/i18n/index.ts';
+
+  const i18n = getI18n();
 
   let scrollY = $state(0);
   let innerHeight = $state(0);
@@ -10,7 +13,7 @@
 
   let isAboutPage = $derived(page.url.pathname === '/about');
 
-  let activeSection = $state('HOME');
+  let activeSection = $state('');
 
   // Exact 0-100% calculation
   let progress = $derived(
@@ -46,20 +49,16 @@
     Math.max(0, Math.min(trackHeight - lensHeight, laserY - lensHeight / 2))
   );
 
-  // Dynamic sections depending on route
-  const homeSections = [
-    { id: 'work', label: 'WORK', sub: 'ENGINEERING & UI' },
-    { id: 'about', label: 'ABOUT', sub: 'PHILOSOPHY' },
-    { id: 'proof', label: 'STACK', sub: 'TOOLCHAIN' },
-    { id: 'contact', label: 'CONTACT', sub: 'GET IN TOUCH' }
-  ];
+  let t = $derived(i18n.t);
 
-  const aboutSections = [
-    { id: 'chronicles', label: 'ORIGINS', sub: 'ENGINEERING JOURNEY' },
-    { id: 'experience', label: 'CAREER', sub: 'ROLE CHANGELOG' },
-    { id: 'curation', label: 'BEYOND', sub: 'HARDWARE & CULTURE' },
-    { id: 'collab', label: 'CONNECT', sub: 'TRANSMISSION' }
-  ];
+  // Dynamic sections depending on route
+  let homeSections = $derived(
+    (['work', 'about', 'proof', 'contact'] as const).map((id) => ({ id, ...t.ruler.home[id] }))
+  );
+
+  let aboutSections = $derived(
+    (['chronicles', 'experience', 'curation', 'collab'] as const).map((id) => ({ id, ...t.ruler.aboutPage[id] }))
+  );
 
   let currentSections = $derived(isAboutPage ? aboutSections : homeSections);
 
@@ -70,12 +69,12 @@
       const el = document.getElementById(section.id);
       if (el) {
         if (scrollPos >= el.offsetTop - 60) {
-          activeSection = section.label;
+          activeSection = section.id;
           return;
         }
       }
     }
-    activeSection = currentSections[0]?.label || 'INDEX';
+    activeSection = currentSections[0]?.id ?? '';
   }
 
   function scrollToSection(id: string) {
@@ -129,7 +128,7 @@
       href={isAboutPage ? "/about" : "/"} 
       class="text-[10px] font-mono tracking-[0.25em] text-black/50 dark:text-white/50 uppercase font-bold hover:text-black dark:hover:text-white transition-colors whitespace-nowrap"
     >
-      {isAboutPage ? 'ABOUT // HARUN' : 'PORTFOLIO'}
+      {isAboutPage ? t.ruler.aboutTag : t.ruler.portfolio}
     </a>
 
     <!-- Interactive Navigation Hierarchy - Aligned to the BOTTOM as requested -->
@@ -139,7 +138,7 @@
           <button
             onclick={() => scrollToSection(sec.id)}
             class="text-right transition-all duration-300 font-display tracking-tight cursor-pointer uppercase whitespace-nowrap {
-              activeSection === sec.label
+              activeSection === sec.id
                 ? 'text-black dark:text-white font-extrabold text-[24px] xl:text-[28px] leading-none drop-shadow-[0_0_12px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.2)]'
                 : 'text-black/30 dark:text-white/35 font-bold text-[11px] tracking-wider leading-relaxed hover:text-black/70 dark:hover:text-white/70'
             }"
@@ -148,7 +147,7 @@
           </button>
           
           <!-- Sub-bullet label when active -->
-          {#if activeSection === sec.label}
+          {#if activeSection === sec.id}
             <div class="flex items-center gap-2 mt-1.5 text-[9px] font-mono tracking-widest text-black/60 dark:text-white/60 whitespace-nowrap">
               <span class="w-1.5 h-1.5 bg-[#2D81FF] rounded-none inline-block shadow-[0_0_6px_#2D81FF]"></span>
               <span>{sec.sub}</span>
@@ -169,7 +168,7 @@
     aria-valuemin={0} 
     aria-valuemax={100} 
     aria-valuenow={Math.round(progress)} 
-    aria-label="Page position"
+    aria-label={t.ruler.position}
     onclick={handleScrollbarClick}
     class="relative w-[60px] h-full cursor-crosshair overflow-hidden pointer-events-auto border-l border-black/10 dark:border-white/10"
   >

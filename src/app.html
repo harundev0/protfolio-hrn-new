@@ -1,9 +1,13 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="%lang%" class="dark">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<link rel="icon" href="/favicon.ico" sizes="48x48" />
+		<link rel="icon" type="image/png" href="/assets/logo/logo-light.png" media="(prefers-color-scheme: light)" />
+		<link rel="icon" type="image/png" href="/assets/logo/logo-dark.png" media="(prefers-color-scheme: dark)" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		%sveltekit.head%
 		<script>
 			if (localStorage.theme === 'light' || (!('theme' in localStorage) && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
