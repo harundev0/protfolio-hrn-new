@@ -123,8 +123,8 @@ const fr: typeof en = {
   about: {
     eyebrow: '00 / À propos',
     eyebrowMeta: 'Harun Bahrudin // Produit · UI/UX · Frontend',
-    titlePre: 'Moitié designer,',
-    titleEm: 'moitié ingénieur',
+    titlePre: 'Designer',
+    titleEm: 'et ingénieur',
     titlePost: '.',
     intro:
       'Je suis Harun Bahrudin, ingénieur produit, UI/UX et frontend en Indonésie. La plupart de mon travail se situe entre le design et le code : je réfléchis à la façon dont quelque chose doit fonctionner, je le conçois, puis je le développe.',
@@ -207,9 +207,23 @@ const fr: typeof en = {
       titlePre: 'Là où',
       titleEm: 'j’ai travaillé',
       titlePost: '.',
-      body: 'Les postes, les équipes et ce sur quoi j’ai travaillé.',
+      body: 'Depuis novembre 2019, je travaille à distance pour GoThru, une entreprise basée au Canada. J’y conçois et développe les interfaces de 10 produits de visites virtuelles 360° et Google Street View.',
       empty: 'Le parcours professionnel est en cours de mise à jour.',
-      milestones: [] as Milestone[]
+      milestones: [
+        {
+          period: 'Nov. 2019 – aujourd’hui',
+          role: 'Product Engineer',
+          company: 'GoThru · Canada (à distance)',
+          tag: 'UI/UX & Frontend',
+          deliverables: [
+            'Je conçois et développe les interfaces de 10 produits de la plateforme de visites virtuelles 360° et Google Street View de GoThru.',
+            'Les produits : Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker et GoThru Marketing.',
+            'Je mène chaque projet de la recherche utilisateur et des wireframes jusqu’aux parcours, à l’UI haute fidélité, aux prototypes et à la passation aux développeurs dans Figma.',
+            'Je développe les interfaces en HTML, CSS et JavaScript pour que le produit final corresponde au design validé.',
+            'Note de satisfaction client de 5/5 et 95–100 % des projets livrés à temps, à distance avec des clients sur plusieurs fuseaux horaires.'
+          ]
+        }
+      ] as Milestone[]
     },
     beyond: {
       eyebrow: 'Travailler ensemble',

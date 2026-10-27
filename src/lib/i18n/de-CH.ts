@@ -123,8 +123,8 @@ const deCH: typeof en = {
   about: {
     eyebrow: '00 / Über mich',
     eyebrowMeta: 'Harun Bahrudin // Product · UI/UX · Frontend',
-    titlePre: 'Halb Designer,',
-    titleEm: 'halb Engineer',
+    titlePre: 'Designer',
+    titleEm: 'und Engineer',
     titlePost: '.',
     intro:
       'Ich bin Harun Bahrudin, Product, UI/UX und Frontend Engineer aus Indonesien. Der grösste Teil meiner Arbeit liegt zwischen Design und Code: Ich überlege, wie etwas funktionieren soll, gestalte es und baue es dann.',
@@ -207,9 +207,23 @@ const deCH: typeof en = {
       titlePre: 'Wo ich',
       titleEm: 'gearbeitet habe',
       titlePost: '.',
-      body: 'Rollen, Teams und woran ich gearbeitet habe.',
+      body: 'Seit November 2019 arbeite ich remote für GoThru, ein Unternehmen aus Kanada. Dort gestalte und baue ich die Oberflächen für 10 Produkte rund um 360°-Virtual-Tours und Google Street View.',
       empty: 'Die Berufserfahrung wird gerade aktualisiert.',
-      milestones: [] as Milestone[]
+      milestones: [
+        {
+          period: 'Nov. 2019 – heute',
+          role: 'Product Engineer',
+          company: 'GoThru · Kanada (remote)',
+          tag: 'UI/UX & Frontend',
+          deliverables: [
+            'Ich gestalte und baue die Oberflächen für 10 Produkte der 360°-Virtual-Tour- und Google-Street-View-Plattform von GoThru.',
+            'Die Produkte: Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker und GoThru Marketing.',
+            'Jedes Projekt begleite ich von User Research und Wireframes über User Flows, High-Fidelity-UI und Prototypen bis zur Übergabe an die Entwicklung in Figma.',
+            'Die Oberflächen setze ich in HTML, CSS und JavaScript um, damit das fertige Produkt dem freigegebenen Design entspricht.',
+            'Kundenzufriedenheit von 5/5 und 95–100 % der Projekte pünktlich geliefert, remote mit Kunden in verschiedenen Zeitzonen.'
+          ]
+        }
+      ] as Milestone[]
     },
     beyond: {
       eyebrow: 'Zusammenarbeit',

@@ -122,8 +122,8 @@ const id: typeof en = {
   about: {
     eyebrow: '00 / Tentang',
     eyebrowMeta: 'Harun Bahrudin // Product · UI/UX · Frontend',
-    titlePre: 'Setengah desainer,',
-    titleEm: 'setengah engineer',
+    titlePre: 'Desainer',
+    titleEm: 'sekaligus engineer',
     titlePost: '.',
     intro:
       'Saya Harun Bahrudin, product, UI/UX dan frontend engineer dari Indonesia. Kebanyakan pekerjaan saya ada di antara desain dan kode: saya pikirkan bagaimana sesuatu seharusnya bekerja, mendesainnya, lalu membangunnya.',
@@ -206,9 +206,23 @@ const id: typeof en = {
       titlePre: 'Tempat saya',
       titleEm: 'bekerja',
       titlePost: '.',
-      body: 'Peran, tim, dan apa yang saya kerjakan.',
+      body: 'Sejak November 2019 saya bekerja remote untuk GoThru, perusahaan asal Kanada. Di sana saya mendesain dan membangun UI untuk 10 produk virtual tour 360° dan Google Street View mereka.',
       empty: 'Riwayat kerja sedang diperbarui.',
-      milestones: [] as Milestone[]
+      milestones: [
+        {
+          period: 'Nov 2019 – Sekarang',
+          role: 'Product Engineer',
+          company: 'GoThru · Kanada (remote)',
+          tag: 'UI/UX & Frontend',
+          deliverables: [
+            'Mendesain dan membangun UI untuk 10 produk di platform virtual tour 360° dan Google Street View milik GoThru.',
+            'Produknya: Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker, dan GoThru Marketing.',
+            'Mengerjakan tiap proyek dari riset pengguna dan wireframe, lalu user flow, UI high-fidelity, prototipe, sampai handoff ke developer di Figma.',
+            'Membangun antarmukanya dengan HTML, CSS, dan JavaScript supaya hasil akhirnya sama dengan desain yang disetujui.',
+            'Rating kepuasan klien 5/5 dan 95–100% proyek selesai tepat waktu, bekerja remote dengan klien di zona waktu yang berbeda.'
+          ]
+        }
+      ] as Milestone[]
     },
     beyond: {
       eyebrow: 'Kerja bareng',

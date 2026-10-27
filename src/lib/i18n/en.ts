@@ -121,8 +121,8 @@ const en = {
   about: {
     eyebrow: '00 / About',
     eyebrowMeta: 'Harun Bahrudin // Product · UI/UX · Frontend',
-    titlePre: 'Half designer,',
-    titleEm: 'half engineer',
+    titlePre: 'Designer',
+    titleEm: 'and engineer',
     titlePost: '.',
     intro:
       'I’m Harun Bahrudin, a product, UI/UX and frontend engineer from Indonesia. Most of my work sits between design and code: I figure out how something should work, design it, and then build it.',
@@ -205,10 +205,23 @@ const en = {
       titlePre: 'Where I’ve',
       titleEm: 'worked',
       titlePost: '.',
-      body: 'Roles, teams and what I worked on.',
+      body: 'Since November 2019 I’ve worked remotely for GoThru, a company based in Canada. I design and build the UI for 10 of their 360° virtual tour and Google Street View products.',
       empty: 'Work history is being updated.',
-      // TODO: fill with real work history (see Milestone type)
-      milestones: [] as Milestone[]
+      milestones: [
+        {
+          period: 'Nov 2019 – Present',
+          role: 'Product Engineer',
+          company: 'GoThru · Canada (remote)',
+          tag: 'UI/UX & Frontend',
+          deliverables: [
+            'Design and build the UI for 10 products on GoThru’s 360° virtual tour and Google Street View platform.',
+            'The products: Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker and GoThru Marketing.',
+            'Take each project from user research and wireframes to user flows, high-fidelity UI, prototypes and developer handoff in Figma.',
+            'Build the interfaces in HTML, CSS and JavaScript so the shipped product matches the approved design.',
+            'Keep a 5/5 client satisfaction rating and deliver 95–100% of projects on time, working remotely across time zones.'
+          ]
+        }
+      ] as Milestone[]
     },
     beyond: {
       eyebrow: 'Working together',

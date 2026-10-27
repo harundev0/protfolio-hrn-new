@@ -122,8 +122,8 @@ const ja: typeof en = {
   about: {
     eyebrow: '00 / 自己紹介',
     eyebrowMeta: 'Harun Bahrudin // プロダクト · UI/UX · フロントエンド',
-    titlePre: '半分デザイナー、',
-    titleEm: '半分エンジニア',
+    titlePre: 'デザイナーであり、',
+    titleEm: 'エンジニア',
     titlePost: '。',
     intro:
       'インドネシアでプロダクト / UI/UX / フロントエンドエンジニアをしている Harun Bahrudin です。仕事の多くはデザインとコードの間にあります。どう動くべきかを考え、デザインし、それを自分でつくります。',
@@ -206,9 +206,23 @@ const ja: typeof en = {
       titlePre: '',
       titleEm: 'これまでの',
       titlePost: '仕事。',
-      body: '担当した役割、チーム、取り組んだこと。',
+      body: '2019年11月から、カナダの企業 GoThru でリモートで働いています。360° バーチャルツアーと Google ストリートビューに関する 10 の製品の UI をデザインし、実装しています。',
       empty: '職務経歴は現在更新中です。',
-      milestones: [] as Milestone[]
+      milestones: [
+        {
+          period: '2019年11月 – 現在',
+          role: 'Product Engineer',
+          company: 'GoThru · カナダ（リモート）',
+          tag: 'UI/UX & Frontend',
+          deliverables: [
+            'GoThru の 360° バーチャルツアーと Google ストリートビューのプラットフォームで、10 の製品の UI をデザインし、実装しています。',
+            '担当製品：Panorra、TourMkr、GoThru Dashboard、StreetBuilder、GoThru Navigator、Villume、MapThru、GoThru PhotoStudio、GoThru 360 Virtual Tour Maker、GoThru Marketing。',
+            'ユーザーリサーチとワイヤーフレームから、ユーザーフロー、高精度 UI、プロトタイプ、Figma での開発者への引き渡しまで、各プロジェクトを一貫して担当しています。',
+            '承認されたデザインどおりに仕上がるよう、HTML、CSS、JavaScript でインターフェースを実装しています。',
+            'クライアント満足度 5/5、プロジェクトの 95〜100% を期限内に納品。異なるタイムゾーンのクライアントとリモートで協業しています。'
+          ]
+        }
+      ] as Milestone[]
     },
     beyond: {
       eyebrow: '一緒に働くとき',

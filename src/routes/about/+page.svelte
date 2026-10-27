@@ -80,6 +80,13 @@
   <!-- ABOUT HERO SECTION -->
   <section id="bio" class="w-full relative min-h-[65vh] flex flex-col justify-center pt-10 pb-16 overflow-hidden border-b border-black/10 dark:border-white/10">
 
+    <!-- Background: soft color blobs drifting along the bottom (own CSS, no video asset) -->
+    <div class="flux absolute inset-0 pointer-events-none" aria-hidden="true">
+      {#each ['#FFC24B', '#FF7A7A', '#F37CE0', '#B48CFF', '#3EC6F5'] as c, i}
+        <span style:--c={c} style:--x="{i * 21 - 8}%" style:--delay="{i * -1.7}s" style:--dur="{6 + i * 1.3}s" style:--dir={i % 2 ? 'alternate-reverse' : 'alternate'}></span>
+      {/each}
+    </div>
+
     <!-- Background Technical Crosshairs (Hidden on mobile so it never slices through heading text) -->
     <div class="absolute inset-0 pointer-events-none hidden sm:flex justify-between px-8 md:px-16 opacity-15">
       <div class="h-full border-r border-dashed border-black dark:border-white"></div>
@@ -374,3 +381,28 @@
   </section>
 
 </div>
+
+<style>
+  /* radial-gradient instead of filter: blur, so drifting stays cheap */
+  .flux span {
+    position: absolute;
+    left: var(--x);
+    bottom: -22%;
+    width: 36%;
+    aspect-ratio: 5 / 2;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--c), transparent);
+    opacity: 0.7;
+    animation: flux-drift var(--dur) ease-in-out var(--delay) infinite var(--dir);
+  }
+  :global(.dark) .flux span { opacity: 0.6; }
+  @keyframes flux-drift {
+    0% { transform: translate(-25%, 0) scale(1); opacity: 0.55; }
+    33% { transform: translate(20%, -12%) scale(1.15); opacity: 0.85; }
+    66% { transform: translate(38%, 4%) scale(0.88); opacity: 0.6; }
+    100% { transform: translate(-12%, -6%) scale(1.08); opacity: 0.8; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flux span { animation: none; }
+  }
+</style>
