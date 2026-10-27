@@ -6,11 +6,14 @@ const fr: typeof en = {
   meta: {
     title: 'Harun Bahrudin — Ingénieur produit, UI/UX & frontend',
     description:
-      'Je suis Harun, ingénieur produit, UI/UX et frontend en Indonésie. Je conçois et développe des applications web, et je travaille à distance avec des équipes du monde entier.',
-    aboutTitle: 'À propos — Harun Bahrudin'
+      'Harun Bahrudin, ingénieur produit, UI/UX et frontend en Indonésie, avec sept ans d’expérience. Ouvert aux postes à temps plein ou partiel : sur site, hybride ou à distance.',
+    aboutTitle: 'À propos — Harun Bahrudin',
+    aboutDescription:
+      'Parcours, formation et méthode de travail. Près de sept ans à concevoir et développer des produits de visites virtuelles 360° et Google Street View pour GoThru.'
   },
   nav: {
     home: 'Accueil',
+    work: 'Projets',
     expertise: 'Expertise',
     about: 'À propos',
     stack: 'Stack',
@@ -21,13 +24,15 @@ const fr: typeof en = {
     toggleMenu: 'Ouvrir/fermer le menu',
     toggleTheme: 'Changer de thème',
     language: 'Langue',
-    homeAria: 'Accueil'
+    homeAria: 'Accueil',
+    skip: 'Aller au contenu'
   },
   ruler: {
     portfolio: 'Portfolio',
     aboutTag: 'À propos // Harun',
     position: 'Position dans la page',
     home: {
+      projects: { label: 'Projets', sub: 'Projets choisis' },
       work: { label: 'Expertise', sub: 'Produit · UI/UX · Frontend' },
       about: { label: 'Approche', sub: 'Ma façon de travailler' },
       proof: { label: 'Stack', sub: 'Outils du quotidien' },
@@ -43,9 +48,25 @@ const fr: typeof en = {
   hero: {
     titlePre: 'Je conçois et je développe',
     titleEm: 'des produits web.',
-    body: 'Ingénieur produit, UI/UX et frontend. Je prends une fonctionnalité depuis le premier croquis dans Figma jusqu’au code qui tourne en production.',
-    ctaPrimary: 'Ce que je fais',
+    body: 'Ingénieur produit, UI/UX et frontend, avec sept ans d’expérience. Je prends une fonctionnalité depuis le premier croquis dans Figma jusqu’au code qui tourne en production.',
+    ctaPrimary: 'Voir mes projets',
     ctaSecondary: 'À propos'
+  },
+  work: {
+    eyebrow: 'Projets choisis',
+    eyebrowRight: 'GoThru · 2019–aujourd’hui',
+    titlePre: 'Ce que j’ai',
+    titleEm: 'conçu',
+    titlePost: '.',
+    body: 'Quelques écrans de produits GoThru que j’ai conçus. Le contenu des maquettes est fictif.',
+    role: 'Rôle',
+    roleVal: 'Design UI/UX',
+    items: [
+      { name: 'Panorra 360', kind: 'Application web', desc: 'Un fil social pour les photos 360°. On passe d’un des six modes d’affichage à l’autre, de l’ultra grand-angle à la little planet, sans quitter la publication.', alt: 'Fil web Panorra 360 avec visionneuse de photo 360° et menu des modes d’affichage' },
+      { name: 'Panorra 360', kind: 'Application mobile', desc: 'Le même fil sur téléphone : onglets For You, Recent et Map, visionneuse plein écran et commentaires sous chaque publication.', alt: 'Trois écrans de l’application mobile Panorra 360 : fil, détail d’une publication et visionneuse plein écran' },
+      { name: 'GoThru Dashboard', kind: 'Web · Mobile', desc: 'L’espace où les clients gèrent leurs visites virtuelles : recherche, filtres par hashtag, sélection multiple et statut de publication pour chaque visite.', alt: 'Page My Tours du GoThru Dashboard sur desktop et mobile en mode sombre' },
+      { name: 'GoThru 360 · Gestionnaire de fichiers', kind: 'Application web', desc: 'Parcourir un dossier de panoramas et prévisualiser chacun dans une visionneuse 360° avec carte de localisation, avant de le modifier ou de l’envoyer.', alt: 'Gestionnaire de fichiers GoThru avec une grille de panoramas et un aperçu 360° du temple de Borobudur' }
+    ]
   },
   expertise: {
     eyebrow: 'Ce que je fais',
@@ -90,23 +111,23 @@ const fr: typeof en = {
     ]
   },
   contact: {
-    eyebrow: 'Disponible pour de nouveaux projets',
-    titlePre: 'Un projet',
-    titleEm: 'en tête',
+    eyebrow: 'Ouvert aux postes à temps plein ou partiel',
+    titlePre: 'Vous recrutez, ou vous avez un',
+    titleEm: 'projet',
     titlePost: ' ?',
-    body: 'Parlez-moi un peu de ce que vous construisez et de ce qui bloque. Je vous répondrai en vous disant franchement si je suis la bonne personne.',
+    body: 'Si vous recrutez pour du produit, de l’UI/UX ou du frontend, ou si vous avez un projet, envoyez-moi un petit message. Je suis ouvert aux postes sur site, hybrides et à distance, et prêt à déménager.',
     email: 'M’écrire',
     github: 'GitHub',
     top: 'Haut de page'
   },
   footer: {
     stripLeft: 'Harun Bahrudin // Portfolio',
-    stripAvailable: 'Disponible en télétravail',
+    stripAvailable: 'Sur site, hybride ou à distance',
     stripTimezone: 'Indonésie (UTC+7)',
     bio: 'Ingénieur produit, UI/UX & frontend basé en Indonésie. Je conçois et développe des applications web pour des équipes attentives aux détails.',
-    based: 'Basé en Indonésie // Ouvert au télétravail',
+    based: 'Subang, Indonésie // Prêt à déménager',
     navTitle: 'Navigation',
-    navLinks: ['Accueil', 'Expertise', 'À propos', 'Stack technique', 'Contact'],
+    navLinks: ['Accueil', 'Projets', 'Expertise', 'À propos', 'Stack technique', 'Contact'],
     navFoot: 'Plan du site',
     toolsTitle: 'Outils',
     toolsFoot: 'Au quotidien',
@@ -126,13 +147,23 @@ const fr: typeof en = {
     titlePre: 'Designer',
     titleEm: 'et ingénieur',
     titlePost: '.',
-    intro:
-      'Je suis Harun Bahrudin, ingénieur produit, UI/UX et frontend en Indonésie. La plupart de mon travail se situe entre le design et le code : je réfléchis à la façon dont quelque chose doit fonctionner, je le conçois, puis je le développe.',
-    openToWork: 'Disponible pour missions & contrats',
+    intro: [
+      'Je suis ingénieur produit avec sept ans d’expérience, à distance, dans l’industrie créative et tech au Canada, là où le design UI/UX et le développement frontend se rejoignent. Pour moi, un produit est une histoire que l’utilisateur traverse. Je conçois ce parcours d’abord de son point de vue, puis je le développe avec le même soin dans le code, pour que rien ne se perde entre l’idée et ce que les gens utilisent vraiment.',
+      'Mon travail couvre des produits web, mobiles et desktop utilisés par des millions de personnes. Comme je conçois et je développe, je peux transformer des parcours complexes en interfaces simples à utiliser et solides techniquement.'
+    ],
+    openToWork: 'Ouvert aux postes à temps plein ou partiel',
+    languages: 'Anglais (courant) · Indonésien (langue maternelle)',
     timezone: 'Fuseau horaire : Indonésie (UTC+7)',
-    statusLeft: 'À propos de Harun',
     statusFocus: 'Domaines : Produit · UI/UX · Frontend',
-    statusRight: 'Conçu & développé par Harun',
+    highlights: {
+      title: 'Points forts',
+      items: [
+        { stat: '5/5', label: 'Satisfaction client', text: 'Sur des centaines de projets multiplateformes, et beaucoup de clients sont restés pour des collaborations sur le long terme.' },
+        { stat: '70%', label: 'Passation plus rapide', text: 'Des design systems qui vivent à la fois dans Figma et dans le code raccourcissent la passation entre design et développement et gardent le produit cohérent.' },
+        { stat: '#1', label: 'Engagement en 24 heures', text: 'Une refonte produit que j’ai menée de bout en bout est arrivée n°1 en engagement utilisateur dans les 24 heures suivant le lancement, loin devant l’ancienne version.' },
+        { stat: 'Multiplateforme', label: 'Desktop & réseaux sociaux', text: 'Livré sur des applications desktop et des plateformes de réseaux sociaux, avec un message de marque cohérent et des visuels forts.' }
+      ]
+    },
     story: {
       eyebrow: 'Mon parcours',
       eyebrowRight: 'Comment j’en suis arrivé là',
@@ -144,7 +175,7 @@ const fr: typeof en = {
       titlePre: 'Comment',
       titleEm: 'j’en suis arrivé là',
       titlePost: '.',
-      body: 'La version courte, de mes premiers bidouillages de sites à leur construction.',
+      body: 'J’aimerais rejoindre une équipe qui apprécie les gens capables de penser comme un designer et de livrer comme un ingénieur. Si vous construisez quelque chose qui compte, parlons-en.',
       chapter: 'Chapitre',
       chapters: [
         {
@@ -192,8 +223,8 @@ const fr: typeof en = {
           narrative:
             'Aujourd’hui, je partage mon temps entre la logique produit et le travail d’interface, surtout avec Svelte et React. En dehors des projets, je teste de nouveaux outils, je lis sur la typographie et j’esquisse des idées d’interface.',
           specs: [
-            { label: 'Statut', val: 'Disponible pour des projets choisis' },
-            { label: 'Fuseau horaire', val: 'Indonésie / UTC+7 (à distance)' },
+            { label: 'Statut', val: 'Ouvert aux postes à temps plein ou partiel' },
+            { label: 'Fuseau horaire', val: 'Indonésie / UTC+7' },
             { label: 'Objectif', val: 'Des logiciels agréables à utiliser' }
           ],
           specimenTitle: 'Fig 04 // Espace de travail actuel',
@@ -203,7 +234,7 @@ const fr: typeof en = {
     },
     experience: {
       eyebrow: 'Expériences',
-      eyebrowRight: 'Parcours professionnel',
+      eyebrowRight: 'Expérience & formation',
       titlePre: 'Là où',
       titleEm: 'j’ai travaillé',
       titlePost: '.',
@@ -219,8 +250,21 @@ const fr: typeof en = {
             'Je conçois et développe les interfaces de 10 produits de la plateforme de visites virtuelles 360° et Google Street View de GoThru.',
             'Les produits : Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker et GoThru Marketing.',
             'Je mène chaque projet de la recherche utilisateur et des wireframes jusqu’aux parcours, à l’UI haute fidélité, aux prototypes et à la passation aux développeurs dans Figma.',
+            'Je transforme des besoins métier encore flous en parcours utilisateur clairs et en mises en page responsives.',
             'Je développe les interfaces en HTML, CSS et JavaScript pour que le produit final corresponde au design validé.',
+            'J’utilise des outils de code IA (Claude Code, Codex, Cursor, OpenCode, Antigravity) et Google Stitch pour accélérer le prototypage et le passage du design au code.',
             'Note de satisfaction client de 5/5 et 95–100 % des projets livrés à temps, à distance avec des clients sur plusieurs fuseaux horaires.'
+          ]
+        },
+        {
+          period: 'Diplômé en 2025',
+          role: 'Licence en systèmes d’information',
+          company: 'Universitas Subang',
+          tag: 'Formation',
+          deliverables: [
+            'Moyenne (GPA) 3,65 / 4,00.',
+            'Certification : UI/UX Design, Build With Angga (BWA).',
+            'Certification : HTML, CSS, JavaScript et Node.js, Udemy.'
           ]
         }
       ] as Milestone[]
@@ -248,8 +292,8 @@ const fr: typeof en = {
         {
           label: 'Transmission',
           title: 'Tout vous appartient',
-          body: 'Le code, les maquettes et les notes restent dans votre dépôt et votre Figma, pour que votre équipe puisse continuer sans moi.',
-          foot: 'Vous gardez tout'
+          body: 'Le code, les maquettes et les notes restent dans le dépôt et le Figma de l’équipe, rédigés pour que n’importe qui puisse reprendre.',
+          foot: 'Rien de caché'
         },
         {
           label: 'Principes',
@@ -265,14 +309,20 @@ const fr: typeof en = {
       ]
     },
     collab: {
-      eyebrow: 'Me contacter // Ouvert aux collaborations',
+      eyebrow: 'Me contacter // Ouvert aux postes à temps plein ou partiel',
       titlePre: 'Travaillons',
       titleEm: 'ensemble',
       titlePost: '.',
-      body: 'Si vous avez un produit qui a besoin de design et de développement, j’aimerais en entendre parler. Envoyez-moi un petit message et on verra la suite ensemble.',
+      body: 'Si votre équipe a besoin de quelqu’un qui fait à la fois le design et le développement, j’aimerais en entendre parler. Envoyez-moi un petit message et on verra la suite ensemble.',
       email: 'M’écrire',
       back: 'Retour à l’accueil'
     }
+  },
+  error: {
+    title: 'Page introuvable',
+    body: 'Cette page n’existe pas ou a été déplacée.',
+    generic: 'Une erreur est survenue',
+    back: 'Retour à l’accueil'
   }
 };
 

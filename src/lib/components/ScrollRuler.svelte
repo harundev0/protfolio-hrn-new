@@ -53,7 +53,7 @@
 
   // Dynamic sections depending on route
   let homeSections = $derived(
-    (['work', 'about', 'proof', 'contact'] as const).map((id) => ({ id, ...t.ruler.home[id] }))
+    (['projects', 'work', 'about', 'proof', 'contact'] as const).map((id) => ({ id, ...t.ruler.home[id] }))
   );
 
   let aboutSections = $derived(
@@ -126,7 +126,7 @@
     <!-- Top Brand Tag -->
     <a 
       href={isAboutPage ? "/about" : "/"} 
-      class="text-[10px] font-mono tracking-[0.25em] text-black/50 dark:text-white/50 uppercase font-bold hover:text-black dark:hover:text-white transition-colors whitespace-nowrap"
+      class="text-[10px] font-mono tracking-[0.25em] text-black/55 dark:text-white/50 uppercase font-bold hover:text-black dark:hover:text-white transition-colors whitespace-nowrap"
     >
       {isAboutPage ? t.ruler.aboutTag : t.ruler.portfolio}
     </a>
@@ -140,7 +140,7 @@
             class="text-right transition-all duration-300 font-display tracking-tight cursor-pointer uppercase whitespace-nowrap {
               activeSection === sec.id
                 ? 'text-black dark:text-white font-extrabold text-[24px] xl:text-[28px] leading-none drop-shadow-[0_0_12px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.2)]'
-                : 'text-black/30 dark:text-white/35 font-bold text-[11px] tracking-wider leading-relaxed hover:text-black/70 dark:hover:text-white/70'
+                : 'text-black/55 dark:text-white/50 font-bold text-[11px] tracking-wider leading-relaxed hover:text-black/70 dark:hover:text-white/70'
             }"
           >
             {sec.label}
@@ -186,7 +186,7 @@
         <div class="flex items-center justify-end w-full relative h-[1px]">
           <!-- Number Label -->
           <span 
-            class="absolute right-[24px] font-mono leading-none text-black/50 dark:text-white/50 select-none"
+            class="absolute right-[24px] font-mono leading-none text-black/55 dark:text-white/50 select-none"
             style="font-size: 9px; letter-spacing: 0.08em;"
           >
             {mark}
@@ -241,7 +241,7 @@
       
       <!-- Digit text positioned 4px below laser line -->
       <span 
-        class="absolute whitespace-nowrap font-mono text-[#2D81FF] font-bold select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+        class="absolute whitespace-nowrap font-mono text-[#1D63D8] dark:text-[#2D81FF] font-bold select-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
         style="right: 2px; top: 4px; font-size: 9px; letter-spacing: 0.08em;"
       >
         <span>{formattedProgress}</span>

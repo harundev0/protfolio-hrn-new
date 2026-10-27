@@ -3,12 +3,14 @@
   import type { Snippet } from 'svelte';
   import { onMount, untrack } from 'svelte';
   import { page } from '$app/state';
+  import { replaceState } from '$app/navigation';
   import { Sun, Moon, List, X } from 'phosphor-svelte';
   import ScrollRuler from '../lib/components/ScrollRuler.svelte';
   import Footer from '../lib/components/Footer.svelte';
   import LangPicker from '../lib/components/LangPicker.svelte';
   import { setI18n, type Locale } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
+  import { alternates, localeUrl, ogLocale } from '#lib/seo.ts';
 
   let { children, data }: { children: Snippet; data: { lang: Locale } } = $props();
 
@@ -20,6 +22,13 @@
       lang = l;
       document.cookie = `lang=${l}; path=/; max-age=31536000; samesite=lax`;
       document.documentElement.lang = l;
+      // keep a ?lang= URL in step with the picker, otherwise a reload would switch back
+      const url = new URL(location.href);
+      if (url.searchParams.has('lang')) {
+        if (l === 'en') url.searchParams.delete('lang');
+        else url.searchParams.set('lang', l);
+        replaceState(url, {});
+      }
     }
   );
   let t = $derived(i18n.t);
@@ -30,12 +39,49 @@
   let mobileMenuOpen = $state(false);
 
   let isAboutPage = $derived(page.url.pathname === '/about');
+  let metaTitle = $derived(page.error ? t.error.title : isAboutPage ? t.meta.aboutTitle : t.meta.title);
+  let metaDesc = $derived(isAboutPage ? t.meta.aboutDescription : t.meta.description);
+  let canonical = $derived(localeUrl(page.url.origin, page.url.pathname, lang));
+
+  // Structured data: who this is, for search results and AI answer engines
+  let jsonLd = $derived.by(() => {
+    const o = page.url.origin;
+    const person = {
+      '@type': 'Person',
+      '@id': `${o}/#person`,
+      name: site.name,
+      url: `${o}/`,
+      image: `${o}/og.png`,
+      email: `mailto:${site.email}`,
+      jobTitle: 'Product Engineer',
+      description: t.meta.description,
+      address: { '@type': 'PostalAddress', addressLocality: 'Subang', addressRegion: 'West Java', addressCountry: 'ID' },
+      sameAs: [site.github, site.linkedin].filter(Boolean),
+      worksFor: { '@type': 'Organization', name: 'GoThru' },
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universitas Subang' },
+      knowsLanguage: ['en', 'id'],
+      knowsAbout: ['Product engineering', 'UI/UX design', 'Frontend engineering', 'Design systems', 'Figma', 'React', 'Svelte', 'TypeScript', 'Tailwind CSS', 'Web accessibility', 'Web performance'],
+      hasOccupation: { '@type': 'Occupation', name: 'Product Engineer', skills: 'UI/UX design, frontend engineering, React, Svelte, TypeScript, Tailwind CSS, Figma' },
+      ...(site.resume ? { subjectOf: { '@type': 'DigitalDocument', name: `${site.name} CV`, url: `${o}${site.resume}`, encodingFormat: 'application/pdf' } } : {})
+    };
+    const data = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        person,
+        { '@type': 'WebSite', '@id': `${o}/#website`, url: `${o}/`, name: site.name, inLanguage: ['en', 'id', 'ja', 'fr', 'de-CH'], publisher: { '@id': `${o}/#person` } },
+        { '@type': isAboutPage ? 'ProfilePage' : 'WebPage', '@id': `${canonical}#page`, url: canonical, name: metaTitle, description: metaDesc, inLanguage: lang, isPartOf: { '@id': `${o}/#website` }, mainEntity: { '@id': `${o}/#person` } }
+      ]
+    };
+    // escape < so the JSON can never close the script tag
+    return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</` + 'script>';
+  });
 
   // Active nav id derived from route or scroll
   let activeNav = $derived(isAboutPage ? 'about' : scrollSection);
 
   let navLinks = $derived([
     { href: '/', id: 'hero', label: t.nav.home },
+    { href: '/#projects', id: 'projects', label: t.nav.work },
     { href: '/#work', id: 'work', label: t.nav.expertise },
     { href: '/about', id: 'about', label: t.nav.about },
     { href: '/#proof', id: 'proof', label: t.nav.stack },
@@ -81,7 +127,7 @@
 
       const scrollPos = window.scrollY + 160;
 
-      for (const id of ['contact', 'proof', 'work', 'hero']) {
+      for (const id of ['contact', 'proof', 'work', 'projects', 'hero']) {
         const el = document.getElementById(id);
         if (el && scrollPos >= el.offsetTop) {
           scrollSection = id;
@@ -97,11 +143,28 @@
 </script>
 
 <svelte:head>
-  <title>{t.meta.title}</title>
-  <meta name="description" content={t.meta.description} />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>{metaTitle}</title>
+  <meta name="description" content={metaDesc} />
+  <link rel="canonical" href={canonical} />
+  {#each alternates(page.url.origin, page.url.pathname) as alt}<link rel="alternate" hreflang={alt.hreflang} href={alt.href} />{/each}
+  <meta name="author" content={site.name} />
+  <meta name="robots" content={page.error ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={metaTitle} />
+  <meta property="og:description" content={metaDesc} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content={ogLocale[lang]} />
+  {#each Object.entries(ogLocale).filter(([l]) => l !== lang) as [, loc]}<meta property="og:locale:alternate" content={loc} />{/each}
+  <meta property="og:image" content="{page.url.origin}/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="{site.name}, Product · UI/UX · Frontend Engineer" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={metaTitle} />
+  <meta name="twitter:description" content={metaDesc} />
+  <meta name="twitter:image" content="{page.url.origin}/og.png" />
+  {@html jsonLd}
   <script>
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
@@ -124,8 +187,11 @@
 {/snippet}
 
 
+<svelte:window onkeydown={(e) => { if (e.key === 'Escape') mobileMenuOpen = false; }} />
+
 <!-- ArtCraft aesthetic: razor-thin borders, deep backdrop, structural grid -->
-<main class="min-h-[100dvh] w-full flex flex-col relative selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
+<a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-black focus:text-white dark:focus:bg-white dark:focus:text-black font-mono text-[11px] font-bold tracking-[0.12em] uppercase">{t.nav.skip}</a>
+<div class="min-h-[100dvh] w-full flex flex-col relative selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
   <div class="fixed inset-0 pointer-events-none bg-[#FAF9F8] dark:bg-[#050505] -z-20"></div>
 
   <!-- Subtle glowing core -->
@@ -351,9 +417,11 @@
     <!-- Exact 1:1 ArtCraft Scroll Ruler HUD Component (hidden on mobile, cleanly positioned on desktop) -->
     <ScrollRuler />
 
-    {@render children()}
+    <main id="content" tabindex="-1" class="flex flex-col outline-none">
+      {@render children()}
+    </main>
 
     <!-- ArtCraft Standard Footer with Logo -->
     <Footer />
   </div>
-</main>
+</div>

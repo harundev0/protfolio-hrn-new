@@ -4,11 +4,14 @@ const en = {
   meta: {
     title: 'Harun Bahrudin — Product, UI/UX & Frontend Engineer',
     description:
-      'I’m Harun, a product, UI/UX and frontend engineer in Indonesia. I design and build web apps, and I work remotely with teams anywhere.',
-    aboutTitle: 'About — Harun Bahrudin'
+      'Harun Bahrudin, product, UI/UX and frontend engineer in Indonesia with seven years of experience. Open to full-time & part-time roles: on-site, hybrid or remote.',
+    aboutTitle: 'About — Harun Bahrudin',
+    aboutDescription:
+      'Work history, education and how I work. Nearly seven years designing and building 360° virtual tour and Google Street View products for GoThru.'
   },
   nav: {
     home: 'Home',
+    work: 'Work',
     expertise: 'Expertise',
     about: 'About',
     stack: 'Stack',
@@ -19,13 +22,15 @@ const en = {
     toggleMenu: 'Toggle menu',
     toggleTheme: 'Toggle theme',
     language: 'Language',
-    homeAria: 'Home'
+    homeAria: 'Home',
+    skip: 'Skip to content'
   },
   ruler: {
     portfolio: 'Portfolio',
     aboutTag: 'About // Harun',
     position: 'Page position',
     home: {
+      projects: { label: 'Work', sub: 'Selected work' },
       work: { label: 'Expertise', sub: 'Product · UI/UX · Frontend' },
       about: { label: 'Approach', sub: 'How I work' },
       proof: { label: 'Stack', sub: 'Daily tools' },
@@ -41,9 +46,25 @@ const en = {
   hero: {
     titlePre: 'I design and build',
     titleEm: 'web products.',
-    body: 'Product engineer, UI/UX engineer and frontend engineer. I take a feature from the first sketch in Figma to code running in production.',
-    ctaPrimary: 'See what I do',
+    body: 'Product engineer, UI/UX engineer and frontend engineer with seven years of experience. I take a feature from the first sketch in Figma to code running in production.',
+    ctaPrimary: 'See my work',
     ctaSecondary: 'About me'
+  },
+  work: {
+    eyebrow: 'Selected work',
+    eyebrowRight: 'GoThru · 2019–now',
+    titlePre: 'Things I’ve',
+    titleEm: 'designed',
+    titlePost: '.',
+    body: 'A few screens from GoThru products I designed. The content in the mockups is placeholder.',
+    role: 'Role',
+    roleVal: 'UI/UX design',
+    items: [
+      { name: 'Panorra 360', kind: 'Web app', desc: 'A social feed for 360° photos. Viewers can switch between six view modes, from ultra wide to little planet, without leaving the post.', alt: 'Panorra 360 web feed with a 360° photo viewer and its view mode menu' },
+      { name: 'Panorra 360', kind: 'Mobile app', desc: 'The same feed on a phone: For You, Recent and Map tabs, a full-screen viewer and comments on each post.', alt: 'Three Panorra 360 mobile screens: feed, post detail and full-screen viewer' },
+      { name: 'GoThru Dashboard', kind: 'Web · Mobile', desc: 'Where customers manage their virtual tours: search, hashtag filters, multi-select and a publishing status for each tour.', alt: 'GoThru Dashboard My Tours page on desktop and mobile in dark mode' },
+      { name: 'GoThru 360 · File manager', kind: 'Web app', desc: 'Browse a folder of panoramas and preview each one in a 360° viewer with a location map before editing or uploading.', alt: 'GoThru file manager with a grid of panoramas and a 360° preview of Borobudur temple' }
+    ]
   },
   expertise: {
     eyebrow: 'What I do',
@@ -88,23 +109,23 @@ const en = {
     ]
   },
   contact: {
-    eyebrow: 'Taking on new projects',
-    titlePre: 'Got a project',
-    titleEm: 'in mind',
+    eyebrow: 'Open to full-time & part-time roles',
+    titlePre: 'Hiring, or have a',
+    titleEm: 'project',
     titlePost: '?',
-    body: 'Tell me a bit about what you’re building and where you’re stuck. I’ll get back to you and say honestly whether I’m a good fit.',
+    body: 'If you’re hiring for product, UI/UX or frontend work, or you have a project in mind, send me a short message. I’m open to on-site, hybrid and remote roles, and willing to relocate.',
     email: 'Email me',
     github: 'GitHub',
     top: 'Back to top'
   },
   footer: {
     stripLeft: 'Harun Bahrudin // Portfolio',
-    stripAvailable: 'Available for remote work',
+    stripAvailable: 'Open to on-site, hybrid & remote',
     stripTimezone: 'Indonesia (UTC+7)',
     bio: 'Product, UI/UX & Frontend Engineer based in Indonesia. I design and build web apps for teams who care about the details.',
-    based: 'Based in Indonesia // Open to remote work',
+    based: 'Subang, Indonesia // Willing to relocate',
     navTitle: 'Navigate',
-    navLinks: ['Home', 'Expertise', 'About', 'Tech stack', 'Contact'],
+    navLinks: ['Home', 'Work', 'Expertise', 'About', 'Tech stack', 'Contact'],
     navFoot: 'Site index',
     toolsTitle: 'Toolchain',
     toolsFoot: 'Daily drivers',
@@ -124,13 +145,23 @@ const en = {
     titlePre: 'Designer',
     titleEm: 'and engineer',
     titlePost: '.',
-    intro:
-      'I’m Harun Bahrudin, a product, UI/UX and frontend engineer from Indonesia. Most of my work sits between design and code: I figure out how something should work, design it, and then build it.',
-    openToWork: 'Open to work & contracts',
+    intro: [
+      'I’m a product engineer with seven years of experience working remotely in Canada’s creative and tech industry, where UI/UX design and frontend engineering meet. I think of a product as a story the user moves through. I design that flow from the user’s side first, then build it with the same care in code, so nothing gets lost between the idea and what people actually use.',
+      'My work covers web, mobile and desktop products used by millions of people. Because I design and build, I can take a complicated workflow and turn it into an interface that’s simple to use and solid underneath.'
+    ],
+    openToWork: 'Open to full-time & part-time roles',
+    languages: 'English (fluent) · Indonesian (native)',
     timezone: 'Timezone: Indonesia (UTC+7)',
-    statusLeft: 'About Harun',
     statusFocus: 'Focus: Product · UI/UX · Frontend',
-    statusRight: 'Designed & built by Harun',
+    highlights: {
+      title: 'Highlights',
+      items: [
+        { stat: '5/5', label: 'Client satisfaction', text: 'Across hundreds of cross-platform projects, and many clients stayed on for long-term work.' },
+        { stat: '70%', label: 'Faster handoff', text: 'Design systems that live in both Figma and code keep design-to-dev handoff short and the product consistent.' },
+        { stat: '#1', label: 'Engagement in 24 hours', text: 'A product redesign I led end to end reached #1 in user engagement within 24 hours of launch, well ahead of the old version.' },
+        { stat: 'Multi-platform', label: 'Desktop & social', text: 'Delivered across desktop applications and social media platforms, with consistent brand messaging and strong visuals.' }
+      ]
+    },
     story: {
       eyebrow: 'My story',
       eyebrowRight: 'How I got here',
@@ -142,7 +173,7 @@ const en = {
       titlePre: 'How I',
       titleEm: 'got here',
       titlePost: '.',
-      body: 'The short version of how I went from poking at websites to building them.',
+      body: 'I’d like to join a team that values people who can think like a designer and ship like an engineer. If you’re building something meaningful, let’s talk.',
       chapter: 'Chapter',
       chapters: [
         {
@@ -190,8 +221,8 @@ const en = {
           narrative:
             'These days I split my time between product logic and interface work, mostly in Svelte and React. Outside of project work I try new tools, read about typography and sketch interface ideas.',
           specs: [
-            { label: 'Status', val: 'Open to select projects' },
-            { label: 'Timezone', val: 'Indonesia / UTC+7 (remote)' },
+            { label: 'Status', val: 'Open to full-time & part-time roles' },
+            { label: 'Timezone', val: 'Indonesia / UTC+7' },
             { label: 'Goal', val: 'Software that’s nice to use' }
           ],
           specimenTitle: 'Fig 04 // Current workspace',
@@ -201,7 +232,7 @@ const en = {
     },
     experience: {
       eyebrow: 'Experience',
-      eyebrowRight: 'Work history',
+      eyebrowRight: 'Work & education',
       titlePre: 'Where I’ve',
       titleEm: 'worked',
       titlePost: '.',
@@ -217,8 +248,21 @@ const en = {
             'Design and build the UI for 10 products on GoThru’s 360° virtual tour and Google Street View platform.',
             'The products: Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker and GoThru Marketing.',
             'Take each project from user research and wireframes to user flows, high-fidelity UI, prototypes and developer handoff in Figma.',
+            'Turn loosely defined business requirements into clear user journeys and responsive layouts.',
             'Build the interfaces in HTML, CSS and JavaScript so the shipped product matches the approved design.',
+            'Use AI coding tools (Claude Code, Codex, Cursor, OpenCode, Antigravity) and Google Stitch to speed up prototyping and design-to-code work.',
             'Keep a 5/5 client satisfaction rating and deliver 95–100% of projects on time, working remotely across time zones.'
+          ]
+        },
+        {
+          period: 'Graduated 2025',
+          role: 'Bachelor of Information Systems',
+          company: 'Universitas Subang',
+          tag: 'Education',
+          deliverables: [
+            'GPA 3.65 / 4.00.',
+            'Certification: UI/UX Design, Build With Angga (BWA).',
+            'Certification: HTML, CSS, JavaScript and Node.js, Udemy.'
           ]
         }
       ] as Milestone[]
@@ -246,8 +290,8 @@ const en = {
         {
           label: 'Handover',
           title: 'Everything is yours',
-          body: 'Code, designs and notes live in your repository and your Figma, so your team can keep going without me.',
-          foot: 'You own it all'
+          body: 'Code, designs and notes live in the team’s repository and Figma, written so anyone can pick them up.',
+          foot: 'Nothing locked away'
         },
         {
           label: 'Principles',
@@ -263,14 +307,20 @@ const en = {
       ]
     },
     collab: {
-      eyebrow: 'Get in touch // Open to collaboration',
+      eyebrow: 'Get in touch // Open to full-time & part-time roles',
       titlePre: 'Let’s',
       titleEm: 'work together',
       titlePost: '.',
-      body: 'If you have a product that needs both design and engineering, I’d like to hear about it. Send a short message and we’ll go from there.',
+      body: 'If your team needs someone who does both design and engineering, I’d like to hear about it. Send a short message and we’ll go from there.',
       email: 'Email me',
       back: 'Back to home'
     }
+  },
+  error: {
+    title: 'Page not found',
+    body: 'This page doesn’t exist or has moved.',
+    generic: 'Something went wrong',
+    back: 'Back to home'
   }
 };
 

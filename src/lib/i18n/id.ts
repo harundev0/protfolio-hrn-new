@@ -5,11 +5,14 @@ const id: typeof en = {
   meta: {
     title: 'Harun Bahrudin — Product, UI/UX & Frontend Engineer',
     description:
-      'Saya Harun, product, UI/UX dan frontend engineer dari Indonesia. Saya mendesain dan membangun aplikasi web, dan bekerja remote dengan tim dari mana saja.',
-    aboutTitle: 'Tentang — Harun Bahrudin'
+      'Harun Bahrudin, product, UI/UX dan frontend engineer dari Indonesia dengan pengalaman tujuh tahun. Terbuka untuk posisi full-time & part-time: on-site, hybrid, atau remote.',
+    aboutTitle: 'Tentang — Harun Bahrudin',
+    aboutDescription:
+      'Riwayat kerja, pendidikan, dan cara saya bekerja. Hampir tujuh tahun mendesain dan membangun produk virtual tour 360° dan Google Street View untuk GoThru.'
   },
   nav: {
     home: 'Beranda',
+    work: 'Karya',
     expertise: 'Keahlian',
     about: 'Tentang',
     stack: 'Stack',
@@ -20,13 +23,15 @@ const id: typeof en = {
     toggleMenu: 'Buka/tutup menu',
     toggleTheme: 'Ganti tema',
     language: 'Bahasa',
-    homeAria: 'Beranda'
+    homeAria: 'Beranda',
+    skip: 'Langsung ke konten'
   },
   ruler: {
     portfolio: 'Portofolio',
     aboutTag: 'Tentang // Harun',
     position: 'Posisi halaman',
     home: {
+      projects: { label: 'Karya', sub: 'Karya terpilih' },
       work: { label: 'Keahlian', sub: 'Product · UI/UX · Frontend' },
       about: { label: 'Pendekatan', sub: 'Cara saya bekerja' },
       proof: { label: 'Stack', sub: 'Alat sehari-hari' },
@@ -42,9 +47,25 @@ const id: typeof en = {
   hero: {
     titlePre: 'Saya mendesain dan membangun',
     titleEm: 'produk web.',
-    body: 'Product engineer, UI/UX engineer, sekaligus frontend engineer. Saya pegang satu fitur dari sketsa pertama di Figma sampai kodenya jalan di production.',
-    ctaPrimary: 'Lihat yang saya kerjakan',
+    body: 'Product engineer, UI/UX engineer, sekaligus frontend engineer dengan pengalaman tujuh tahun. Saya pegang satu fitur dari sketsa pertama di Figma sampai kodenya jalan di production.',
+    ctaPrimary: 'Lihat karya saya',
     ctaSecondary: 'Tentang saya'
+  },
+  work: {
+    eyebrow: 'Karya terpilih',
+    eyebrowRight: 'GoThru · 2019–sekarang',
+    titlePre: 'Yang pernah saya',
+    titleEm: 'desain',
+    titlePost: '.',
+    body: 'Beberapa layar dari produk GoThru yang saya desain. Isi di mockup hanya contoh.',
+    role: 'Peran',
+    roleVal: 'Desain UI/UX',
+    items: [
+      { name: 'Panorra 360', kind: 'Aplikasi web', desc: 'Feed sosial untuk foto 360°. Penonton bisa pindah di antara enam mode tampilan, dari ultra wide sampai little planet, tanpa keluar dari postingan.', alt: 'Feed web Panorra 360 dengan viewer foto 360° dan menu mode tampilan' },
+      { name: 'Panorra 360', kind: 'Aplikasi mobile', desc: 'Feed yang sama di HP: tab For You, Recent dan Map, viewer layar penuh, dan komentar di tiap postingan.', alt: 'Tiga layar aplikasi mobile Panorra 360: feed, detail postingan, dan viewer layar penuh' },
+      { name: 'GoThru Dashboard', kind: 'Web · Mobile', desc: 'Tempat pelanggan mengelola virtual tour mereka: pencarian, filter hashtag, mode pilih banyak, dan status publikasi tiap tour.', alt: 'Halaman My Tours di GoThru Dashboard versi desktop dan mobile dalam mode gelap' },
+      { name: 'GoThru 360 · File manager', kind: 'Aplikasi web', desc: 'Telusuri folder foto panorama dan pratinjau tiap foto di viewer 360° dengan peta lokasi, sebelum diedit atau diunggah.', alt: 'File manager GoThru dengan daftar foto panorama dan pratinjau 360° Candi Borobudur' }
+    ]
   },
   expertise: {
     eyebrow: 'Yang saya kerjakan',
@@ -89,23 +110,23 @@ const id: typeof en = {
     ]
   },
   contact: {
-    eyebrow: 'Sedang menerima proyek baru',
-    titlePre: 'Punya proyek',
-    titleEm: 'yang mau dikerjakan',
+    eyebrow: 'Terbuka untuk posisi full-time & part-time',
+    titlePre: 'Sedang merekrut, atau punya',
+    titleEm: 'proyek',
     titlePost: '?',
-    body: 'Ceritakan sedikit soal apa yang sedang kamu bangun dan di mana kamu mentok. Saya akan balas dan bilang terus terang apakah saya orang yang tepat.',
+    body: 'Kalau tim kamu sedang mencari orang untuk product, UI/UX atau frontend, atau kamu punya proyek, kirim pesan singkat. Saya terbuka untuk posisi on-site, hybrid, dan remote, dan bersedia pindah kota.',
     email: 'Kirim email',
     github: 'GitHub',
     top: 'Kembali ke atas'
   },
   footer: {
     stripLeft: 'Harun Bahrudin // Portofolio',
-    stripAvailable: 'Tersedia untuk kerja remote',
+    stripAvailable: 'Terbuka on-site, hybrid & remote',
     stripTimezone: 'Indonesia (UTC+7)',
     bio: 'Product, UI/UX & Frontend Engineer dari Indonesia. Saya mendesain dan membangun aplikasi web untuk tim yang peduli pada detail.',
-    based: 'Berbasis di Indonesia // Terbuka untuk kerja remote',
+    based: 'Subang, Indonesia // Bersedia relokasi',
     navTitle: 'Navigasi',
-    navLinks: ['Beranda', 'Keahlian', 'Tentang', 'Tech stack', 'Kontak'],
+    navLinks: ['Beranda', 'Karya', 'Keahlian', 'Tentang', 'Tech stack', 'Kontak'],
     navFoot: 'Indeks situs',
     toolsTitle: 'Toolchain',
     toolsFoot: 'Alat utama',
@@ -125,13 +146,23 @@ const id: typeof en = {
     titlePre: 'Desainer',
     titleEm: 'sekaligus engineer',
     titlePost: '.',
-    intro:
-      'Saya Harun Bahrudin, product, UI/UX dan frontend engineer dari Indonesia. Kebanyakan pekerjaan saya ada di antara desain dan kode: saya pikirkan bagaimana sesuatu seharusnya bekerja, mendesainnya, lalu membangunnya.',
-    openToWork: 'Terbuka untuk kerja & kontrak',
+    intro: [
+      'Saya product engineer dengan pengalaman tujuh tahun bekerja remote di industri kreatif dan teknologi Kanada, di titik temu antara desain UI/UX dan frontend engineering. Bagi saya, sebuah produk itu seperti cerita yang dijalani pengguna. Saya rancang alurnya dari sisi pengguna dulu, lalu membangunnya di kode dengan ketelitian yang sama, supaya tidak ada yang hilang antara ide dan apa yang benar-benar dipakai orang.',
+      'Pekerjaan saya mencakup produk web, mobile, dan desktop yang dipakai jutaan orang. Karena saya mendesain sekaligus membangun, alur kerja yang rumit bisa saya ubah jadi antarmuka yang mudah dipakai dan kokoh di baliknya.'
+    ],
+    openToWork: 'Terbuka untuk posisi full-time & part-time',
+    languages: 'Inggris (fasih) · Indonesia (bahasa ibu)',
     timezone: 'Zona waktu: Indonesia (UTC+7)',
-    statusLeft: 'Tentang Harun',
     statusFocus: 'Fokus: Product · UI/UX · Frontend',
-    statusRight: 'Didesain & dibangun oleh Harun',
+    highlights: {
+      title: 'Sorotan',
+      items: [
+        { stat: '5/5', label: 'Kepuasan klien', text: 'Dari ratusan proyek lintas platform, dan banyak klien bertahan untuk kerja sama jangka panjang.' },
+        { stat: '70%', label: 'Handoff lebih cepat', text: 'Design system yang hidup di Figma dan di kode membuat handoff dari desain ke developer lebih singkat dan produk tetap konsisten.' },
+        { stat: '#1', label: 'Engagement dalam 24 jam', text: 'Redesign produk yang saya pimpin dari awal sampai akhir jadi nomor 1 dalam engagement pengguna dalam 24 jam setelah rilis, jauh di atas versi sebelumnya.' },
+        { stat: 'Multi-platform', label: 'Desktop & media sosial', text: 'Dikerjakan untuk aplikasi desktop dan platform media sosial, dengan pesan brand yang konsisten dan visual yang kuat.' }
+      ]
+    },
     story: {
       eyebrow: 'Cerita saya',
       eyebrowRight: 'Perjalanan saya',
@@ -143,7 +174,7 @@ const id: typeof en = {
       titlePre: 'Bagaimana saya',
       titleEm: 'sampai di sini',
       titlePost: '.',
-      body: 'Versi singkat dari iseng mengutak-atik website sampai akhirnya membangunnya.',
+      body: 'Saya ingin bergabung dengan tim yang menghargai orang yang bisa berpikir seperti desainer dan merilis seperti engineer. Kalau kamu sedang membangun sesuatu yang berarti, ayo ngobrol.',
       chapter: 'Bab',
       chapters: [
         {
@@ -191,8 +222,8 @@ const id: typeof en = {
           narrative:
             'Sekarang waktu saya terbagi antara logika produk dan pekerjaan antarmuka, kebanyakan di Svelte dan React. Di luar proyek, saya mencoba alat baru, membaca soal tipografi, dan membuat sketsa ide antarmuka.',
           specs: [
-            { label: 'Status', val: 'Terbuka untuk proyek pilihan' },
-            { label: 'Zona waktu', val: 'Indonesia / UTC+7 (remote)' },
+            { label: 'Status', val: 'Terbuka untuk posisi full-time & part-time' },
+            { label: 'Zona waktu', val: 'Indonesia / UTC+7' },
             { label: 'Tujuan', val: 'Software yang enak dipakai' }
           ],
           specimenTitle: 'Fig 04 // Ruang kerja sekarang',
@@ -202,7 +233,7 @@ const id: typeof en = {
     },
     experience: {
       eyebrow: 'Pengalaman',
-      eyebrowRight: 'Riwayat kerja',
+      eyebrowRight: 'Kerja & pendidikan',
       titlePre: 'Tempat saya',
       titleEm: 'bekerja',
       titlePost: '.',
@@ -218,8 +249,21 @@ const id: typeof en = {
             'Mendesain dan membangun UI untuk 10 produk di platform virtual tour 360° dan Google Street View milik GoThru.',
             'Produknya: Panorra, TourMkr, GoThru Dashboard, StreetBuilder, GoThru Navigator, Villume, MapThru, GoThru PhotoStudio, GoThru 360 Virtual Tour Maker, dan GoThru Marketing.',
             'Mengerjakan tiap proyek dari riset pengguna dan wireframe, lalu user flow, UI high-fidelity, prototipe, sampai handoff ke developer di Figma.',
+            'Mengubah kebutuhan bisnis yang masih kabur menjadi user journey yang jelas dan layout yang responsif.',
             'Membangun antarmukanya dengan HTML, CSS, dan JavaScript supaya hasil akhirnya sama dengan desain yang disetujui.',
+            'Memakai AI coding tools (Claude Code, Codex, Cursor, OpenCode, Antigravity) dan Google Stitch untuk mempercepat prototipe dan proses desain ke kode.',
             'Rating kepuasan klien 5/5 dan 95–100% proyek selesai tepat waktu, bekerja remote dengan klien di zona waktu yang berbeda.'
+          ]
+        },
+        {
+          period: 'Lulus 2025',
+          role: 'S1 Sistem Informasi',
+          company: 'Universitas Subang',
+          tag: 'Pendidikan',
+          deliverables: [
+            'IPK 3.65 / 4.00.',
+            'Sertifikasi: UI/UX Design, Build With Angga (BWA).',
+            'Sertifikasi: HTML, CSS, JavaScript dan Node.js, Udemy.'
           ]
         }
       ] as Milestone[]
@@ -247,8 +291,8 @@ const id: typeof en = {
         {
           label: 'Serah terima',
           title: 'Semuanya milik kamu',
-          body: 'Kode, desain dan catatan ada di repository dan Figma kamu, jadi tim kamu bisa lanjut tanpa saya.',
-          foot: 'Kamu pegang semuanya'
+          body: 'Kode, desain dan catatan ada di repository dan Figma tim, ditulis supaya siapa pun bisa melanjutkannya.',
+          foot: 'Tidak ada yang disembunyikan'
         },
         {
           label: 'Prinsip',
@@ -264,14 +308,20 @@ const id: typeof en = {
       ]
     },
     collab: {
-      eyebrow: 'Hubungi saya // Terbuka untuk kolaborasi',
+      eyebrow: 'Hubungi saya // Terbuka untuk posisi full-time & part-time',
       titlePre: 'Ayo',
       titleEm: 'kerja bareng',
       titlePost: '.',
-      body: 'Kalau kamu punya produk yang butuh desain sekaligus engineering, saya ingin dengar ceritanya. Kirim pesan singkat, nanti kita lanjut dari situ.',
+      body: 'Kalau tim kamu butuh orang yang bisa desain sekaligus engineering, saya ingin dengar ceritanya. Kirim pesan singkat, nanti kita lanjut dari situ.',
       email: 'Kirim email',
       back: 'Kembali ke beranda'
     }
+  },
+  error: {
+    title: 'Halaman tidak ditemukan',
+    body: 'Halaman ini tidak ada atau sudah dipindah.',
+    generic: 'Terjadi kesalahan',
+    back: 'Kembali ke beranda'
   }
 };
 

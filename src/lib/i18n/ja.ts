@@ -5,11 +5,14 @@ const ja: typeof en = {
   meta: {
     title: 'Harun Bahrudin — プロダクト / UI/UX / フロントエンドエンジニア',
     description:
-      'インドネシアのプロダクト / UI/UX / フロントエンドエンジニア、Harun です。Web アプリの設計と開発をしていて、リモートでどこのチームとも一緒に働けます。',
-    aboutTitle: '自己紹介 — Harun Bahrudin'
+      'インドネシアのプロダクト / UI/UX / フロントエンドエンジニア、Harun Bahrudin。経験は7年。フルタイム・パートタイムの仕事を探しています（出社・ハイブリッド・リモート）。',
+    aboutTitle: '自己紹介 — Harun Bahrudin',
+    aboutDescription:
+      '職歴、学歴、仕事の進め方。GoThru で7年、360° バーチャルツアーと Google ストリートビューの製品をデザイン・開発しています。'
   },
   nav: {
     home: 'ホーム',
+    work: '制作実績',
     expertise: '専門分野',
     about: '自己紹介',
     stack: '技術',
@@ -20,13 +23,15 @@ const ja: typeof en = {
     toggleMenu: 'メニューを開閉',
     toggleTheme: 'テーマを切り替え',
     language: '言語',
-    homeAria: 'ホーム'
+    homeAria: 'ホーム',
+    skip: '本文へスキップ'
   },
   ruler: {
     portfolio: 'ポートフォリオ',
     aboutTag: '自己紹介 // Harun',
     position: 'ページ位置',
     home: {
+      projects: { label: '制作実績', sub: '厳選した仕事' },
       work: { label: '専門分野', sub: 'プロダクト · UI/UX · フロントエンド' },
       about: { label: 'アプローチ', sub: '仕事の進め方' },
       proof: { label: '技術', sub: '日常のツール' },
@@ -42,9 +47,25 @@ const ja: typeof en = {
   hero: {
     titlePre: 'Web プロダクトを',
     titleEm: 'デザインして、つくる。',
-    body: 'プロダクトエンジニア、UI/UX エンジニア、フロントエンドエンジニアをしています。Figma での最初のスケッチから、本番で動くコードまでを担当します。',
-    ctaPrimary: '仕事内容を見る',
+    body: 'プロダクトエンジニア、UI/UX エンジニア、フロントエンドエンジニアとして7年の経験があります。Figma での最初のスケッチから、本番で動くコードまでを担当します。',
+    ctaPrimary: '制作実績を見る',
     ctaSecondary: '自己紹介'
+  },
+  work: {
+    eyebrow: '制作実績',
+    eyebrowRight: 'GoThru · 2019–現在',
+    titlePre: '',
+    titleEm: 'デザインした',
+    titlePost: 'プロダクト。',
+    body: '私がデザインした GoThru のプロダクトの画面です。モック内のコンテンツはダミーです。',
+    role: '役割',
+    roleVal: 'UI/UX デザイン',
+    items: [
+      { name: 'Panorra 360', kind: 'Web アプリ', desc: '360° 写真のための SNS フィード。投稿を開いたまま、ウルトラワイドからリトルプラネットまで 6 つの表示モードを切り替えられます。', alt: '360° 写真ビューアと表示モードメニューのある Panorra 360 の Web フィード' },
+      { name: 'Panorra 360', kind: 'モバイルアプリ', desc: '同じフィードをスマートフォンで。For You・Recent・Map のタブ、全画面ビューア、投稿ごとのコメント。', alt: 'Panorra 360 モバイルアプリの 3 画面：フィード、投稿詳細、全画面ビューア' },
+      { name: 'GoThru Dashboard', kind: 'Web · モバイル', desc: 'お客様がバーチャルツアーを管理する画面。検索、ハッシュタグでの絞り込み、複数選択、ツアーごとの公開ステータス。', alt: 'ダークモードの GoThru Dashboard「My Tours」画面（デスクトップとモバイル）' },
+      { name: 'GoThru 360 · ファイルマネージャー', kind: 'Web アプリ', desc: 'パノラマ写真のフォルダを見て回り、編集やアップロードの前に、位置マップ付きの 360° ビューアで 1 枚ずつ確認できます。', alt: 'パノラマ写真の一覧とボロブドゥール寺院の 360° プレビューがある GoThru のファイルマネージャー' }
+    ]
   },
   expertise: {
     eyebrow: '私の仕事',
@@ -89,23 +110,23 @@ const ja: typeof en = {
     ]
   },
   contact: {
-    eyebrow: '新しいプロジェクト受付中',
-    titlePre: '',
-    titleEm: '一緒にやりたいこと',
-    titlePost: 'はありますか？',
-    body: 'つくっているものと、困っていることを少し教えてください。お返事の際に、私が力になれそうかどうかも正直にお伝えします。',
+    eyebrow: 'フルタイム・パートタイムの仕事を探しています',
+    titlePre: '採用、または',
+    titleEm: 'プロジェクト',
+    titlePost: 'のご相談はありますか？',
+    body: 'プロダクト、UI/UX、フロントエンドの採用をお考えの方も、プロジェクトのご相談も、短いメッセージをお送りください。出社・ハイブリッド・リモートのいずれも可能で、転居もできます。',
     email: 'メールを送る',
     github: 'GitHub',
     top: 'トップへ戻る'
   },
   footer: {
     stripLeft: 'Harun Bahrudin // ポートフォリオ',
-    stripAvailable: 'リモートワーク可',
+    stripAvailable: '出社・ハイブリッド・リモート可',
     stripTimezone: 'インドネシア (UTC+7)',
     bio: 'インドネシアのプロダクト / UI/UX / フロントエンドエンジニア。細部を大切にするチームと、Web アプリをデザインしてつくっています。',
-    based: 'インドネシア在住 // リモートワーク可',
+    based: 'インドネシア・スバン在住 // 転居可',
     navTitle: 'ナビゲーション',
-    navLinks: ['ホーム', '専門分野', '自己紹介', '技術スタック', '連絡先'],
+    navLinks: ['ホーム', '制作実績', '専門分野', '自己紹介', '技術スタック', '連絡先'],
     navFoot: 'サイト索引',
     toolsTitle: 'ツールチェーン',
     toolsFoot: '愛用ツール',
@@ -125,13 +146,23 @@ const ja: typeof en = {
     titlePre: 'デザイナーであり、',
     titleEm: 'エンジニア',
     titlePost: '。',
-    intro:
-      'インドネシアでプロダクト / UI/UX / フロントエンドエンジニアをしている Harun Bahrudin です。仕事の多くはデザインとコードの間にあります。どう動くべきかを考え、デザインし、それを自分でつくります。',
-    openToWork: 'お仕事・業務委託を受付中',
+    intro: [
+      'カナダのクリエイティブ・テック業界で、リモートで7年間働いてきたプロダクトエンジニアです。UI/UX デザインとフロントエンド開発が重なるところで仕事をしています。プロダクトは、ユーザーがたどっていく物語のようなものだと考えています。まずユーザーの視点で流れを設計し、同じ丁寧さでコードにする。アイデアと実際に使われるものの間で、何も抜け落ちないようにするためです。',
+      'Web、モバイル、デスクトップにまたがり、数百万人が使うプロダクトに関わってきました。デザインも実装も自分でできるので、複雑なワークフローを、使いやすく技術的にもしっかりした画面に変えられます。'
+    ],
+    openToWork: 'フルタイム・パートタイムの仕事を募集中',
+    languages: '英語（ビジネスレベル）· インドネシア語（母語）',
     timezone: 'タイムゾーン: インドネシア (UTC+7)',
-    statusLeft: 'Harun について',
     statusFocus: '領域: プロダクト · UI/UX · フロントエンド',
-    statusRight: 'デザイン・開発: Harun',
+    highlights: {
+      title: 'ハイライト',
+      items: [
+        { stat: '5/5', label: 'クライアント満足度', text: '数百件のクロスプラットフォーム案件で達成。長期の協業につながったクライアントも多くいます。' },
+        { stat: '70%', label: 'ハンドオフを短縮', text: 'Figma とコードの両方で運用するデザインシステムで、デザインから開発への引き渡しを短くし、プロダクト全体の一貫性を保っています。' },
+        { stat: '#1', label: '公開24時間でエンゲージメント1位', text: '企画から実装まで自分が主導したリデザインが、公開から24時間以内にユーザーエンゲージメントで1位になり、旧バージョンを大きく上回りました。' },
+        { stat: 'マルチプラットフォーム', label: 'デスクトップと SNS', text: 'デスクトップアプリと SNS プラットフォームで、ブランドメッセージをそろえつつ、印象に残るビジュアルを届けてきました。' }
+      ]
+    },
     story: {
       eyebrow: 'ストーリー',
       eyebrowRight: 'ここまでの道のり',
@@ -143,7 +174,7 @@ const ja: typeof en = {
       titlePre: '',
       titleEm: 'ここまでの',
       titlePost: '道のり。',
-      body: 'Web サイトをいじって遊んでいたころから、つくる側になるまでの短いお話です。',
+      body: 'デザイナーのように考え、エンジニアのように形にできる人を大切にするチームに加わりたいと思っています。意味のあるものをつくっているなら、ぜひ話しましょう。',
       chapter: 'Chapter',
       chapters: [
         {
@@ -191,8 +222,8 @@ const ja: typeof en = {
           narrative:
             '今は、プロダクトのロジックと画面づくりの両方を、主に Svelte と React でやっています。仕事の外では、新しいツールを試したり、タイポグラフィの本を読んだり、画面のアイデアをスケッチしたりしています。',
           specs: [
-            { label: 'ステータス', val: '厳選したプロジェクトを受付中' },
-            { label: 'タイムゾーン', val: 'インドネシア / UTC+7（リモート）' },
+            { label: 'ステータス', val: 'フルタイム・パートタイムの仕事を募集中' },
+            { label: 'タイムゾーン', val: 'インドネシア / UTC+7' },
             { label: '目標', val: '気持ちよく使えるソフトウェア' }
           ],
           specimenTitle: 'Fig 04 // 今のワークスペース',
@@ -202,7 +233,7 @@ const ja: typeof en = {
     },
     experience: {
       eyebrow: '経歴',
-      eyebrowRight: '職務経歴',
+      eyebrowRight: '職歴と学歴',
       titlePre: '',
       titleEm: 'これまでの',
       titlePost: '仕事。',
@@ -218,8 +249,21 @@ const ja: typeof en = {
             'GoThru の 360° バーチャルツアーと Google ストリートビューのプラットフォームで、10 の製品の UI をデザインし、実装しています。',
             '担当製品：Panorra、TourMkr、GoThru Dashboard、StreetBuilder、GoThru Navigator、Villume、MapThru、GoThru PhotoStudio、GoThru 360 Virtual Tour Maker、GoThru Marketing。',
             'ユーザーリサーチとワイヤーフレームから、ユーザーフロー、高精度 UI、プロトタイプ、Figma での開発者への引き渡しまで、各プロジェクトを一貫して担当しています。',
+            'あいまいなビジネス要件を、わかりやすいユーザージャーニーとレスポンシブなレイアウトに落とし込んでいます。',
             '承認されたデザインどおりに仕上がるよう、HTML、CSS、JavaScript でインターフェースを実装しています。',
+            'AI コーディングツール（Claude Code、Codex、Cursor、OpenCode、Antigravity）と Google Stitch を使い、プロトタイピングとデザインからコードへの作業を速めています。',
             'クライアント満足度 5/5、プロジェクトの 95〜100% を期限内に納品。異なるタイムゾーンのクライアントとリモートで協業しています。'
+          ]
+        },
+        {
+          period: '2025年 卒業',
+          role: '情報システム学 学士',
+          company: 'Universitas Subang',
+          tag: '学歴',
+          deliverables: [
+            'GPA 3.65 / 4.00。',
+            '資格：UI/UX Design（Build With Angga / BWA）。',
+            '資格：HTML、CSS、JavaScript、Node.js（Udemy）。'
           ]
         }
       ] as Milestone[]
@@ -247,8 +291,8 @@ const ja: typeof en = {
         {
           label: '引き継ぎ',
           title: 'すべてお渡しします',
-          body: 'コード、デザイン、メモはすべてお客様のリポジトリと Figma に置くので、私がいなくてもチームで続けられます。',
-          foot: 'すべてお客様のもの'
+          body: 'コード、デザイン、メモはチームのリポジトリと Figma に置き、誰でも引き継げるように書いておきます。',
+          foot: '属人化させない'
         },
         {
           label: '原則',
@@ -264,14 +308,20 @@ const ja: typeof en = {
       ]
     },
     collab: {
-      eyebrow: 'お問い合わせ // 協業受付中',
+      eyebrow: 'お問い合わせ // フルタイム・パートタイムの仕事を募集中',
       titlePre: '',
       titleEm: '一緒に',
       titlePost: 'つくりませんか。',
-      body: 'デザインとエンジニアリングの両方が必要なプロダクトがあれば、ぜひ話を聞かせてください。短いメッセージで大丈夫です。そこから進めましょう。',
+      body: 'デザインとエンジニアリングの両方ができる人を探しているチームがあれば、ぜひ話を聞かせてください。短いメッセージで大丈夫です。そこから進めましょう。',
       email: 'メールを送る',
       back: 'ホームへ戻る'
     }
+  },
+  error: {
+    title: 'ページが見つかりません',
+    body: 'このページは存在しないか、移動しました。',
+    generic: 'エラーが発生しました',
+    back: 'ホームへ戻る'
   }
 };
 

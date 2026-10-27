@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "ai-color-palette",
+        "value": "*",
+        "files": [
+          "src/routes/+page.svelte"
+        ],
+        "createdAt": "2026-10-27T05:25:59.917Z",
+        "reason": "user requested: pasted ButtonColorful spec with from-indigo-500 via-purple-500 to-pink-500 gradient for the About CTA"
+      }
+    ]
+  }
+}

@@ -69,7 +69,7 @@
         ? 'top-full mt-px origin-top-right'
         : 'bottom-full mb-2 origin-bottom-right'}"
     >
-      <div class="px-3.5 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[9px] tracking-[0.2em] uppercase text-black/40 dark:text-white/40">
+      <div class="px-3.5 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[9px] tracking-[0.2em] uppercase text-black/55 dark:text-white/50">
         {i18n.t.nav.language}
       </div>
       <div class="py-1">
@@ -83,14 +83,14 @@
             onclick={() => pick(l)}
             class="group w-full flex items-center gap-3 px-3.5 py-2.5 text-left cursor-pointer outline-none transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06] focus-visible:bg-black/[0.04] dark:focus-visible:bg-white/[0.06]"
           >
-            <span class="w-11 shrink-0 font-mono text-[10px] font-bold tracking-[0.12em] uppercase {active ? 'text-[#2D81FF]' : 'text-black/40 dark:text-white/40'}">
+            <span class="w-11 shrink-0 font-mono text-[10px] font-bold tracking-[0.12em] uppercase {active ? 'text-[#1D63D8] dark:text-[#2D81FF]' : 'text-black/55 dark:text-white/50'}">
               {l}
             </span>
             <span class="flex-1 text-[13px] {active ? 'text-black dark:text-white font-medium' : 'text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white'}">
               {localeNames[l]}
             </span>
             {#if active}
-              <Check weight="bold" class="w-3.5 h-3.5 text-[#2D81FF]" />
+              <Check weight="bold" class="w-3.5 h-3.5 text-[#1D63D8] dark:text-[#2D81FF]" />
             {/if}
           </button>
         {/each}
