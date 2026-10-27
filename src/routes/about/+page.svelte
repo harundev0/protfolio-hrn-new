@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { Sparkle, Flag, ChatCircleText, FolderOpen } from 'phosphor-svelte';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
@@ -508,8 +508,10 @@
         <a href="mailto:{site.email}" class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black text-[11px] font-mono font-bold uppercase tracking-[0.12em] hover:opacity-85 transition-opacity">
           {t.collab.email}
         </a>
-        <a href="/" class="px-6 py-3 border border-black/20 dark:border-white/20 text-black dark:text-white text-[11px] font-mono font-bold uppercase tracking-[0.12em] hover:border-transparent transition-colors">
-          {t.collab.back}
+        <a href="/" class="group relative overflow-hidden px-6 py-3 border border-black/20 dark:border-white/20 text-black dark:text-white text-[11px] font-mono font-bold uppercase tracking-[0.12em] transition-colors duration-500 hover:border-transparent hover:text-white hover:bg-zinc-900 dark:hover:bg-transparent focus-visible:border-transparent focus-visible:text-white focus-visible:bg-zinc-900 dark:focus-visible:bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2D81FF]">
+          <!-- Same colorful glow as the hero CTA, revealed on hover -->
+          <span class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 blur transition-opacity duration-500 group-hover:opacity-80 group-focus-visible:opacity-80" aria-hidden="true"></span>
+          <span class="relative">{t.collab.back}</span>
         </a>
       </div>
     </div>
