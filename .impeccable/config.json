@@ -7,10 +7,11 @@
         "rule": "ai-color-palette",
         "value": "*",
         "files": [
-          "src/routes/+page.svelte"
+          "src/routes/+page.svelte",
+          "src/routes/about/+page.svelte"
         ],
         "createdAt": "2026-10-27T05:25:59.917Z",
-        "reason": "user requested: pasted ButtonColorful spec with from-indigo-500 via-purple-500 to-pink-500 gradient for the About CTA"
+        "reason": "user requested: ButtonColorful gradient (indigo-purple-pink) for the hero CTA, and the same hover glow on outline buttons"
       }
     ]
   }
