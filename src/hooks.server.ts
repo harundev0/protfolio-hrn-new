@@ -11,10 +11,3 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (response.headers.get('content-type')?.startsWith('text/html')) response.headers.set('vary', 'Accept-Language, Cookie');
   return response;
 };
-
-// TEMP: surface the server error message while debugging the Vercel 500 on "/"; remove after fix
-export const handleError = ({ error }: { error: unknown }) => {
-  console.error(error);
-  const e = error as Error;
-  return { message: `${e?.message ?? String(error)} || ${(e?.stack ?? '').split('\n').slice(0, 4).join(' | ')}` };
-};

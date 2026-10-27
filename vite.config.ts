@@ -18,5 +18,7 @@ export default defineConfig({
 			// Inline the small CSS bundle so it doesn't block first paint
 			inlineStyleThreshold: 60000
 		})
-	]
+	],
+	// gsap ships ESM without "type": "module"; bundle it so Node on Vercel never loads it raw
+	ssr: { noExternal: ['gsap'] }
 });
