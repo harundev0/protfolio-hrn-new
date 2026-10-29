@@ -163,7 +163,7 @@
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <div 
     role="scrollbar" 
-    aria-controls="main" 
+    aria-controls="content" 
     aria-orientation="vertical" 
     aria-valuemin={0} 
     aria-valuemax={100} 

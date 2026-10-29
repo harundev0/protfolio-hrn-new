@@ -206,17 +206,17 @@
     <!-- Left Section: Mobile Menu Button + Logo + Desktop Portfolio Nav Items -->
     <div class="flex items-stretch min-w-0">
 
-      <!-- Mobile Menu Toggle Button (Visible on screens < md) -->
+      <!-- Mobile Menu Toggle Button (Visible on screens < lg; tablets get the drawer too) -->
       <button
         onclick={() => mobileMenuOpen = !mobileMenuOpen}
-        class="flex md:hidden items-center justify-center px-3.5 border-r border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
+        class="flex lg:hidden items-center justify-center px-3.5 border-r border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
         aria-label={t.nav.toggleMenu}
         aria-expanded={mobileMenuOpen}
       >
         {#if mobileMenuOpen}
-          <X weight="bold" class="w-4 h-4" />
+          <X weight="bold" aria-hidden="true" class="w-4 h-4" />
         {:else}
-          <List weight="bold" class="w-4 h-4" />
+          <List weight="bold" aria-hidden="true" class="w-4 h-4" />
         {/if}
       </button>
 
@@ -225,29 +225,33 @@
         href="/"
         onclick={() => { scrollSection = 'hero'; mobileMenuOpen = false; }}
         class="flex items-center gap-2.5 border-r border-black/10 dark:border-white/10 px-3.5 sm:px-5 hover:opacity-85 transition-opacity"
-        aria-label={t.nav.homeAria}
+        aria-label="{site.name}, {t.nav.homeAria}"
       >
         <img
-          src="/assets/logo/logo-light.png"
-          alt="HRN"
+          src="/assets/logo/logo-light.webp"
+          alt=""
+          width="28"
+          height="28"
           class="h-7 w-auto dark:hidden object-contain"
         />
         <img
-          src="/assets/logo/logo-dark.png"
-          alt="HRN"
+          src="/assets/logo/logo-dark.webp"
+          alt=""
+          width="28"
+          height="28"
           class="h-7 w-auto hidden dark:block object-contain"
         />
-        <span class="font-mono font-bold tracking-widest text-xs text-black dark:text-white hidden sm:inline">HARUN</span>
+        <span class="font-mono font-bold tracking-widest text-xs text-black dark:text-white hidden sm:inline lg:hidden xl:inline">HARUN</span>
       </a>
 
-      <!-- Desktop Primary Portfolio Nav Links (md:flex) -->
-      <ul class="hidden md:flex items-stretch list-none m-0 p-0">
+      <!-- Desktop Primary Portfolio Nav Links (lg:flex) -->
+      <ul class="hidden lg:flex items-stretch list-none m-0 p-0">
         {#each navLinks as item}
           <li class="flex items-stretch">
             <a
               href={item.href}
               onclick={() => scrollToSection(item.id)}
-              class="group flex h-full items-center px-2.5 font-mono text-[11px] font-bold tracking-[0.12em] uppercase whitespace-nowrap cursor-pointer transition-colors {
+              class="group flex h-full items-center px-1.5 xl:px-2.5 font-mono text-[11px] font-bold tracking-[0.12em] uppercase whitespace-nowrap cursor-pointer transition-colors {
                 activeNav === item.id
                   ? 'text-black dark:text-white'
                   : 'text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white'
@@ -273,7 +277,7 @@
               href={site.resume}
               target="_blank"
               rel="noreferrer"
-              class="group flex h-full items-center px-3 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white transition-colors"
+              class="group flex h-full items-center px-2 xl:px-3 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55 hover:text-black dark:hover:text-white transition-colors"
             >
               <span class="px-1.5 py-0.5 group-hover:bg-black/5 dark:group-hover:bg-white/10 transition-colors">
                 {t.nav.resume}
@@ -286,7 +290,7 @@
 
     <!-- Right Section: GitHub, LinkedIn, Language, Theme Toggle, Contact CTA -->
     <div class="flex items-stretch">
-      <div class="hidden lg:flex items-center gap-3 md:gap-4 px-3 sm:px-4 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55">
+      <div class="hidden xl:flex items-center gap-4 px-4 font-mono text-[11px] font-bold tracking-[0.12em] uppercase text-black/55 dark:text-white/55">
         <a
           href={site.github}
           target="_blank"
@@ -319,9 +323,9 @@
           aria-label={t.nav.toggleTheme}
         >
           {#if isDark}
-            <Sun weight="bold" class="w-3.5 h-3.5" />
+            <Sun weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
           {:else}
-            <Moon weight="bold" class="w-3.5 h-3.5" />
+            <Moon weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
           {/if}
         </button>
       {/if}
@@ -330,17 +334,17 @@
       <a
         href="/#contact"
         onclick={() => scrollToSection('contact')}
-        class="inline-flex items-center justify-center border-l border-black/10 dark:border-white/10 px-3.5 sm:px-5 font-mono text-[10px] sm:text-[11px] font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase whitespace-nowrap bg-black text-white dark:bg-white dark:text-black hover:opacity-85 transition-opacity"
+        class="inline-flex items-center justify-center border-l border-black/10 dark:border-white/10 px-3.5 sm:px-4 xl:px-5 font-mono text-[10px] sm:text-[11px] font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase whitespace-nowrap bg-black text-white dark:bg-white dark:text-black hover:opacity-85 transition-opacity"
       >
         {t.nav.getInTouch}
       </a>
     </div>
   </nav>
 
-  <!-- MOBILE NAVIGATION DRAWER (ArtCraft Blueprint Drawer for <= md screens) -->
+  <!-- MOBILE NAVIGATION DRAWER (ArtCraft Blueprint Drawer for < lg screens) -->
   {#if mobileMenuOpen}
     <div
-      class="fixed inset-0 top-12 z-40 md:hidden bg-black/40 backdrop-blur-sm"
+      class="fixed inset-0 top-12 z-40 lg:hidden bg-black/40 backdrop-blur-sm"
       onclick={() => mobileMenuOpen = false}
       role="presentation"
     >

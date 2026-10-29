@@ -1,7 +1,5 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { Sparkle, Flag, ChatCircleText, FolderOpen } from 'phosphor-svelte';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
@@ -11,6 +9,7 @@
 
   let container: HTMLElement;
   let ctx: any;
+  let destroyed = false;
 
   // Order matches t.about.beyond.cards
   const beyondIcons = [Flag, ChatCircleText, FolderOpen, Sparkle];
@@ -18,35 +17,40 @@
   const sceneTints = [['#3EC6F5', '#B48CFF'], ['#FFC24B', '#FF7A7A'], ['#F37CE0', '#B48CFF'], ['#3EC6F5', '#FFC24B']];
 
   onMount(() => {
-    gsap.registerPlugin(ScrollTrigger);
     if (!container) return;
 
-    ctx = gsap.context(() => {
-      gsap.from('.anim-about-hero', {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out',
-        delay: 0.1
-      });
-
-      gsap.utils.toArray('.about-reveal').forEach((el: any) => {
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%'
-          },
-          y: 24,
+    // gsap loads after hydration so its 110 KB stays out of the first-paint/LCP path
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ gsap }, { ScrollTrigger }]) => {
+      if (destroyed) return;
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        gsap.from('.anim-about-hero', {
+          y: 20,
           opacity: 0,
-          duration: 0.75,
-          ease: 'power2.out'
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power2.out',
+          delay: 0.1
         });
-      });
-    }, container);
+
+        gsap.utils.toArray('.about-reveal').forEach((el: any) => {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%'
+            },
+            y: 24,
+            opacity: 0,
+            duration: 0.75,
+            ease: 'power2.out'
+          });
+        });
+      }, container);
+    });
   });
 
   onDestroy(() => {
+    destroyed = true;
     if (ctx) ctx.revert();
   });
 </script>
@@ -127,8 +131,8 @@
       </h1>
 
       <!-- Intro Subgrid -->
-      <div class="anim-about-hero grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 w-full pt-6 sm:pt-8 border-t border-black/10 dark:border-white/10">
-        <div class="md:col-span-8">
+      <div class="anim-about-hero grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 w-full pt-6 sm:pt-8 border-t border-black/10 dark:border-white/10">
+        <div class="lg:col-span-8">
           {#each t.intro as para}
             <p class="text-base sm:text-lg text-black/75 dark:text-white/75 leading-relaxed max-w-3xl mb-4 last:mb-0">
               {para}
@@ -136,7 +140,7 @@
           {/each}
         </div>
 
-        <div class="md:col-span-4 flex flex-col justify-end items-start md:items-end gap-2.5 font-mono text-[11px] tracking-wider uppercase text-black/60 dark:text-white/60">
+        <div class="lg:col-span-4 flex flex-col justify-end items-start lg:items-end gap-2.5 font-mono text-[11px] tracking-wider uppercase text-black/60 dark:text-white/60">
           <div class="flex items-center gap-2 px-3 py-1.5 border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
             <span class="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
             <span>{t.openToWork}</span>
@@ -189,6 +193,8 @@
           <!-- lazy: the hidden theme's image is never fetched -->
           <img
             src="/assets/images/banners/harun-banner-light.webp"
+            srcset="/assets/images/banners/harun-banner-light-1024.webp 1024w, /assets/images/banners/harun-banner-light-1440.webp 1440w, /assets/images/banners/harun-banner-light.webp 2056w"
+            sizes="(min-width: 1280px) 1280px, 100vw"
             alt={t.story.bannerAltLight}
             width="2056"
             height="765"
@@ -198,6 +204,8 @@
           />
           <img
             src="/assets/images/banners/harun-banner-dark.webp"
+            srcset="/assets/images/banners/harun-banner-dark-1024.webp 1024w, /assets/images/banners/harun-banner-dark-1440.webp 1440w, /assets/images/banners/harun-banner-dark.webp 2056w"
+            sizes="(min-width: 1280px) 1280px, 100vw"
             alt={t.story.bannerAltDark}
             width="2056"
             height="765"
@@ -462,7 +470,7 @@
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
               <div class="flex items-center gap-3 mb-4">
-                <Icon class="w-6 h-6 text-[#1D63D8] dark:text-[#2D81FF]" />
+                <Icon aria-hidden="true" class="w-6 h-6 text-[#1D63D8] dark:text-[#2D81FF]" />
                 <h3 class="text-xl font-bold tracking-tight text-black dark:text-white">{card.title}</h3>
               </div>
               {#if 'items' in card}

@@ -59,13 +59,17 @@
           <!-- Adaptive Logo -->
           <a href="/" class="inline-flex items-center gap-3 group">
             <img
-              src="/assets/logo/logo-light.png"
+              src="/assets/logo/logo-light.webp"
               alt="HRN Logo"
+              width="40"
+              height="40"
               class="h-10 w-auto dark:hidden object-contain group-hover:scale-105 transition-transform"
             />
             <img
-              src="/assets/logo/logo-dark.png"
+              src="/assets/logo/logo-dark.webp"
               alt="HRN Logo"
+              width="40"
+              height="40"
               class="h-10 w-auto hidden dark:block object-contain group-hover:scale-105 transition-transform"
             />
             <div class="flex flex-col">
@@ -88,7 +92,7 @@
             href="mailto:{site.email}"
             class="text-[#1D63D8] dark:text-[#2D81FF] hover:underline flex items-center gap-1.5 py-1.5 font-bold tracking-wider"
           >
-            <EnvelopeSimple weight="bold" class="w-3.5 h-3.5" />
+            <EnvelopeSimple weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
             <span>{site.email}</span>
           </a>
           <span class="text-black/55 dark:text-white/50 tracking-wider uppercase">
@@ -150,7 +154,7 @@
                   class="flex items-center justify-between py-1 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors group"
                 >
                   <span>{link.label}</span>
-                  <ArrowUpRight class="w-3 h-3 text-black/55 dark:text-white/50 group-hover:text-black dark:group-hover:text-white" />
+                  <ArrowUpRight aria-hidden="true" class="w-3 h-3 text-black/55 dark:text-white/50 group-hover:text-black dark:group-hover:text-white" />
                 </a>
               </li>
             {/each}

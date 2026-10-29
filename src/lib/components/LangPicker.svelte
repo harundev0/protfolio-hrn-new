@@ -50,12 +50,12 @@
     onclick={() => (open = !open)}
     aria-haspopup="listbox"
     aria-expanded={open}
-    aria-label="{i18n.t.nav.language}: {localeNames[i18n.lang]}"
+    aria-label="{i18n.t.nav.language}: {localeNames[i18n.lang]}, {i18n.lang}"
     class="flex items-center gap-1.5 px-3 sm:px-3.5 font-mono text-[11px] font-bold tracking-[0.12em] uppercase cursor-pointer transition-colors {open
       ? 'text-black dark:text-white bg-black/5 dark:bg-white/10'
       : 'text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white'}"
   >
-    <Translate weight="bold" class="w-3.5 h-3.5" />
+    <Translate weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
     <span>{i18n.lang}</span>
   </button>
 
@@ -90,7 +90,7 @@
               {localeNames[l]}
             </span>
             {#if active}
-              <Check weight="bold" class="w-3.5 h-3.5 text-[#1D63D8] dark:text-[#2D81FF]" />
+              <Check weight="bold" aria-hidden="true" class="w-3.5 h-3.5 text-[#1D63D8] dark:text-[#2D81FF]" />
             {/if}
           </button>
         {/each}

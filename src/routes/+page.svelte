@@ -1,7 +1,5 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { ArrowUpRight } from 'phosphor-svelte';
   import { fade } from 'svelte/transition';
   import { getI18n } from '#lib/i18n/index.ts';
@@ -12,6 +10,7 @@
 
   let container: HTMLElement;
   let ctx: any;
+  let destroyed = false;
   let heroVideo: HTMLVideoElement;
 
   // Order matches t.work.items
@@ -82,7 +81,6 @@
   }
 
   onMount(() => {
-    gsap.registerPlugin(ScrollTrigger);
     // 3.5 MB video only on tablet/desktop; phones, data saver and reduced motion keep the poster
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
     if (heroVideo && window.matchMedia('(min-width: 768px) and (prefers-reduced-motion: no-preference)').matches && !saveData) {
@@ -90,64 +88,75 @@
     }
     if (!container) return;
 
-    ctx = gsap.context(() => {
-      // reduced motion: fade only, no movement or flicker
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const chars = gsap.utils.toArray<HTMLElement>('.hero-char');
-      if (reduce) {
-        gsap.from(chars, { opacity: 0, duration: 0.4, ease: 'power2.out' });
-      } else {
-        gsap.set(chars, { transformPerspective: 800, transformOrigin: '50% 100%' });
-        gsap.from(chars, {
-          yPercent: 80,
-          rotateX: -90,
-          opacity: 0,
-          duration: 1.1,
-          ease: 'expo.out',
-          delay: 0.15,
-          stagger: {
-            each: 0.05,
-            from: 'center',
-            onStart(this: gsap.core.Tween) { scramble(this.targets()[0] as HTMLElement, 600); }
-          },
-          onComplete() {
-            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-            chars.forEach((el) => el.addEventListener('pointerenter', () => {
-              scramble(el, 350);
-              gsap.to(el, { yPercent: -12, duration: 0.18, ease: 'power2.out', yoyo: true, repeat: 1, overwrite: true });
-            }));
-          }
-        });
-      }
+    // gsap loads after hydration so its 110 KB stays out of the first-paint/LCP path
+    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ gsap }, { ScrollTrigger }]) => {
+      if (destroyed) return;
+      gsap.registerPlugin(ScrollTrigger);
+      ctx = gsap.context(() => {
+        // reduced motion: fade only, no movement or flicker
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const chars = gsap.utils.toArray<HTMLElement>('.hero-char');
+        if (reduce) {
+          gsap.from(chars, { opacity: 0, duration: 0.4, ease: 'power2.out' });
+        } else {
+          gsap.set(chars, { transformPerspective: 800, transformOrigin: '50% 100%' });
+          gsap.from(chars, {
+            yPercent: 80,
+            rotateX: -90,
+            opacity: 0,
+            duration: 1.1,
+            ease: 'expo.out',
+            delay: 0.15,
+            stagger: {
+              each: 0.05,
+              from: 'center',
+              onStart(this: gsap.core.Tween) { scramble(this.targets()[0] as HTMLElement, 600); }
+            },
+            onComplete() {
+              if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+              chars.forEach((el) => el.addEventListener('pointerenter', () => {
+                scramble(el, 350);
+                gsap.to(el, { yPercent: -12, duration: 0.18, ease: 'power2.out', yoyo: true, repeat: 1, overwrite: true });
+              }));
+            }
+          });
+        }
 
-      gsap.from('.anim-el', {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out',
-        delay: 0.2
-      });
-
-      gsap.utils.toArray('.scroll-reveal').forEach((el: any) => {
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-          },
+        gsap.from('.anim-el', {
           y: 20,
           opacity: 0,
           duration: 0.8,
-          ease: 'power2.out'
+          stagger: 0.1,
+          ease: 'power2.out',
+          delay: 0.2
         });
-      });
-    }, container);
+
+        gsap.utils.toArray('.scroll-reveal').forEach((el: any) => {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            },
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        });
+      }, container);
+    });
   });
 
   onDestroy(() => {
+    destroyed = true;
     if (ctx) ctx.revert();
   });
 </script>
+
+<svelte:head>
+  <!-- the hero poster is the LCP element; <video poster> can't take fetchpriority itself -->
+  <link rel="preload" as="image" href="/assets/videos/hero-poster.webp" type="image/webp" fetchpriority="high" />
+</svelte:head>
 
 <!-- Sticky Eyebrow Header (1:1 ArtCraft Sticky Bar) -->
 {#snippet eyebrow(n: string, left: string, right: string)}
@@ -226,7 +235,7 @@
           <span class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-40 group-hover:opacity-80 blur transition-opacity duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center gap-2 text-white dark:text-zinc-900">
             {t.hero.ctaSecondary}
-            <ArrowUpRight weight="bold" class="w-3.5 h-3.5" />
+            <ArrowUpRight weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
           </span>
         </a>
       </div>
@@ -279,6 +288,8 @@
               {/each}
               <img
                 src="/assets/images/work/{file}.webp"
+                srcset="/assets/images/work/{file}-640.webp 640w, /assets/images/work/{file}.webp {w}w"
+                sizes="(min-width: 1280px) 560px, (min-width: 768px) calc(50vw - 80px), calc(100vw - 48px)"
                 alt={item.alt}
                 width={w}
                 height={h}
