@@ -23,7 +23,7 @@
 </script>
 
 {#snippet colTitle(n: string, title: string)}
-  <p class="font-mono text-[10px] tracking-widest text-black/55 dark:text-white/45 uppercase font-bold mb-4 pb-2 border-b border-black/5 dark:border-white/5">
+  <p class="font-mono text-[10px] tracking-widest text-black/55 dark:text-white/55 uppercase font-bold mb-4 pb-2 border-b border-black/5 dark:border-white/5">
     {n} // {title}
   </p>
 {/snippet}

@@ -119,7 +119,7 @@
 <svelte:window bind:scrollY={scrollY} bind:innerHeight={innerHeight} />
 
 <!-- Container covering the right side below the 48px fixed navbar -->
-<div class="fixed top-12 bottom-0 right-0 z-40 hidden xl:flex pointer-events-none select-none">
+<aside aria-label={t.ruler.position} class="fixed top-12 bottom-0 right-0 z-40 hidden xl:flex pointer-events-none select-none">
   
   <!-- FLOATING SECTION LABELS HUD (Positioned to the left of the ruler, shown when margin is spacious >= 2xl) -->
   <div class="relative w-auto max-w-[240px] h-full hidden 2xl:flex flex-col justify-between pt-6 pb-8 pr-4 items-end pointer-events-auto">
@@ -249,4 +249,4 @@
     </div>
 
   </div>
-</div>
+</aside>

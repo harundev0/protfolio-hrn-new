@@ -176,7 +176,7 @@
 
       <!-- WORKSPACE BANNER -->
       <div class="about-reveal w-full border-b border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden relative group">
-        <div class="flex items-center font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-black/55 dark:text-white/45 px-6 md:px-10 py-2.5 border-b border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505]">
+        <div class="flex items-center font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-black/55 dark:text-white/55 px-6 md:px-10 py-2.5 border-b border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505]">
           <div class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 bg-[#2D81FF] shadow-[0_0_6px_#2D81FF]"></span>
             <span>{t.story.bannerLabel}</span>
@@ -274,7 +274,7 @@
                 <div class="absolute bottom-1 left-1 text-[8px] font-mono text-black/20 dark:text-white/20 select-none">+</div>
                 <div class="absolute bottom-1 right-1 text-[8px] font-mono text-black/20 dark:text-white/20 select-none">+</div>
 
-                <div class="flex items-center justify-between font-mono text-[9px] tracking-widest uppercase text-black/55 dark:text-white/45 pb-3 border-b border-black/5 dark:border-white/5 mb-4">
+                <div class="flex items-center justify-between font-mono text-[9px] tracking-widest uppercase text-black/55 dark:text-white/55 pb-3 border-b border-black/5 dark:border-white/5 mb-4">
                   <span>{chapter.specimenTitle}</span>
                   <span>CH_{node}</span>
                 </div>
@@ -293,7 +293,7 @@
                           <span class="relative self-start mt-3">
                             <span class="dv-heading block font-bold text-sm sm:text-xl tracking-tight">Hello, web.</span>
                             <span class="dv-inspect absolute -inset-1 border border-[#2D81FF] bg-[#2D81FF]/10"></span>
-                            <span class="absolute left-0 -top-4 sm:-top-5 px-1 bg-[#2D81FF] text-white font-mono text-[6px] sm:text-[8px] whitespace-nowrap">h1 · 248 × 32</span>
+                            <span class="absolute left-0 -top-4 sm:-top-5 px-1 bg-[#1D63D8] text-white font-mono text-[6px] sm:text-[8px] whitespace-nowrap">h1 · 248 × 32</span>
                           </span>
                           <i class="block h-1 sm:h-1.5 w-full rounded-full bg-black/10 dark:bg-white/15"></i>
                           <i class="block h-1 sm:h-1.5 w-4/5 rounded-full bg-black/10 dark:bg-white/15"></i>
@@ -343,8 +343,8 @@
                       <div class="win flex flex-col font-mono text-[7px] sm:text-[10px] leading-relaxed text-black/80 dark:text-white/80">
                         <div class="px-2.5 py-1.5 border-b border-black/10 dark:border-white/10 text-black/55 dark:text-white/50">Variables · <b class="text-black dark:text-white font-medium">tokens</b></div>
                         <div class="flex-1 p-2 sm:p-3 flex flex-col justify-center gap-0.5 sm:gap-1">
-                          <span class="flex items-center gap-1 whitespace-nowrap">primary <i class="tk-swatch inline-block w-2 h-2 rounded-sm shrink-0"></i>{@render cycle(['#2D81FF', '#7C3AED', '#10B981'], 'text-[#1D63D8] dark:text-[#2D81FF]')}</span>
-                          {@render picker(['#2D81FF', '#7C3AED', '#10B981'])}
+                          <span class="flex items-center gap-1 whitespace-nowrap">primary <i class="tk-swatch inline-block w-2 h-2 rounded-sm shrink-0"></i>{@render cycle(['#1D63D8', '#6D28D9', '#047857'], 'text-[#1D63D8] dark:text-[#2D81FF]')}</span>
+                          {@render picker(['#1D63D8', '#6D28D9', '#047857'])}
                           <span class="flex items-center gap-1 whitespace-nowrap">radius {@render cycle(['4px', '12px', '999px'], 'text-[#F97316]')}</span>
                           <span class="whitespace-nowrap">space <span class="text-[#F97316]">8px</span></span>
                         </div>
@@ -372,7 +372,7 @@
                         <div class="flex-1 grid grid-rows-[1.6fr_1fr_1fr] items-center gap-1 px-3 sm:px-4 py-2">
                           <span class="sync-box block h-full max-h-14 rounded-sm bg-gradient-to-br from-[#B48CFF] to-[#3EC6F5]" style:animation-delay="-4.8s"></span>
                           <span class="sync-box block h-2 sm:h-2.5 w-3/4 rounded-full bg-black/70 dark:bg-white/80" style:animation-delay="-3.2s"></span>
-                          <span class="sync-box justify-self-start px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#2D81FF] text-white text-[7px] sm:text-[9px] font-medium" style:animation-delay="-1.6s">Open</span>
+                          <span class="sync-box justify-self-start px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-[#1D63D8] text-white text-[7px] sm:text-[9px] font-medium" style:animation-delay="-1.6s">Open</span>
                         </div>
                       </div>
                       <div class="flex flex-col">
@@ -445,7 +445,7 @@
             </div>
           </div>
         {:else}
-          <p class="p-6 md:p-10 font-mono text-[11px] tracking-wider uppercase text-black/55 dark:text-white/45">
+          <p class="p-6 md:p-10 font-mono text-[11px] tracking-wider uppercase text-black/55 dark:text-white/55">
             {t.experience.empty}
           </p>
         {/each}
@@ -624,12 +624,13 @@
   .bp-fill { animation: bp-fill 6s infinite; }
   @keyframes bp-fill { 0%, 60% { opacity: 0; } 66%, 100% { opacity: 1; } }
 
-  .tk-swatch, .tk-fill { background: #2D81FF; animation: tk-fill 6s infinite; }
+  /* fill shades keep white label text at 4.5:1 or better */
+  .tk-swatch, .tk-fill { background: #1D63D8; animation: tk-fill 6s infinite; }
   .tk-ring { color: #2D81FF; border-color: #2D81FF; animation: tk-ring 6s infinite; }
   .tk-round { border-radius: 4px; animation-name: tk-fill, tk-round; animation-duration: 6s; animation-iteration-count: infinite; }
   .tk-ring.tk-round { animation-name: tk-ring, tk-round; }
   .tk-bar { transform-origin: left; animation-name: tk-fill, tk-bar; animation-duration: 6s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
-  @keyframes tk-fill { 0%, 30% { background: #2D81FF; } 33.3%, 63% { background: #7C3AED; } 66.6%, 97% { background: #10B981; } 100% { background: #2D81FF; } }
+  @keyframes tk-fill { 0%, 30% { background: #1D63D8; } 33.3%, 63% { background: #6D28D9; } 66.6%, 97% { background: #047857; } 100% { background: #1D63D8; } }
   @keyframes tk-ring {
     0%, 30% { color: #2D81FF; border-color: #2D81FF; } 33.3%, 63% { color: #7C3AED; border-color: #7C3AED; }
     66.6%, 97% { color: #10B981; border-color: #10B981; } 100% { color: #2D81FF; border-color: #2D81FF; }

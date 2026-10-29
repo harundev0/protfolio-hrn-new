@@ -15,11 +15,12 @@
 
   // Order matches t.work.items
   // [file, width, height, blob colors]; blobs use the about-hero flux palette
-  const workShots: [string, number, number, string[]][] = [
-    ['panorra-web', 1104, 899, ['#F37CE0', '#B48CFF', '#FFC24B']],
-    ['panorra-mobile', 976, 840, ['#FF7A7A', '#FFC24B', '#F37CE0']],
-    ['gothru-dashboard', 1168, 712, ['#3EC6F5', '#B48CFF', '#F37CE0']],
-    ['gothru-360', 1166, 760, ['#3EC6F5', '#FFC24B', '#B48CFF']]
+  // [file, width, height, blob colors, live product url, link label]
+  const workShots: [string, number, number, string[], string, string][] = [
+    ['panorra-web', 1104, 899, ['#F37CE0', '#B48CFF', '#FFC24B'], 'https://panorra.com/', 'panorra.com'],
+    ['panorra-mobile', 976, 840, ['#FF7A7A', '#FFC24B', '#F37CE0'], 'https://apps.apple.com/id/app/panorra-360/id1578823487', 'App Store'],
+    ['gothru-dashboard', 1168, 712, ['#3EC6F5', '#B48CFF', '#F37CE0'], 'https://gothru.co/', 'gothru.co'],
+    ['gothru-360', 1166, 760, ['#3EC6F5', '#FFC24B', '#B48CFF'], 'https://gothru.co/gothru-photo-studio.html', 'gothru.co']
   ];
   // blob placement (left, top) and drift timing, shared by every card
   const blobSpots = [['-40%', '-55%', '16s'], ['35%', '5%', '19s'], ['-25%', '35%', '22s']];
@@ -274,8 +275,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-px border-b border-black/10 dark:border-white/10 bg-black/10 dark:bg-white/10">
         {#each t.work.items as item, i}
-          {@const [file, w, h, blobs] = workShots[i]}
-          <article class="group bg-[#FAF9F8] dark:bg-[#050505] flex flex-col scroll-reveal">
+          {@const [file, w, h, blobs, url, host] = workShots[i]}
+          <article class="group relative bg-[#FAF9F8] dark:bg-[#050505] flex flex-col scroll-reveal">
             <div class="flex items-center justify-between gap-4 border-b border-black/10 dark:border-white/10 px-6 py-2.5 md:px-8 text-[11px] font-mono tracking-widest text-black/55 dark:text-white/50 uppercase">
               <span>{item.kind}</span>
               <span>{String(i + 1).padStart(2, '0')}</span>
@@ -299,11 +300,18 @@
               />
             </div>
             <div class="px-6 py-6 md:px-8 flex-1 flex flex-col">
-              <h3 class="font-display text-2xl font-medium tracking-tight text-black dark:text-white">{item.name}</h3>
+              <h3 class="font-display text-2xl font-medium tracking-tight text-black dark:text-white">
+                <!-- the link's ::after covers the whole card, so any click on it opens the product -->
+                <a href={url} target="_blank" rel="noreferrer" class="after:absolute after:inset-0 after:content-['']">{item.name}<span class="sr-only">, {host}</span></a>
+              </h3>
               <p class="mt-2 max-w-xl leading-relaxed text-sm text-black/60 dark:text-white/60">{item.desc}</p>
-              <p class="mt-auto pt-5 font-mono text-[10px] tracking-widest uppercase text-black/55 dark:text-white/50">
-                {t.work.role}: <span class="text-black dark:text-white">{t.work.roleVal}</span>
-              </p>
+              <div class="mt-auto pt-5 flex items-center justify-between gap-4 font-mono text-[10px] tracking-widest uppercase text-black/55 dark:text-white/50">
+                <p>{t.work.role}: <span class="text-black dark:text-white">{t.work.roleVal}</span></p>
+                <span class="flex items-center gap-1.5 text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white transition-colors" aria-hidden="true">
+                  {host}
+                  <ArrowUpRight weight="bold" class="w-3 h-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </div>
             </div>
           </article>
         {/each}
@@ -471,7 +479,7 @@
                 <div class="w-full max-w-[15rem] border border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505] p-4 font-mono text-[11px] leading-relaxed text-black/70 dark:text-white/70">
                   <div><span class="text-[#1D63D8] dark:text-[#2D81FF]">type</span> Card = {'{'}</div>
                   {#each [['title', 'string'], ['body', 'string'], ['tags?', 'string[]']] as [key, type]}
-                    <div class="pl-4">{key}: <span class="px-0.5 text-black/55 dark:text-white/45 transition-colors group-hover:bg-[#2D81FF]/10 group-hover:text-[#2D81FF]">{type}</span></div>
+                    <div class="pl-4">{key}: <span class="px-0.5 text-black/55 dark:text-white/55 transition-colors group-hover:bg-[#2D81FF]/10 group-hover:text-[#2D81FF]">{type}</span></div>
                   {/each}
                   <div>{'}'}<span class="caret">▍</span></div>
                   <div class="mt-3 pt-3 border-t border-black/10 dark:border-white/10 flex items-center gap-2 text-[10px] text-black/55 dark:text-white/50">
@@ -575,7 +583,7 @@
               <div in:fade={{ duration: 180 }} style="--c: {tool.color}" class="relative">
                 <div class="pointer-events-none absolute -inset-10 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--c)_16%,transparent),transparent_60%)]"></div>
 
-                <div class="relative flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-black/55 dark:text-white/45">
+                <div class="relative flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-black/55 dark:text-white/55">
                   <span>{String(activeTool + 1).padStart(2, '0')} / {String(stack.length).padStart(2, '0')}</span>
                   <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full" style="background: var(--c)"></span>{t.stack.tools[activeTool].role}</span>
                 </div>
@@ -589,7 +597,7 @@
 
                 <!-- Code sample framed like an editor tab -->
                 <div class="relative mt-8 border border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#0b0b0b]">
-                  <div class="flex items-center gap-2 px-4 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[10px] tracking-wider text-black/55 dark:text-white/45">
+                  <div class="flex items-center gap-2 px-4 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[10px] tracking-wider text-black/55 dark:text-white/55">
                     <span class="w-1.5 h-1.5 rounded-full" style="background: var(--c)"></span>{tool.file}
                   </div>
                   <pre class="px-4 py-3 font-mono text-xs leading-relaxed text-black/75 dark:text-white/75 overflow-x-auto">{tool.code.join('\n')}</pre>
