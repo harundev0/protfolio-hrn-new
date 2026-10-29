@@ -36,3 +36,30 @@
 
 
 
+
+/* Scroll reveal (src/lib/reveal.ts adds .revealed): rise and fade, same feel as the old gsap power2.out */
+.js .scroll-reveal,
+.js .about-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.js .scroll-reveal.revealed,
+.js .about-reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .scroll-reveal,
+  .js .about-reveal {
+    transform: none;
+    transition: opacity 0.4s ease-out;
+  }
+}
+
+/* Decorative loops only run in the section on screen (src/lib/reveal.ts sets data-inview) */
+.js main section:not([data-inview]) *,
+.js main section:not([data-inview]) *::before,
+.js main section:not([data-inview]) *::after {
+  animation-play-state: paused !important;
+}

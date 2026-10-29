@@ -17,6 +17,8 @@
 		<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
 		%sveltekit.head%
 		<script>
+			// scroll-reveal CSS only hides content when JS is there to show it again
+			document.documentElement.classList.add('js');
 			if (localStorage.theme === 'light' || (!('theme' in localStorage) && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 				document.documentElement.classList.remove('dark');
 			}

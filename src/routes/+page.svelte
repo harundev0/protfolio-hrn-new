@@ -4,6 +4,7 @@
   import { fade } from 'svelte/transition';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
+  import { revealOnScroll, pauseOffscreen } from '#lib/reveal.ts';
 
   const i18n = getI18n();
   let t = $derived(i18n.t);
@@ -88,11 +89,12 @@
       heroVideo.src = '/assets/videos/hero.mp4';
     }
     if (!container) return;
+    const stopReveal = revealOnScroll(container, '.scroll-reveal');
+    const stopPause = pauseOffscreen(container);
 
     // gsap loads after hydration so its 110 KB stays out of the first-paint/LCP path
-    Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ gsap }, { ScrollTrigger }]) => {
+    import('gsap').then(({ gsap }) => {
       if (destroyed) return;
-      gsap.registerPlugin(ScrollTrigger);
       ctx = gsap.context(() => {
         // reduced motion: fade only, no movement or flicker
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -131,21 +133,9 @@
           ease: 'power2.out',
           delay: 0.2
         });
-
-        gsap.utils.toArray('.scroll-reveal').forEach((el: any) => {
-          gsap.from(el, {
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-            },
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            ease: 'power2.out'
-          });
-        });
       }, container);
     });
+    return () => { stopReveal(); stopPause(); };
   });
 
   onDestroy(() => {
