@@ -1,6 +1,7 @@
 import type { Handle } from '@sveltejs/kit/hooks';
 import { createHash } from 'node:crypto';
 import { isLocale } from '#lib/i18n/index.ts';
+import { work, workIndex, shotWidths, shotSizes, heroBoxes } from '#lib/work.ts';
 
 // SvelteKit's boot script (start of the hydration import) and its module preload hints
 const BOOT = /import\("([^"]+\/_app\/immutable\/entry\/start\.[\w-]+\.js)"\)\.then\(async \(kit\) => \{/;
@@ -21,6 +22,16 @@ function hydrateAfterPaint(html: string) {
       (_, start) =>
         `${AFTER_FCP}.then(() => { for (const href of ${JSON.stringify(hrefs)}) document.head.append(Object.assign(document.createElement('link'), { rel: 'modulepreload', href })); return import("${start}"); }).then(async (kit) => {`
     );
+}
+
+// Preload for the page's LCP image: the home hero poster, or a case study's screenshot (AVIF, same srcset/sizes as the img)
+function lcpPreload(path: string) {
+  if (path === '/') return '<link rel="preload" as="image" href="/assets/videos/hero-poster.webp" fetchpriority="high" />';
+  const i = path.startsWith('/work/') ? workIndex(path.slice(6)) : -1;
+  if (i < 0) return '';
+  const shot = work[i];
+  const set = shotWidths(shot).map((w) => `/assets/images/work/${shot.slug}${w === shot.w ? '' : `-${w}`}.avif ${w}w`).join(', ');
+  return `<link rel="preload" as="image" type="image/avif" imagesrcset="${set}" imagesizes="${shotSizes(shot, heroBoxes)}" fetchpriority="high" />`;
 }
 
 // Resolves once the browser reports first-contentful-paint (3 s cap for tabs that never paint)
@@ -44,8 +55,9 @@ export const handle: Handle = async ({ event, resolve }) => {
   let response = await resolve(event, { transformPageChunk: ({ html }) => html.replace('%lang%', lang) });
   if (response.headers.get('content-type')?.startsWith('text/html')) {
     let html = hydrateAfterPaint(await response.text());
-    // home LCP: the hero poster sits after ~60 KB of inline CSS, so announce it right at the top of <head>
-    if (event.url.pathname === '/') html = html.replace('<meta charset="utf-8" />', '<meta charset="utf-8" />\n\t\t<link rel="preload" as="image" href="/assets/videos/hero-poster.webp" fetchpriority="high" />');
+    // LCP images sit after ~60 KB of inline CSS, so announce them right at the top of <head>
+    const lcp = lcpPreload(event.url.pathname);
+    if (lcp) html = html.replace('<meta charset="utf-8" />', `<meta charset="utf-8" />\n\t\t${lcp}`);
     response = new Response(html, { status: response.status, statusText: response.statusText, headers: response.headers });
     response.headers.delete('content-length'); // body was rewritten
     response.headers.set('content-security-policy', csp(html));
