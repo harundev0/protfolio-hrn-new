@@ -117,7 +117,7 @@
           {/each}
         </div>
 
-        <div class="lg:col-span-4 flex flex-col justify-end items-start lg:items-end gap-2.5 font-mono text-[11px] tracking-wider uppercase text-black/60 dark:text-white/60">
+        <div class="lg:col-span-4 flex flex-col justify-start items-start lg:items-end gap-2.5 font-mono text-[11px] tracking-wider uppercase text-black/60 dark:text-white/60">
           <div class="flex items-center gap-2 px-3 py-1.5 border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
             <span class="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
             <span>{t.openToWork}</span>
