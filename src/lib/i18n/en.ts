@@ -331,7 +331,7 @@ const en = {
     outcome: 'Outcome',
     next: 'Next project',
     processSteps: ['User research and wireframes', 'User flows', 'High-fidelity UI in Figma', 'Prototypes and developer handoff'],
-    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    // challenge / outcome: empty means not written yet; production leaves that section out (dev shows a TODO)
     items: [
       { features: ['A social feed built around 360° photos', 'Six view modes, from ultra wide to little planet', 'Switching view modes without leaving the post'], challenge: '', outcome: '' },
       { features: ['For You, Recent and Map tabs', 'A full-screen 360° viewer', 'Comments on each post'], challenge: '', outcome: '' },

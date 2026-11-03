@@ -1,14 +1,18 @@
 <script lang="ts">
-  import type { Shot } from '#lib/work.ts';
+  import { shotWidths, shotSizes, type Shot, type Box } from '#lib/work.ts';
 
   let {
     shot,
     alt,
     index = 0,
-    sizes,
+    boxes,
     eager = false,
     class: extra = ''
-  }: { shot: Shot; alt: string; index?: number; sizes: string; eager?: boolean; class?: string } = $props();
+  }: { shot: Shot; alt: string; index?: number; boxes: Box[]; eager?: boolean; class?: string } = $props();
+
+  let sizes = $derived(shotSizes(shot, boxes));
+  let srcset = (ext: string) =>
+    shotWidths(shot).map((w) => `/assets/images/work/${shot.slug}${w === shot.w ? '' : `-${w}`}.${ext} ${w}w`).join(', ');
 
   // blob placement (left, top) and drift timing, shared by every shot
   const blobSpots = [['-40%', '-55%', '16s'], ['35%', '5%', '19s'], ['-25%', '35%', '22s']];
@@ -20,18 +24,22 @@
     {@const [x, y, dur] = blobSpots[b]}
     <span class="blob" style:--c={c} style:left={x} style:top={y} style:--dur={dur} style:--delay="{(index + b) * -2.3}s" aria-hidden="true"></span>
   {/each}
-  <img
-    src="/assets/images/work/{shot.slug}.webp"
-    srcset="/assets/images/work/{shot.slug}-640.webp 640w, /assets/images/work/{shot.slug}.webp {shot.w}w"
-    {sizes}
-    {alt}
-    width={shot.w}
-    height={shot.h}
-    loading={eager ? 'eager' : 'lazy'}
-    fetchpriority={eager ? 'high' : undefined}
-    decoding="async"
-    class="relative max-w-full max-h-full w-auto h-auto object-contain drop-shadow-[0_24px_32px_rgba(30,20,60,0.25)] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
-  />
+  <!-- display: contents keeps the img a direct flex child, so its max-w/max-h contain sizing still works -->
+  <picture class="contents">
+    <source type="image/avif" srcset={srcset('avif')} {sizes} />
+    <img
+      src="/assets/images/work/{shot.slug}.webp"
+      srcset={srcset('webp')}
+      {sizes}
+      {alt}
+      width={shot.w}
+      height={shot.h}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      decoding="async"
+      class="relative max-w-full max-h-full w-auto h-auto object-contain drop-shadow-[0_24px_32px_rgba(30,20,60,0.25)] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1.5 group-hover:scale-[1.02]"
+    />
+  </picture>
 </div>
 
 <style>

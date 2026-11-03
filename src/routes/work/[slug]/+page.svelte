@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { ArrowLeft, ArrowRight, ArrowUpRight } from 'phosphor-svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import { getI18n } from '#lib/i18n/index.ts';
-  import { work } from '#lib/work.ts';
+  import { work, heroBoxes } from '#lib/work.ts';
   import { pauseOffscreen } from '#lib/reveal.ts';
   import WorkShot from '#lib/components/WorkShot.svelte';
 
-  let { data }: { data: { index: number; draft: boolean } } = $props();
+  let { data }: { data: { index: number } } = $props();
 
   const i18n = getI18n();
   let t = $derived(i18n.t);
@@ -48,7 +48,7 @@
         <!-- Back to the work grid, and where this project sits in it -->
         <div class="flex items-center justify-between border-b border-black/10 dark:border-white/10 px-6 md:px-10 font-mono text-[11px] tracking-widest uppercase text-black/55 dark:text-white/50">
           <a href="/#work" class="inline-flex items-center gap-2 min-h-[44px] hover:text-black dark:hover:text-white transition-colors">
-            <ArrowLeft weight="bold" aria-hidden="true" class="w-3 h-3" />{t.cases.back}
+            <Icon name="ArrowLeft" class="w-3 h-3" />{t.cases.back}
           </a>
           <span>{t.cases.eyebrow} · {pad(i + 1)} / {pad(work.length)}</span>
         </div>
@@ -71,14 +71,14 @@
               <dt class="uppercase tracking-widest text-black/55 dark:text-white/50">{t.cases.live}</dt>
               <dd>
                 <a href={shot.url} target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-[#1D63D8] dark:text-[#2D81FF] hover:underline underline-offset-4">
-                  {shot.host}<ArrowUpRight weight="bold" aria-hidden="true" class="w-3 h-3" />
+                  {shot.host}<Icon name="ArrowUpRight" class="w-3 h-3" />
                 </a>
               </dd>
             </div>
           </dl>
         </div>
 
-        <WorkShot {shot} alt={item.alt} index={i} eager sizes="(min-width: 1280px) 1100px, 100vw" class="aspect-[4/3] md:aspect-[16/9] p-6 sm:p-12 md:p-20 border-t border-black/10 dark:border-white/10" />
+        <WorkShot {shot} alt={item.alt} index={i} eager boxes={heroBoxes} class="aspect-[4/3] md:aspect-[16/9] p-6 sm:p-12 md:p-20 border-t border-black/10 dark:border-white/10" />
       </div>
     </section>
 
@@ -137,7 +137,7 @@
               {t.work.items[next].name} <span class="font-serif italic font-normal text-black/55 dark:text-white/50">{t.work.items[next].kind}</span>
             </span>
           </span>
-          <ArrowRight weight="bold" aria-hidden="true" class="w-6 h-6 shrink-0 text-black dark:text-white transition-transform duration-300 group-hover:translate-x-1" />
+          <Icon name="ArrowRight" class="w-6 h-6 shrink-0 text-black dark:text-white transition-transform duration-300 group-hover:translate-x-1" />
         </a>
       </div>
     </section>

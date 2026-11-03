@@ -11,5 +11,38 @@ export const work: Shot[] = [
 
 export const workIndex = (slug: string | undefined) => work.findIndex((s) => s.slug === slug);
 
-/** A case study stays a draft (noindex, out of the sitemap) until its challenge and outcome are written. */
-export const isDraft = (c: { challenge: string; outcome: string }) => !c.challenge || !c.outcome;
+/** Widths each screenshot is exported at (see static/assets/images/work), capped at its own width. */
+export const shotWidths = (s: Shot) => [480, 640, 960].filter((w) => w < s.w).concat(s.w);
+
+/**
+ * The box a shot is shown in at one breakpoint: width = vw·100vw + px, box = width/height, pad = padding per side.
+ * The screenshot is contained, so it fills the width when it's wider than the box, otherwise the height.
+ */
+export type Box = { min?: number; vw: number; px: number; box: number; pad: number };
+
+export const cardBoxes: Box[] = [
+  { min: 1280, vw: 0, px: 639, box: 4 / 3, pad: 40 },
+  { min: 768, vw: 0.5, px: -1, box: 4 / 3, pad: 40 },
+  { vw: 1, px: -2, box: 4 / 3, pad: 24 }
+];
+
+export const heroBoxes: Box[] = [
+  { min: 1280, vw: 0, px: 1278, box: 16 / 9, pad: 80 },
+  { min: 768, vw: 1, px: -2, box: 16 / 9, pad: 80 },
+  { min: 640, vw: 1, px: -2, box: 4 / 3, pad: 48 },
+  { vw: 1, px: -2, box: 4 / 3, pad: 24 }
+];
+
+/** `sizes` that matches the rendered width, so the browser never downloads a bigger file than it shows. */
+export function shotSizes(s: Shot, boxes: Box[]) {
+  const a = s.w / s.h;
+  return boxes
+    .map(({ min, vw, px, box, pad }) => {
+      const wide = a >= box;
+      const k = wide ? vw : (vw / box) * a;
+      const c = wide ? px - 2 * pad : (px / box - 2 * pad) * a;
+      const len = k === 0 ? `${Math.round(c)}px` : `calc(${+(k * 100).toFixed(2)}vw ${c < 0 ? '-' : '+'} ${Math.abs(Math.round(c))}px)`;
+      return min ? `(min-width: ${min}px) ${len}` : len;
+    })
+    .join(', ');
+}

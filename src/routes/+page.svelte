@@ -1,19 +1,17 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { ArrowUpRight, ArrowRight } from 'phosphor-svelte';
+  import { onMount } from 'svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import { fade } from 'svelte/transition';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
-  import { revealOnScroll, pauseOffscreen } from '#lib/reveal.ts';
-  import { work } from '#lib/work.ts';
+  import { revealOnScroll, pauseOffscreen, rise } from '#lib/reveal.ts';
+  import { work, cardBoxes } from '#lib/work.ts';
   import WorkShot from '#lib/components/WorkShot.svelte';
 
   const i18n = getI18n();
   let t = $derived(i18n.t);
 
   let container: HTMLElement;
-  let ctx: any;
-  let destroyed = false;
   let heroVideo: HTMLVideoElement;
 
   // Expertise thumbnails, order matches t.expertise.cards: glow colors + positions per card
@@ -82,61 +80,33 @@
     const stopReveal = revealOnScroll(container, '.scroll-reveal');
     const stopPause = pauseOffscreen(container);
 
-    // gsap loads after hydration so its 110 KB stays out of the first-paint/LCP path
-    import('gsap').then(({ gsap }) => {
-      if (destroyed) return;
-      ctx = gsap.context(() => {
-        // reduced motion: fade only, no movement or flicker
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const chars = gsap.utils.toArray<HTMLElement>('.hero-char');
-        if (reduce) {
-          gsap.from(chars, { opacity: 0, duration: 0.4, ease: 'power2.out' });
-        } else {
-          gsap.set(chars, { transformPerspective: 800, transformOrigin: '50% 100%' });
-          gsap.from(chars, {
-            yPercent: 80,
-            rotateX: -90,
-            opacity: 0,
-            duration: 1.1,
-            ease: 'expo.out',
-            delay: 0.15,
-            stagger: {
-              each: 0.05,
-              from: 'center',
-              onStart(this: gsap.core.Tween) { scramble(this.targets()[0] as HTMLElement, 600); }
-            },
-            onComplete() {
-              if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-              chars.forEach((el) => el.addEventListener('pointerenter', () => {
-                scramble(el, 350);
-                gsap.to(el, { yPercent: -12, duration: 0.18, ease: 'power2.out', yoyo: true, repeat: 1, overwrite: true });
-              }));
-            }
-          });
-        }
-
-        gsap.from('.anim-el', {
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power2.out',
-          delay: 0.2
+    // Name flips up letter by letter from the center out, each one "decoding" as it lands
+    const chars = [...container.querySelectorAll<HTMLElement>('.hero-char')];
+    const mid = (chars.length - 1) / 2;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (const el of chars) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out', fill: 'backwards' });
+    } else {
+      chars.forEach((el, k) => {
+        const delay = 150 + Math.abs(k - mid) * 50;
+        el.animate(
+          [{ opacity: 0, transform: 'perspective(800px) translateY(80%) rotateX(-90deg)' }, { opacity: 1, transform: 'perspective(800px) translateY(0) rotateX(0)' }],
+          { duration: 1100, delay, easing: 'cubic-bezier(0.19, 1, 0.22, 1)', fill: 'backwards' } // expo.out
+        );
+        setTimeout(() => scramble(el, 600), delay);
+      });
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        for (const el of chars) el.addEventListener('pointerenter', () => {
+          scramble(el, 350);
+          el.animate([{ transform: 'none' }, { transform: 'translateY(-12%)' }, { transform: 'none' }], { duration: 360, easing: 'ease-out' });
         });
-      }, container);
-    });
+      }
+    }
+    rise(container.querySelectorAll('.anim-el'), 200);
     return () => { stopReveal(); stopPause(); };
-  });
-
-  onDestroy(() => {
-    destroyed = true;
-    if (ctx) ctx.revert();
   });
 </script>
 
 <svelte:head>
-  <!-- the hero poster is the LCP element; <video poster> can't take fetchpriority itself -->
-  <link rel="preload" as="image" href="/assets/videos/hero-poster.webp" type="image/webp" fetchpriority="high" />
 </svelte:head>
 
 <!-- Sticky Eyebrow Header (1:1 ArtCraft Sticky Bar) -->
@@ -186,7 +156,12 @@
 
     <!-- Background video: dark source; light mode inverts it (hue-rotate keeps ray colors) into a pastel version -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <video bind:this={heroVideo} class="w-full h-full object-cover invert hue-rotate-180 saturate-150 contrast-125 mix-blend-multiply dark:invert-0 dark:hue-rotate-0 dark:saturate-100 dark:contrast-100 dark:mix-blend-normal" poster="/assets/videos/hero-poster.webp" autoplay muted loop playsinline preload="metadata"></video>
+      <!-- filters and blend sit on the wrapper, so poster and video share them; the poster is a real img
+           (the LCP element, high priority) that the video covers once it plays on tablet/desktop -->
+      <div class="absolute inset-0 invert hue-rotate-180 saturate-150 contrast-125 mix-blend-multiply dark:invert-0 dark:hue-rotate-0 dark:saturate-100 dark:contrast-100 dark:mix-blend-normal">
+        <img src="/assets/videos/hero-poster.webp" alt="" width="1280" height="720" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" />
+        <video bind:this={heroVideo} class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata"></video>
+      </div>
       <div class="absolute inset-0 bg-paper/25 dark:bg-ink/55"></div>
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#FAF9F8_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_30%,#050505_100%)]"></div>
     </div>
@@ -194,7 +169,7 @@
     <div class="z-10 flex flex-col items-center text-center max-w-4xl px-4 mx-auto w-full">
       <h1 aria-label="Harun Bahrudin" class="text-[clamp(2rem,12.5vw,8.5rem)] font-bold tracking-tighter leading-none text-black dark:text-white mb-6">
         {#each ['HARUN', 'BAHRUDIN'] as word}
-          <span class="block" aria-hidden="true">{#each word as ch}<span class="hero-char relative inline-block">{ch}</span>{/each}</span>
+          <span class="block" aria-hidden="true">{#each word as ch}<span class="hero-char relative inline-block origin-bottom">{ch}</span>{/each}</span>
         {/each}
       </h1>
 
@@ -216,7 +191,7 @@
           <span class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-40 group-hover:opacity-80 blur transition-opacity duration-500" aria-hidden="true"></span>
           <span class="relative flex items-center gap-2 text-white dark:text-zinc-900">
             {t.hero.ctaSecondary}
-            <ArrowUpRight weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
+            <Icon name="ArrowUpRight" class="w-3.5 h-3.5" />
           </span>
         </a>
       </div>
@@ -261,7 +236,7 @@
               <span>{item.kind}</span>
               <span>{String(i + 1).padStart(2, '0')}</span>
             </div>
-            <WorkShot {shot} alt={item.alt} index={i} sizes="(min-width: 1280px) 560px, (min-width: 768px) calc(50vw - 80px), calc(100vw - 48px)" class="aspect-[4/3] p-6 md:p-10" />
+            <WorkShot {shot} alt={item.alt} index={i} boxes={cardBoxes} class="aspect-[4/3] p-6 md:p-10" />
             <div class="px-6 py-6 md:px-8 flex-1 flex flex-col">
               <h3 class="font-display text-2xl font-medium tracking-tight text-black dark:text-white">
                 <!-- the link's ::after covers the whole card, so any click on it opens the case study -->
@@ -271,12 +246,12 @@
               <div class="mt-auto pt-5 flex items-center justify-between gap-4 font-mono text-[11px] tracking-widest uppercase text-black/55 dark:text-white/50">
                 <span class="flex items-center gap-1.5 text-black dark:text-white">
                   {t.cases.view}
-                  <ArrowRight weight="bold" aria-hidden="true" class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  <Icon name="ArrowRight" class="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
                 <!-- above the card link's overlay, so it opens the live product instead -->
                 <a href={shot.url} target="_blank" rel="noreferrer" class="relative z-10 inline-flex items-center gap-1.5 min-h-[44px] md:min-h-0 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors">
                   {shot.host}<span class="sr-only"> ({item.name})</span>
-                  <ArrowUpRight weight="bold" aria-hidden="true" class="w-3 h-3" />
+                  <Icon name="ArrowUpRight" class="w-3 h-3" />
                 </a>
               </div>
             </div>

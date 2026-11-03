@@ -333,7 +333,7 @@ const deCH: typeof en = {
     outcome: 'Ergebnis',
     next: 'Nächstes Projekt',
     processSteps: ['User Research und Wireframes', 'User Flows', 'High-Fidelity-UI in Figma', 'Prototypen und Übergabe an die Entwicklung'],
-    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    // challenge / outcome: empty means not written yet; production leaves that section out (dev shows a TODO)
     items: [
       { features: ['Ein Social Feed für 360°-Fotos', 'Sechs Ansichtsmodi, von Ultra Wide bis Little Planet', 'Moduswechsel, ohne den Beitrag zu verlassen'], challenge: '', outcome: '' },
       { features: ['Tabs For You, Recent und Map', 'Ein 360°-Viewer im Vollbild', 'Kommentare zu jedem Beitrag'], challenge: '', outcome: '' },

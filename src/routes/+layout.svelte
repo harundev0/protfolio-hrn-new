@@ -4,7 +4,7 @@
   import { onMount, untrack } from 'svelte';
   import { page } from '$app/state';
   import { replaceState } from '$app/navigation';
-  import { Sun, Moon, List, X } from 'phosphor-svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import ScrollRuler from '../lib/components/ScrollRuler.svelte';
   import Footer from '../lib/components/Footer.svelte';
   import LangPicker from '../lib/components/LangPicker.svelte';
@@ -12,6 +12,7 @@
   import { site } from '#lib/site.ts';
   import { alternates, localeUrl, ogLocale } from '#lib/seo.ts';
   import { workIndex } from '#lib/work.ts';
+  import { spyLine } from '#lib/reveal.ts';
 
   let { children, data }: { children: Snippet; data: { lang: Locale; dict: Dict } } = $props();
 
@@ -51,8 +52,7 @@
   let caseItem = $derived(caseIndex >= 0 ? t.work.items[caseIndex] : null);
   let metaTitle = $derived(page.error ? t.error.title : caseItem ? `${caseItem.name} (${caseItem.kind}) — ${site.name}` : isAboutPage ? t.meta.aboutTitle : t.meta.title);
   let metaDesc = $derived(caseItem ? caseItem.desc : isAboutPage ? t.meta.aboutDescription : t.meta.description);
-  // unfinished case studies stay out of search until their challenge and outcome are written
-  let noindex = $derived(!!page.error || !!page.data.draft);
+  let noindex = $derived(!!page.error);
   let canonical = $derived(localeUrl(page.url.origin, page.url.pathname, lang));
 
   // Structured data: who this is, for search results and AI answer engines
@@ -142,33 +142,20 @@
     }
   }
 
+  // Navbar scroll spy on the home page: the section crossing a line 20% down the viewport.
+  // Approach has no nav item, so the previous one stays lit while it's on screen.
+  $effect(() => {
+    if (page.url.pathname !== '/') return;
+    scrollSection = 'hero';
+    return spyLine(['hero', 'work', 'expertise', 'stack', 'contact'], 0.2, (id) => (scrollSection = id));
+  });
+
   onMount(() => {
     isDark = document.documentElement.classList.contains('dark') ||
              (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     updateTheme(isDark);
     mounted = true;
-
-    // Scroll spy for navbar when on homepage
-    const handleScroll = () => {
-      if (window.location.pathname !== '/') {
-        return;
-      }
-
-      const scrollPos = window.scrollY + 160;
-
-      for (const id of ['contact', 'stack', 'expertise', 'work', 'hero']) {
-        const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop) {
-          scrollSection = id;
-          return;
-        }
-      }
-      scrollSection = 'hero';
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   });
 </script>
 
@@ -239,9 +226,9 @@
         aria-controls="mobile-menu"
       >
         {#if mobileMenuOpen}
-          <X weight="bold" aria-hidden="true" class="w-4 h-4" />
+          <Icon name="X" class="w-4 h-4" />
         {:else}
-          <List weight="bold" aria-hidden="true" class="w-4 h-4" />
+          <Icon name="List" class="w-4 h-4" />
         {/if}
       </button>
 
@@ -348,9 +335,9 @@
           aria-label={t.nav.toggleTheme}
         >
           {#if isDark}
-            <Sun weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
+            <Icon name="Sun" class="w-3.5 h-3.5" />
           {:else}
-            <Moon weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
+            <Icon name="Moon" class="w-3.5 h-3.5" />
           {/if}
         </button>
       {/if}

@@ -332,7 +332,7 @@ const id: typeof en = {
     outcome: 'Hasil',
     next: 'Proyek berikutnya',
     processSteps: ['Riset pengguna dan wireframe', 'User flow', 'UI high-fidelity di Figma', 'Prototipe dan handoff ke developer'],
-    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    // challenge / outcome: empty means not written yet; production leaves that section out (dev shows a TODO)
     items: [
       { features: ['Feed sosial untuk foto 360°', 'Enam mode tampilan, dari ultra wide sampai little planet', 'Ganti mode tampilan tanpa meninggalkan postingan'], challenge: '', outcome: '' },
       { features: ['Tab For You, Recent, dan Map', 'Viewer 360° layar penuh', 'Komentar di setiap postingan'], challenge: '', outcome: '' },

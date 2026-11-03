@@ -1,47 +1,34 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { Sparkle, Flag, ChatCircleText, FolderOpen } from 'phosphor-svelte';
+  import { onMount } from 'svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
-  import { revealOnScroll, pauseOffscreen } from '#lib/reveal.ts';
+  import { revealOnScroll, pauseOffscreen, rise } from '#lib/reveal.ts';
 
   const i18n = getI18n();
   let t = $derived(i18n.t.about);
 
   let container: HTMLElement;
-  let ctx: any;
-  let destroyed = false;
 
   // Order matches t.about.beyond.cards
-  const beyondIcons = [Flag, ChatCircleText, FolderOpen, Sparkle];
+  const beyondIcons = ['Flag', 'ChatCircleText', 'FolderOpen', 'Sparkle'] as const;
   // Chapter scene background tints, from the about-hero flux palette
   const sceneTints = [['#3EC6F5', '#B48CFF'], ['#FFC24B', '#FF7A7A'], ['#F37CE0', '#B48CFF'], ['#3EC6F5', '#FFC24B']];
 
+  // Chapter scenes are decorative (aria-hidden) and heavy: they render after hydration, one per task,
+  // inside boxes whose size is already fixed, so first load stays light and nothing shifts.
+  let scenesShown = $state(0);
+
   onMount(() => {
-    if (!container) return;
+    let timer = 0;
+    const next = () => { if (++scenesShown < sceneTints.length) timer = window.setTimeout(next); };
+    timer = window.setTimeout(next);
+    if (!container) return () => clearTimeout(timer);
     const stopReveal = revealOnScroll(container, '.about-reveal');
     const stopPause = pauseOffscreen(container);
 
-    // gsap loads after hydration so its 110 KB stays out of the first-paint/LCP path
-    import('gsap').then(({ gsap }) => {
-      if (destroyed) return;
-      ctx = gsap.context(() => {
-        gsap.from('.anim-about-hero', {
-          y: 20,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'power2.out',
-          delay: 0.1
-        });
-      }, container);
-    });
-    return () => { stopReveal(); stopPause(); };
-  });
-
-  onDestroy(() => {
-    destroyed = true;
-    if (ctx) ctx.revert();
+    rise(container.querySelectorAll('.anim-about-hero'), 100);
+    return () => { clearTimeout(timer); stopReveal(); stopPause(); };
   });
 </script>
 
@@ -150,7 +137,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px border-b border-black/10 dark:border-white/10 bg-black/10 dark:bg-white/10">
         {#each t.highlights.items as h}
           <div class="about-reveal bg-paper dark:bg-ink p-6 md:p-8 flex flex-col gap-3">
-            <span class="h-12 md:h-[3.75rem] flex items-end font-display font-light tracking-tight text-black dark:text-white leading-none whitespace-nowrap text-5xl md:text-6xl lg:text-[2.75rem] xl:text-6xl">{h.stat}</span>
+            <span class="h-12 md:h-[3.75rem] flex items-end font-display font-light tracking-tight text-black dark:text-white leading-none whitespace-nowrap text-[clamp(2rem,12vw,3rem)] md:text-6xl lg:text-[2.75rem] xl:text-6xl">{h.stat}</span>
             <span class="font-mono text-[11px] tracking-widest uppercase text-[#1D63D8] dark:text-[#2D81FF] font-semibold">{h.label}</span>
             <p class="text-sm text-black/70 dark:text-white/70 leading-relaxed">{h.text}</p>
           </div>
@@ -183,7 +170,7 @@
           <!-- lazy: the hidden theme's image is never fetched -->
           <img
             src="/assets/images/banners/harun-banner-light.webp"
-            srcset="/assets/images/banners/harun-banner-light-1024.webp 1024w, /assets/images/banners/harun-banner-light-1440.webp 1440w, /assets/images/banners/harun-banner-light.webp 2056w"
+            srcset="/assets/images/banners/harun-banner-light-640.webp 640w, /assets/images/banners/harun-banner-light-828.webp 828w, /assets/images/banners/harun-banner-light-1024.webp 1024w, /assets/images/banners/harun-banner-light-1440.webp 1440w, /assets/images/banners/harun-banner-light.webp 2056w"
             sizes="(min-width: 1280px) 1280px, 100vw"
             alt={t.story.bannerAltLight}
             width="2056"
@@ -194,7 +181,7 @@
           />
           <img
             src="/assets/images/banners/harun-banner-dark.webp"
-            srcset="/assets/images/banners/harun-banner-dark-1024.webp 1024w, /assets/images/banners/harun-banner-dark-1440.webp 1440w, /assets/images/banners/harun-banner-dark.webp 2056w"
+            srcset="/assets/images/banners/harun-banner-dark-640.webp 640w, /assets/images/banners/harun-banner-dark-828.webp 828w, /assets/images/banners/harun-banner-dark-1024.webp 1024w, /assets/images/banners/harun-banner-dark-1440.webp 1440w, /assets/images/banners/harun-banner-dark.webp 2056w"
             sizes="(min-width: 1280px) 1280px, 100vw"
             alt={t.story.bannerAltDark}
             width="2056"
@@ -271,7 +258,7 @@
 
                 <!-- Live mini-scene per chapter: what that stage of learning looked like -->
                 <div class="scene relative w-full aspect-[16/10] border border-black/10 dark:border-white/10 overflow-hidden" style:--a={sceneTints[idx][0]} style:--b={sceneTints[idx][1]} aria-hidden="true">
-                  {#if idx === 0}
+                  {#if idx >= scenesShown}{:else if idx === 0}
                     <!-- DevTools: the cursor picks a color, the h1 on the page follows -->
                     <div class="absolute inset-3 sm:inset-5 grid grid-cols-[1.1fr_1fr] gap-2 sm:gap-3">
                       <div class="win flex flex-col">
@@ -452,7 +439,6 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-px border-b border-black/10 dark:border-white/10 bg-black/10 dark:bg-white/10">
         {#each t.beyond.cards as card, i}
-          {@const Icon = beyondIcons[i]}
           <article id={'items' in card ? 'principles' : undefined} class="p-8 bg-paper dark:bg-ink flex flex-col justify-between about-reveal scroll-mt-28">
             <div>
               <div class="flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-black/55 dark:text-white/50 mb-6">
@@ -460,7 +446,7 @@
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
               <div class="flex items-center gap-3 mb-4">
-                <Icon aria-hidden="true" class="w-6 h-6 text-[#1D63D8] dark:text-[#2D81FF]" />
+                <Icon name={beyondIcons[i]} class="w-6 h-6 text-[#1D63D8] dark:text-[#2D81FF]" />
                 <h3 class="text-xl font-bold tracking-tight text-black dark:text-white">{card.title}</h3>
               </div>
               {#if 'items' in card}

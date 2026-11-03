@@ -1,7 +1,7 @@
 <script lang="ts">
   import { scale } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
-  import { Translate, Check } from 'phosphor-svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import { getI18n, locales, localeNames, type Locale } from '#lib/i18n/index.ts';
 
   let { placement = 'down', class: extra = '' }: { placement?: 'down' | 'up'; class?: string } = $props();
@@ -55,7 +55,7 @@
       ? 'text-black dark:text-white bg-black/5 dark:bg-white/10'
       : 'text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white'}"
   >
-    <Translate weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
+    <Icon name="Translate" class="w-3.5 h-3.5" />
     <span>{i18n.lang}</span>
   </button>
 
@@ -90,7 +90,7 @@
               {localeNames[l]}
             </span>
             {#if active}
-              <Check weight="bold" aria-hidden="true" class="w-3.5 h-3.5 text-[#1D63D8] dark:text-[#2D81FF]" />
+              <Icon name="Check" class="w-3.5 h-3.5 text-[#1D63D8] dark:text-[#2D81FF]" />
             {/if}
           </button>
         {/each}

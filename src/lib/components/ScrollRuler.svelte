@@ -3,6 +3,7 @@
 
   import { page } from '$app/state';
   import { getI18n } from '#lib/i18n/index.ts';
+  import { spyLine } from '#lib/reveal.ts';
 
   const i18n = getI18n();
 
@@ -63,21 +64,6 @@
   // only the home and about pages have named sections; other routes show the bare ruler
   let currentSections = $derived(isAboutPage ? aboutSections : page.url.pathname === '/' ? homeSections : []);
 
-  function updateActiveSection() {
-    const scrollPos = window.scrollY + window.innerHeight * 0.4;
-    
-    for (const section of [...currentSections].reverse()) {
-      const el = document.getElementById(section.id);
-      if (el) {
-        if (scrollPos >= el.offsetTop - 60) {
-          activeSection = section.id;
-          return;
-        }
-      }
-    }
-    activeSection = currentSections[0]?.id ?? '';
-  }
-
   function scrollToSection(id: string) {
     const el = document.getElementById(id);
     if (el) {
@@ -95,32 +81,47 @@
     });
   }
 
+  // The ruler only exists from xl up: phones and tablets never render or run it
+  let wide = $state(false);
+
+  // Active label: the section crossing a line 40% down the viewport; the first one until any does
+  $effect(() => {
+    const ids = currentSections.map((s) => s.id);
+    if (!wide || !ids.length) return;
+    activeSection = ids[0];
+    return spyLine(ids, 0.4, (id) => (activeSection = id));
+  });
+
   onMount(() => {
-    const updateMetrics = () => {
-      scrollHeight = document.documentElement.scrollHeight;
-      innerHeight = window.innerHeight;
-      updateActiveSection();
+    const mq = window.matchMedia('(min-width: 1280px)');
+    let stop = () => {};
+
+    const start = () => {
+      // page height for the progress readout; ResizeObserver reports after layout, so this read is free
+      const sizer = new ResizeObserver(() => {
+        scrollHeight = document.documentElement.scrollHeight;
+        innerHeight = window.innerHeight;
+      });
+      sizer.observe(document.body);
+      return () => sizer.disconnect();
     };
 
-    window.addEventListener('resize', updateMetrics);
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-
-    updateMetrics();
-    const observer = new MutationObserver(updateMetrics);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      window.removeEventListener('resize', updateMetrics);
-      window.removeEventListener('scroll', updateActiveSection);
-      observer.disconnect();
+    const sync = () => {
+      wide = mq.matches;
+      stop();
+      stop = wide ? start() : () => {};
     };
+    sync();
+    mq.addEventListener('change', sync);
+    return () => { mq.removeEventListener('change', sync); stop(); };
   });
 </script>
 
 <svelte:window bind:scrollY={scrollY} bind:innerHeight={innerHeight} />
 
 <!-- Container covering the right side below the 48px fixed navbar -->
-<aside aria-label={t.ruler.position} class="fixed top-12 bottom-0 right-0 z-40 hidden xl:flex pointer-events-none select-none">
+{#if wide}
+<aside aria-label={t.ruler.position} class="fixed top-12 bottom-0 right-0 z-40 flex pointer-events-none select-none">
   
   <!-- FLOATING SECTION LABELS HUD (Positioned to the left of the ruler, shown when margin is spacious >= 2xl) -->
   <div class="relative w-auto max-w-[240px] h-full hidden 2xl:flex flex-col justify-between pt-6 pb-8 pr-4 items-end pointer-events-auto">
@@ -180,31 +181,13 @@
       style="mask-image: linear-gradient(to left, black 40%, rgba(0, 0, 0, 0.75) 47.5%, rgba(0, 0, 0, 0.53) 55%, rgba(0, 0, 0, 0.35) 62.5%, rgba(0, 0, 0, 0.22) 70%, rgba(0, 0, 0, 0.12) 77.5%, rgba(0, 0, 0, 0.05) 85%, rgba(0, 0, 0, 0.01) 92.5%, transparent 100%);"
     ></div>
 
-    <!-- Child 2: Graduation Ticks & Numbers (0 to 100) -->
-    <div class="absolute inset-y-6 right-0 w-full flex flex-col justify-between pointer-events-none">
+    <!-- Child 2: Graduation ticks drawn as two repeating gradients (minor every 1%, major every 5%), numbers every 5 -->
+    <div class="ticks absolute inset-y-6 right-0 w-full pointer-events-none text-black dark:text-white">
       {#each Array.from({ length: 21 }, (_, i) => i * 5) as mark}
-        <!-- Major Graduation at every 5 (0, 5, 10, ... 100) -->
-        <div class="flex items-center justify-end w-full relative h-[1px]">
-          <!-- Number Label -->
-          <span 
-            class="absolute right-[24px] font-mono leading-none text-black/55 dark:text-white/50 select-none"
-            style="font-size: 9px; letter-spacing: 0.08em;"
-          >
-            {mark}
-          </span>
-          <!-- Major 20px Tick Line -->
-          <span class="block bg-black dark:bg-white" style="width: 20px; height: 1px; opacity: 0.8;"></span>
-        </div>
-
-        <!-- 4 Minor 10px Ticks between each 5 mark -->
-        {#if mark < 100}
-          <div class="flex flex-col justify-around h-full w-full py-0.5">
-            <span class="block bg-black dark:bg-white self-end" style="width: 10px; height: 1px; opacity: 0.4;"></span>
-            <span class="block bg-black dark:bg-white self-end" style="width: 10px; height: 1px; opacity: 0.4;"></span>
-            <span class="block bg-black dark:bg-white self-end" style="width: 10px; height: 1px; opacity: 0.4;"></span>
-            <span class="block bg-black dark:bg-white self-end" style="width: 10px; height: 1px; opacity: 0.4;"></span>
-          </div>
-        {/if}
+        <span
+          class="absolute right-[24px] -translate-y-1/2 font-mono leading-none text-black/55 dark:text-white/50 select-none"
+          style="top: {mark}%; font-size: 9px; letter-spacing: 0.08em;"
+        >{mark}</span>
       {/each}
     </div>
 
@@ -251,3 +234,17 @@
 
   </div>
 </aside>
+{/if}
+
+<style>
+  /* 1px lines at the top of each tile; the extra pixel lets the 100 mark land inside the box */
+  .ticks::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 -1px auto;
+    width: 20px;
+    background:
+      linear-gradient(color-mix(in srgb, currentColor 80%, transparent) 1px, transparent 1px) right top / 20px 5% repeat-y,
+      linear-gradient(color-mix(in srgb, currentColor 40%, transparent) 1px, transparent 1px) right top / 10px 1% repeat-y;
+  }
+</style>

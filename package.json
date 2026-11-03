@@ -29,9 +29,5 @@
 	"imports": {
 		"#lib": "./src/lib/index.js",
 		"#lib/*": "./src/lib/*"
-	},
-	"dependencies": {
-		"gsap": "^3.15.0",
-		"phosphor-svelte": "^3.1.1"
 	}
 }

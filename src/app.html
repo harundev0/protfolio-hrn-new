@@ -10,13 +10,14 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-		<!-- Fonts load without blocking first paint (display=swap shows fallback text meanwhile); the inline script below switches media to all -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,300..500&display=swap" media="print" id="gfonts" />
-		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,300..500&display=swap" /></noscript>
+		<!-- Fonts load without blocking first paint (display=swap shows fallback text meanwhile); the inline script below switches media to all.
+		     Only the weights/axes the site uses: no width axis, upright sans only, Newsreader italic at display optical size -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300..800&family=Inter:wght@300..800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,72,300..400&display=swap" media="print" id="gfonts" />
+		<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300..800&family=Inter:wght@300..800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,72,300..400&display=swap" /></noscript>
 		<meta name="theme-color" content="#FAF9F8" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#050505" media="(prefers-color-scheme: dark)" />
 		%sveltekit.head%
-		<!-- CSP allows this script by its sha256, computed from this file in vite.config.ts -->
+		<!-- CSP allows this script by its sha256, computed per response in src/hooks.server.ts -->
 		<script>
 			// scroll-reveal CSS only hides content when JS is there to show it again
 			document.documentElement.classList.add('js');

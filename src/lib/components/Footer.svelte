@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ArrowUpRight, EnvelopeSimple } from 'phosphor-svelte';
+  import Icon from '#lib/components/Icon.svelte';
   import { getI18n } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
 
@@ -92,7 +92,7 @@
             href="mailto:{site.email}"
             class="text-[#1D63D8] dark:text-[#2D81FF] hover:underline flex items-center gap-1.5 min-h-[44px] md:min-h-0 md:py-1.5 font-bold tracking-wider"
           >
-            <EnvelopeSimple weight="bold" aria-hidden="true" class="w-3.5 h-3.5" />
+            <Icon name="EnvelopeSimple" class="w-3.5 h-3.5" />
             <span>{site.email}</span>
           </a>
           <span class="text-black/55 dark:text-white/50 tracking-wider uppercase">
@@ -154,7 +154,7 @@
                   class="flex items-center justify-between min-h-[44px] md:min-h-0 md:py-1 text-black/70 dark:text-white/70 hover:text-black dark:hover:text-white transition-colors group"
                 >
                   <span>{link.label}</span>
-                  <ArrowUpRight aria-hidden="true" class="w-3 h-3 text-black/55 dark:text-white/50 group-hover:text-black dark:group-hover:text-white" />
+                  <Icon name="ArrowUpRight-regular" class="w-3 h-3 text-black/55 dark:text-white/50 group-hover:text-black dark:group-hover:text-white" />
                 </a>
               </li>
             {/each}

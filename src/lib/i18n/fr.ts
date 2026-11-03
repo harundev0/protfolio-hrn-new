@@ -333,7 +333,7 @@ const fr: typeof en = {
     outcome: 'Résultat',
     next: 'Projet suivant',
     processSteps: ['Recherche utilisateur et wireframes', 'Parcours utilisateur', 'UI haute fidélité dans Figma', 'Prototypes et passation aux développeurs'],
-    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    // challenge / outcome: empty means not written yet; production leaves that section out (dev shows a TODO)
     items: [
       { features: ['Un fil social conçu pour les photos 360°', 'Six modes d’affichage, de l’ultra grand-angle à la little planet', 'Changer de mode sans quitter la publication'], challenge: '', outcome: '' },
       { features: ['Onglets For You, Recent et Map', 'Une visionneuse 360° plein écran', 'Des commentaires sur chaque publication'], challenge: '', outcome: '' },

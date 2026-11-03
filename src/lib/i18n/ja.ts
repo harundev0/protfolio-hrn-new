@@ -332,7 +332,7 @@ const ja: typeof en = {
     outcome: '成果',
     next: '次のプロジェクト',
     processSteps: ['ユーザーリサーチとワイヤーフレーム', 'ユーザーフロー', 'Figma でのハイファイ UI', 'プロトタイプと開発への引き渡し'],
-    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    // challenge / outcome: empty means not written yet; production leaves that section out (dev shows a TODO)
     items: [
       { features: ['360° 写真のためのソーシャルフィード', 'ウルトラワイドからリトルプラネットまで、6 つの表示モード', '投稿を離れずに表示モードを切り替え'], challenge: '', outcome: '' },
       { features: ['For You・Recent・Map の 3 タブ', 'フルスクリーンの 360° ビューア', '各投稿へのコメント'], challenge: '', outcome: '' },
