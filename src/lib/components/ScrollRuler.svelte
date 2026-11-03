@@ -53,14 +53,15 @@
 
   // Dynamic sections depending on route
   let homeSections = $derived(
-    (['projects', 'work', 'about', 'proof', 'contact'] as const).map((id) => ({ id, ...t.ruler.home[id] }))
+    (['work', 'expertise', 'approach', 'stack', 'contact'] as const).map((id) => ({ id, ...t.ruler.home[id] }))
   );
 
   let aboutSections = $derived(
     (['chronicles', 'experience', 'curation', 'collab'] as const).map((id) => ({ id, ...t.ruler.aboutPage[id] }))
   );
 
-  let currentSections = $derived(isAboutPage ? aboutSections : homeSections);
+  // only the home and about pages have named sections; other routes show the bare ruler
+  let currentSections = $derived(isAboutPage ? aboutSections : page.url.pathname === '/' ? homeSections : []);
 
   function updateActiveSection() {
     const scrollPos = window.scrollY + window.innerHeight * 0.4;
@@ -126,7 +127,7 @@
     <!-- Top Brand Tag -->
     <a 
       href={isAboutPage ? "/about" : "/"} 
-      class="text-[10px] font-mono tracking-[0.25em] text-black/55 dark:text-white/50 uppercase font-bold hover:text-black dark:hover:text-white transition-colors whitespace-nowrap"
+      class="text-[11px] font-mono tracking-[0.25em] text-black/55 dark:text-white/50 uppercase font-bold hover:text-black dark:hover:text-white transition-colors whitespace-nowrap"
     >
       {isAboutPage ? t.ruler.aboutTag : t.ruler.portfolio}
     </a>
@@ -148,7 +149,7 @@
           
           <!-- Sub-bullet label when active -->
           {#if activeSection === sec.id}
-            <div class="flex items-center gap-2 mt-1.5 text-[9px] font-mono tracking-widest text-black/60 dark:text-white/60 whitespace-nowrap">
+            <div class="flex items-center gap-2 mt-1.5 text-[11px] font-mono tracking-widest text-black/60 dark:text-white/60 whitespace-nowrap">
               <span class="w-1.5 h-1.5 bg-[#2D81FF] rounded-none inline-block shadow-[0_0_6px_#2D81FF]"></span>
               <span>{sec.sub}</span>
             </div>
@@ -175,7 +176,7 @@
     <!-- Child 1: Background Blur & Fade Mask (theme adaptive) -->
     <div 
       aria-hidden="true" 
-      class="absolute inset-0 pointer-events-none backdrop-blur-[9px] bg-[#FAF9F8]/60 dark:bg-[#050505]/60" 
+      class="absolute inset-0 pointer-events-none backdrop-blur-[9px] bg-paper/60 dark:bg-ink/60" 
       style="mask-image: linear-gradient(to left, black 40%, rgba(0, 0, 0, 0.75) 47.5%, rgba(0, 0, 0, 0.53) 55%, rgba(0, 0, 0, 0.35) 62.5%, rgba(0, 0, 0, 0.22) 70%, rgba(0, 0, 0, 0.12) 77.5%, rgba(0, 0, 0, 0.05) 85%, rgba(0, 0, 0, 0.01) 92.5%, transparent 100%);"
     ></div>
 

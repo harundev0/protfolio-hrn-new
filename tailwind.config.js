@@ -11,6 +11,9 @@ export default {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
       },
       colors: {
+        // Page grounds: light paper and dark ink
+        paper: '#FAF9F8',
+        ink: '#050505',
         // Essential colors based on ArtCraft (minimalist, clean, monochromatic)
         primary: {
           50: '#f7f7f7',

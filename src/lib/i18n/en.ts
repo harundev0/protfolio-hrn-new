@@ -7,7 +7,7 @@ const en = {
       'Harun Bahrudin, product, UI/UX and frontend engineer in Indonesia with seven years of experience. Open to full-time & part-time roles: on-site, hybrid or remote.',
     aboutTitle: 'About — Harun Bahrudin',
     aboutDescription:
-      'Work history, education and how I work. Nearly seven years designing and building 360° virtual tour and Google Street View products for GoThru.'
+      'Work history, education and how I work. Seven years designing and building 360° virtual tour and Google Street View products for GoThru.'
   },
   nav: {
     home: 'Home',
@@ -30,10 +30,10 @@ const en = {
     aboutTag: 'About // Harun',
     position: 'Page position',
     home: {
-      projects: { label: 'Work', sub: 'Selected work' },
-      work: { label: 'Expertise', sub: 'Product · UI/UX · Frontend' },
-      about: { label: 'Approach', sub: 'How I work' },
-      proof: { label: 'Stack', sub: 'Daily tools' },
+      work: { label: 'Work', sub: 'Selected work' },
+      expertise: { label: 'Expertise', sub: 'Product · UI/UX · Frontend' },
+      approach: { label: 'Approach', sub: 'How I work' },
+      stack: { label: 'Stack', sub: 'Daily tools' },
       contact: { label: 'Contact', sub: 'Get in touch' }
     },
     aboutPage: {
@@ -46,7 +46,7 @@ const en = {
   hero: {
     titlePre: 'I design and build',
     titleEm: 'web products.',
-    body: 'Product engineer, UI/UX engineer and frontend engineer with seven years of experience. I take a feature from the first sketch in Figma to code running in production.',
+    body: 'Product engineer, UI/UX engineer and frontend engineer with seven years of experience. I take a feature from the first sketch in Figma to code running in production. I work AI-native: Claude Code, Codex and Cursor speed up every step, from prototype to release.',
     ctaPrimary: 'See my work',
     ctaSecondary: 'About me'
   },
@@ -147,7 +147,7 @@ const en = {
     titlePost: '.',
     intro: [
       'I’m a product engineer with seven years of experience working remotely in Canada’s creative and tech industry, where UI/UX design and frontend engineering meet. I think of a product as a story the user moves through. I design that flow from the user’s side first, then build it with the same care in code, so nothing gets lost between the idea and what people actually use.',
-      'My work covers web, mobile and desktop products used by millions of people. Because I design and build, I can take a complicated workflow and turn it into an interface that’s simple to use and solid underneath.'
+      'My work covers web, mobile and desktop products for GoThru’s customers. Because I design and build, I can take a complicated workflow and turn it into an interface that’s simple to use and solid underneath.'
     ],
     openToWork: 'Open to full-time & part-time roles',
     languages: 'English (fluent) · Indonesian (native)',
@@ -156,10 +156,10 @@ const en = {
     highlights: {
       title: 'Highlights',
       items: [
-        { stat: '5/5', label: 'Client satisfaction', text: 'Across hundreds of cross-platform projects, and many clients stayed on for long-term work.' },
-        { stat: '70%', label: 'Faster handoff', text: 'Design systems that live in both Figma and code keep design-to-dev handoff short and the product consistent.' },
-        { stat: '#1', label: 'Engagement in 24 hours', text: 'A product redesign I led end to end reached #1 in user engagement within 24 hours of launch, well ahead of the old version.' },
-        { stat: 'Multi-platform', label: 'Desktop & social', text: 'Delivered across desktop applications and social media platforms, with consistent brand messaging and strong visuals.' }
+        { stat: '5/5', label: 'Client satisfaction', text: 'Kept since 2019 across GoThru projects, and many clients stayed on for long-term work.' },
+        { stat: '10', label: 'Products', text: 'UI designed and built for 10 products on GoThru’s 360° virtual tour and Google Street View platform.' },
+        { stat: '95–100%', label: 'On-time delivery', text: 'Projects delivered on schedule while working remotely across time zones.' },
+        { stat: '7', label: 'Years remote', text: 'With GoThru, a Canadian company, since November 2019.' }
       ]
     },
     story: {
@@ -257,7 +257,7 @@ const en = {
         {
           period: 'Graduated 2025',
           role: 'Bachelor of Information Systems',
-          company: 'Universitas Subang',
+          company: 'University of Subang',
           tag: 'Education',
           deliverables: [
             'GPA 3.65 / 4.00.',
@@ -315,6 +315,29 @@ const en = {
       email: 'Email me',
       back: 'Back to home'
     }
+  },
+  cases: {
+    view: 'View case study',
+    back: 'All work',
+    eyebrow: 'Case study',
+    role: 'Role',
+    company: 'Company',
+    companyVal: 'GoThru · Canada (remote)',
+    platform: 'Platform',
+    live: 'Live product',
+    challenge: 'The challenge',
+    built: 'What I designed',
+    process: 'How I worked',
+    outcome: 'Outcome',
+    next: 'Next project',
+    processSteps: ['User research and wireframes', 'User flows', 'High-fidelity UI in Figma', 'Prototypes and developer handoff'],
+    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    items: [
+      { features: ['A social feed built around 360° photos', 'Six view modes, from ultra wide to little planet', 'Switching view modes without leaving the post'], challenge: '', outcome: '' },
+      { features: ['For You, Recent and Map tabs', 'A full-screen 360° viewer', 'Comments on each post'], challenge: '', outcome: '' },
+      { features: ['Search across a customer’s virtual tours', 'Hashtag filters and multi-select', 'A publishing status on each tour', 'Desktop and mobile layouts in dark mode'], challenge: '', outcome: '' },
+      { features: ['A folder view of panoramas', 'A 360° preview of each panorama', 'A location map beside the preview', 'Checking a panorama before editing or uploading it'], challenge: '', outcome: '' }
+    ]
   },
   error: {
     title: 'Page not found',

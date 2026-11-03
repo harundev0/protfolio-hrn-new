@@ -4,18 +4,30 @@
 
 @layer base {
   body {
-    @apply bg-[#FAF9F8] text-[#0A0A0A] dark:bg-[#050505] dark:text-[#F3F3F3] antialiased transition-colors duration-200;
+    @apply bg-paper text-[#0A0A0A] dark:bg-ink dark:text-[#F3F3F3] antialiased transition-colors duration-200;
   }
 
-  /* Hide native browser scrollbar to showcase custom ArtCraft HUD ruler */
+  /* Thin palette scrollbar; hidden only from xl, where the ScrollRuler HUD replaces it */
   html {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(0 0 0 / 0.25) transparent;
   }
-  ::-webkit-scrollbar {
-    display: none;
-    width: 0px;
-    height: 0px;
+  html.dark {
+    scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+  }
+  @media (min-width: 1280px) {
+    html {
+      scrollbar-width: none;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* Focus ring in the site's accent, for every control that doesn't draw its own */
+  :focus-visible {
+    outline: 2px solid #2D81FF;
+    outline-offset: 2px;
   }
 }
 

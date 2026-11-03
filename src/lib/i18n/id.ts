@@ -8,7 +8,7 @@ const id: typeof en = {
       'Harun Bahrudin, product, UI/UX dan frontend engineer dari Indonesia dengan pengalaman tujuh tahun. Terbuka untuk posisi full-time & part-time: on-site, hybrid, atau remote.',
     aboutTitle: 'Tentang — Harun Bahrudin',
     aboutDescription:
-      'Riwayat kerja, pendidikan, dan cara saya bekerja. Hampir tujuh tahun mendesain dan membangun produk virtual tour 360° dan Google Street View untuk GoThru.'
+      'Riwayat kerja, pendidikan, dan cara saya bekerja. Tujuh tahun mendesain dan membangun produk virtual tour 360° dan Google Street View untuk GoThru.'
   },
   nav: {
     home: 'Beranda',
@@ -31,10 +31,10 @@ const id: typeof en = {
     aboutTag: 'Tentang // Harun',
     position: 'Posisi halaman',
     home: {
-      projects: { label: 'Karya', sub: 'Karya terpilih' },
-      work: { label: 'Keahlian', sub: 'Product · UI/UX · Frontend' },
-      about: { label: 'Pendekatan', sub: 'Cara saya bekerja' },
-      proof: { label: 'Stack', sub: 'Alat sehari-hari' },
+      work: { label: 'Karya', sub: 'Karya terpilih' },
+      expertise: { label: 'Keahlian', sub: 'Product · UI/UX · Frontend' },
+      approach: { label: 'Pendekatan', sub: 'Cara saya bekerja' },
+      stack: { label: 'Stack', sub: 'Alat sehari-hari' },
       contact: { label: 'Kontak', sub: 'Hubungi saya' }
     },
     aboutPage: {
@@ -47,7 +47,7 @@ const id: typeof en = {
   hero: {
     titlePre: 'Saya mendesain dan membangun',
     titleEm: 'produk web.',
-    body: 'Product engineer, UI/UX engineer, sekaligus frontend engineer dengan pengalaman tujuh tahun. Saya pegang satu fitur dari sketsa pertama di Figma sampai kodenya jalan di production.',
+    body: 'Product engineer, UI/UX engineer, sekaligus frontend engineer dengan pengalaman tujuh tahun. Saya pegang satu fitur dari sketsa pertama di Figma sampai kodenya jalan di production. Saya bekerja AI-native: Claude Code, Codex, dan Cursor mempercepat setiap langkah, dari prototipe sampai rilis.',
     ctaPrimary: 'Lihat karya saya',
     ctaSecondary: 'Tentang saya'
   },
@@ -148,7 +148,7 @@ const id: typeof en = {
     titlePost: '.',
     intro: [
       'Saya product engineer dengan pengalaman tujuh tahun bekerja remote di industri kreatif dan teknologi Kanada, di titik temu antara desain UI/UX dan frontend engineering. Bagi saya, sebuah produk itu seperti cerita yang dijalani pengguna. Saya rancang alurnya dari sisi pengguna dulu, lalu membangunnya di kode dengan ketelitian yang sama, supaya tidak ada yang hilang antara ide dan apa yang benar-benar dipakai orang.',
-      'Pekerjaan saya mencakup produk web, mobile, dan desktop yang dipakai jutaan orang. Karena saya mendesain sekaligus membangun, alur kerja yang rumit bisa saya ubah jadi antarmuka yang mudah dipakai dan kokoh di baliknya.'
+      'Pekerjaan saya mencakup produk web, mobile, dan desktop untuk pelanggan GoThru. Karena saya mendesain sekaligus membangun, alur kerja yang rumit bisa saya ubah jadi antarmuka yang mudah dipakai dan kokoh di baliknya.'
     ],
     openToWork: 'Terbuka untuk posisi full-time & part-time',
     languages: 'Inggris (fasih) · Indonesia (bahasa ibu)',
@@ -157,10 +157,10 @@ const id: typeof en = {
     highlights: {
       title: 'Sorotan',
       items: [
-        { stat: '5/5', label: 'Kepuasan klien', text: 'Dari ratusan proyek lintas platform, dan banyak klien bertahan untuk kerja sama jangka panjang.' },
-        { stat: '70%', label: 'Handoff lebih cepat', text: 'Design system yang hidup di Figma dan di kode membuat handoff dari desain ke developer lebih singkat dan produk tetap konsisten.' },
-        { stat: '#1', label: 'Engagement dalam 24 jam', text: 'Redesign produk yang saya pimpin dari awal sampai akhir jadi nomor 1 dalam engagement pengguna dalam 24 jam setelah rilis, jauh di atas versi sebelumnya.' },
-        { stat: 'Multi-platform', label: 'Desktop & media sosial', text: 'Dikerjakan untuk aplikasi desktop dan platform media sosial, dengan pesan brand yang konsisten dan visual yang kuat.' }
+        { stat: '5/5', label: 'Kepuasan klien', text: 'Terjaga sejak 2019 di proyek-proyek GoThru, dan banyak klien bertahan untuk kerja sama jangka panjang.' },
+        { stat: '10', label: 'Produk', text: 'UI yang saya desain dan bangun untuk 10 produk di platform virtual tour 360° dan Google Street View milik GoThru.' },
+        { stat: '95–100%', label: 'Tepat waktu', text: 'Proyek selesai sesuai jadwal meski bekerja remote lintas zona waktu.' },
+        { stat: '7', label: 'Tahun remote', text: 'Bersama GoThru, perusahaan asal Kanada, sejak November 2019.' }
       ]
     },
     story: {
@@ -316,6 +316,29 @@ const id: typeof en = {
       email: 'Kirim email',
       back: 'Kembali ke beranda'
     }
+  },
+  cases: {
+    view: 'Lihat studi kasus',
+    back: 'Semua karya',
+    eyebrow: 'Studi kasus',
+    role: 'Peran',
+    company: 'Perusahaan',
+    companyVal: 'GoThru · Kanada (remote)',
+    platform: 'Platform',
+    live: 'Produk live',
+    challenge: 'Tantangan',
+    built: 'Yang saya desain',
+    process: 'Cara saya bekerja',
+    outcome: 'Hasil',
+    next: 'Proyek berikutnya',
+    processSteps: ['Riset pengguna dan wireframe', 'User flow', 'UI high-fidelity di Figma', 'Prototipe dan handoff ke developer'],
+    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    items: [
+      { features: ['Feed sosial untuk foto 360°', 'Enam mode tampilan, dari ultra wide sampai little planet', 'Ganti mode tampilan tanpa meninggalkan postingan'], challenge: '', outcome: '' },
+      { features: ['Tab For You, Recent, dan Map', 'Viewer 360° layar penuh', 'Komentar di setiap postingan'], challenge: '', outcome: '' },
+      { features: ['Pencarian di semua virtual tour milik pelanggan', 'Filter hashtag dan multi-select', 'Status publikasi di setiap tour', 'Tampilan desktop dan mobile dalam dark mode'], challenge: '', outcome: '' },
+      { features: ['Tampilan folder berisi panorama', 'Pratinjau 360° untuk setiap panorama', 'Peta lokasi di samping pratinjau', 'Cek panorama sebelum diedit atau diunggah'], challenge: '', outcome: '' }
+    ]
   },
   error: {
     title: 'Halaman tidak ditemukan',

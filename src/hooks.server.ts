@@ -9,5 +9,9 @@ export const handle: Handle = async ({ event, resolve }) => {
   event.locals.lang = lang;
   const response = await resolve(event, { transformPageChunk: ({ html }) => html.replace('%lang%', lang) });
   if (response.headers.get('content-type')?.startsWith('text/html')) response.headers.set('vary', 'Accept-Language, Cookie');
+  // Content-Security-Policy comes from SvelteKit (csp in vite.config.ts)
+  response.headers.set('x-content-type-options', 'nosniff');
+  response.headers.set('referrer-policy', 'strict-origin-when-cross-origin');
+  response.headers.set('permissions-policy', 'camera=(), microphone=(), geolocation=()');
   return response;
 };

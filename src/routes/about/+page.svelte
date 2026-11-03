@@ -47,8 +47,8 @@
 
 <!-- Section Header (Sticky 1:1 ArtCraft) -->
 {#snippet eyebrow(n: string, left: string, right: string)}
-  <div class="sticky top-12 z-30 border-y border-black/10 dark:border-white/10 bg-[#FAF9F8]/80 dark:bg-[#050505]/80 backdrop-blur-md transition-colors">
-    <div class="flex items-center justify-between text-[10px] uppercase font-mono tracking-widest text-black/60 dark:text-white/60 py-3 px-6 md:px-10">
+  <div class="sticky top-12 z-30 border-y border-black/10 dark:border-white/10 bg-paper/80 dark:bg-ink/80 backdrop-blur-md transition-colors">
+    <div class="flex items-center justify-between text-[11px] uppercase font-mono tracking-widest text-black/60 dark:text-white/60 py-3 px-6 md:px-10">
       <span class="flex items-center gap-2"><span class="text-black/55 dark:text-white/50">{n}</span><span>/</span><span>{left}</span></span>
       <span class="hidden sm:inline text-black/55 dark:text-white/50">{right}</span>
     </div>
@@ -106,10 +106,10 @@
 
       <!-- Eyebrow Meta Strip -->
       <div class="anim-about-hero flex flex-wrap items-center gap-2 sm:gap-3 mb-5 sm:mb-6">
-        <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black font-mono text-[10px] font-bold tracking-widest uppercase">
+        <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black font-mono text-[11px] font-bold tracking-widest uppercase">
           {t.eyebrow}
         </span>
-        <span class="font-mono text-[9px] sm:text-[10px] text-black/55 dark:text-white/50 tracking-wider uppercase">
+        <span class="font-mono text-[11px] text-black/55 dark:text-white/50 tracking-wider uppercase">
           {t.eyebrowMeta}
         </span>
       </div>
@@ -135,8 +135,8 @@
             <span class="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
             <span>{t.openToWork}</span>
           </div>
-          <span class="text-[10px] text-black/55 dark:text-white/50">{t.languages}</span>
-          <span class="text-[10px] text-black/55 dark:text-white/50">{t.timezone}</span>
+          <span class="text-[11px] text-black/55 dark:text-white/50">{t.languages}</span>
+          <span class="text-[11px] text-black/55 dark:text-white/50">{t.timezone}</span>
         </div>
       </div>
 
@@ -149,9 +149,9 @@
       {@render eyebrow('01', t.highlights.title, t.statusFocus)}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px border-b border-black/10 dark:border-white/10 bg-black/10 dark:bg-white/10">
         {#each t.highlights.items as h}
-          <div class="about-reveal bg-[#FAF9F8] dark:bg-[#050505] p-6 md:p-8 flex flex-col gap-3">
-            <span class="h-12 md:h-[3.75rem] flex items-end font-display font-light tracking-tight text-black dark:text-white leading-none {h.stat.length > 4 ? 'text-2xl md:text-3xl' : 'text-5xl md:text-6xl'}">{h.stat}</span>
-            <span class="font-mono text-[10px] tracking-widest uppercase text-[#1D63D8] dark:text-[#2D81FF] font-semibold">{h.label}</span>
+          <div class="about-reveal bg-paper dark:bg-ink p-6 md:p-8 flex flex-col gap-3">
+            <span class="h-12 md:h-[3.75rem] flex items-end font-display font-light tracking-tight text-black dark:text-white leading-none whitespace-nowrap text-5xl md:text-6xl lg:text-[2.75rem] xl:text-6xl">{h.stat}</span>
+            <span class="font-mono text-[11px] tracking-widest uppercase text-[#1D63D8] dark:text-[#2D81FF] font-semibold">{h.label}</span>
             <p class="text-sm text-black/70 dark:text-white/70 leading-relaxed">{h.text}</p>
           </div>
         {/each}
@@ -166,7 +166,7 @@
 
       <!-- WORKSPACE BANNER -->
       <div class="about-reveal w-full border-b border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden relative group">
-        <div class="flex items-center font-mono text-[9px] sm:text-[10px] tracking-widest uppercase text-black/55 dark:text-white/55 px-6 md:px-10 py-2.5 border-b border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505]">
+        <div class="flex items-center font-mono text-[11px] tracking-widest uppercase text-black/55 dark:text-white/55 px-6 md:px-10 py-2.5 border-b border-black/10 dark:border-white/10 bg-paper dark:bg-ink">
           <div class="flex items-center gap-3">
             <span class="w-1.5 h-1.5 bg-[#2D81FF] shadow-[0_0_6px_#2D81FF]"></span>
             <span>{t.story.bannerLabel}</span>
@@ -175,10 +175,10 @@
 
         <!-- Dynamic Theme Banner Image (Light / Dark Adaptive) -->
         <div class="relative w-full overflow-hidden bg-black/5 dark:bg-white/5">
-          <!-- Crosshair corner indicators -->
-          <div class="absolute top-2 left-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">+ 00.00</div>
-          <div class="absolute top-2 right-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">+ 99.99</div>
-          <div class="absolute bottom-2 left-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">HB_{new Date().getFullYear()}</div>
+          <!-- Crosshair corner indicators (decorative) -->
+          <div aria-hidden="true" class="absolute top-2 left-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">+ 00.00</div>
+          <div aria-hidden="true" class="absolute top-2 right-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">+ 99.99</div>
+          <div aria-hidden="true" class="absolute bottom-2 left-3 z-10 text-[9px] font-mono text-black/55 dark:text-white/50 pointer-events-none select-none">HB_{new Date().getFullYear()}</div>
 
           <!-- lazy: the hidden theme's image is never fetched -->
           <img
@@ -206,7 +206,7 @@
         </div>
 
         <!-- Bottom Banner Caption Strip -->
-        <div class="flex flex-wrap items-center justify-between font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-black/55 dark:text-white/50 px-6 md:px-10 py-2.5 border-t border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505] gap-2">
+        <div class="flex flex-wrap items-center justify-between font-mono text-[11px] tracking-wider uppercase text-black/55 dark:text-white/50 px-6 md:px-10 py-2.5 border-t border-black/10 dark:border-white/10 bg-paper dark:bg-ink gap-2">
           <span>{t.story.caption}</span>
           <span class="text-[#1D63D8] dark:text-[#2D81FF] font-semibold">{t.story.roles}</span>
         </div>
@@ -221,7 +221,7 @@
           <article class="about-reveal grid grid-cols-1 lg:grid-cols-12 gap-0 relative group">
 
             <!-- Chapter Info Column (Swaps order on desktop for alternating zig-zag rhythm) -->
-            <div class="lg:col-span-6 p-6 sm:p-10 border-b lg:border-b-0 {idx % 2 === 1 ? 'lg:order-2 lg:border-l border-black/10 dark:border-white/10' : 'lg:order-1 lg:border-r border-black/10 dark:border-white/10'} flex flex-col justify-between bg-[#FAF9F8] dark:bg-[#050505]">
+            <div class="lg:col-span-6 p-6 sm:p-10 border-b lg:border-b-0 {idx % 2 === 1 ? 'lg:order-2 lg:border-l border-black/10 dark:border-white/10' : 'lg:order-1 lg:border-r border-black/10 dark:border-white/10'} flex flex-col justify-between bg-paper dark:bg-ink">
               <div>
                 <div class="flex items-center font-mono text-[11px] tracking-widest uppercase text-black/55 dark:text-white/50 mb-6">
                   <span class="flex items-center gap-2">
@@ -230,7 +230,7 @@
                   </span>
                 </div>
 
-                <div class="font-mono text-[10px] tracking-widest text-[#1D63D8] dark:text-[#2D81FF] font-bold uppercase mb-2">
+                <div class="font-mono text-[11px] tracking-widest text-[#1D63D8] dark:text-[#2D81FF] font-bold uppercase mb-2">
                   {chapter.tag}
                 </div>
 
@@ -244,7 +244,7 @@
               </div>
 
               <!-- Spec Table for Chapter -->
-              <div class="mt-8 pt-6 border-t border-black/10 dark:border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-[10px]">
+              <div class="mt-8 pt-6 border-t border-black/10 dark:border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-[11px]">
                 {#each chapter.specs as spec}
                   <div class="flex flex-col gap-1">
                     <span class="text-black/55 dark:text-white/50 tracking-wider uppercase">{spec.label}</span>
@@ -256,7 +256,7 @@
 
             <!-- Chapter Specimen Box -->
             <div class="lg:col-span-6 p-6 sm:p-10 {idx % 2 === 1 ? 'lg:order-1' : 'lg:order-2'} bg-black/[0.015] dark:bg-white/[0.015] flex flex-col justify-center">
-              <div class="w-full border border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#050505] p-5 relative shadow-sm transition-transform duration-300 group-hover:scale-[1.01]">
+              <div class="w-full border border-black/10 dark:border-white/10 bg-paper dark:bg-ink p-5 relative shadow-sm transition-transform duration-300 group-hover:scale-[1.01]">
 
                 <!-- Corner Crosshair Marks (+) -->
                 <div class="absolute top-1 left-1 text-[8px] font-mono text-black/20 dark:text-white/20 select-none">+</div>
@@ -264,7 +264,7 @@
                 <div class="absolute bottom-1 left-1 text-[8px] font-mono text-black/20 dark:text-white/20 select-none">+</div>
                 <div class="absolute bottom-1 right-1 text-[8px] font-mono text-black/20 dark:text-white/20 select-none">+</div>
 
-                <div class="flex items-center justify-between font-mono text-[9px] tracking-widest uppercase text-black/55 dark:text-white/55 pb-3 border-b border-black/5 dark:border-white/5 mb-4">
+                <div class="flex items-center justify-between font-mono text-[11px] tracking-widest uppercase text-black/55 dark:text-white/55 pb-3 border-b border-black/5 dark:border-white/5 mb-4">
                   <span>{chapter.specimenTitle}</span>
                   <span>CH_{node}</span>
                 </div>
@@ -387,7 +387,7 @@
                     </div>
                   {/if}
                 </div>
-                <p class="mt-3 font-mono text-[10px] tracking-widest uppercase text-black/60 dark:text-white/55">{chapter.specimenSubtitle}</p>
+                <p class="mt-3 font-mono text-[11px] tracking-widest uppercase text-black/60 dark:text-white/55">{chapter.specimenSubtitle}</p>
               </div>
             </div>
 
@@ -411,7 +411,7 @@
               <span class="font-mono text-[12px] font-bold tracking-wider text-black dark:text-white">
                 {job.period}
               </span>
-              <span class="mt-2 font-mono text-[10px] tracking-widest text-[#1D63D8] dark:text-[#2D81FF] font-semibold uppercase">
+              <span class="mt-2 font-mono text-[11px] tracking-widest text-[#1D63D8] dark:text-[#2D81FF] font-semibold uppercase">
                 {job.tag}
               </span>
             </div>
@@ -453,9 +453,9 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-px border-b border-black/10 dark:border-white/10 bg-black/10 dark:bg-white/10">
         {#each t.beyond.cards as card, i}
           {@const Icon = beyondIcons[i]}
-          <article class="p-8 bg-[#FAF9F8] dark:bg-[#050505] flex flex-col justify-between about-reveal">
+          <article id={'items' in card ? 'principles' : undefined} class="p-8 bg-paper dark:bg-ink flex flex-col justify-between about-reveal scroll-mt-28">
             <div>
-              <div class="flex items-center justify-between text-[10px] font-mono tracking-widest uppercase text-black/55 dark:text-white/50 mb-6">
+              <div class="flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-black/55 dark:text-white/50 mb-6">
                 <span>{card.label}</span>
                 <span>{String(i + 1).padStart(2, '0')}</span>
               </div>
@@ -478,7 +478,7 @@
                 </p>
               {/if}
             </div>
-            <div class="pt-4 border-t border-black/10 dark:border-white/10 font-mono text-[10px] tracking-wider uppercase text-black/55 dark:text-white/50">
+            <div class="pt-4 border-t border-black/10 dark:border-white/10 font-mono text-[11px] tracking-wider uppercase text-black/55 dark:text-white/50">
               {card.foot}
             </div>
           </article>
@@ -491,7 +491,7 @@
   <!-- SECTION 04: CALL TO ACTION -->
   <section id="collab" class="w-full relative">
     <div class="max-w-[1280px] mx-auto border-x border-black/10 dark:border-white/10 flex flex-col items-center justify-center py-24 md:py-32 px-6 text-center about-reveal border-b border-black/10 dark:border-white/10">
-      <div class="text-[10px] uppercase font-mono tracking-widest text-black/55 dark:text-white/50 mb-6">
+      <div class="text-[11px] uppercase font-mono tracking-widest text-black/55 dark:text-white/50 mb-6">
         {t.collab.eyebrow}
       </div>
 

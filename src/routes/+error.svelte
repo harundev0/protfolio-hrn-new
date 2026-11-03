@@ -9,7 +9,7 @@
 
 <section class="w-full border-b border-black/10 dark:border-white/10">
   <div class="max-w-[1280px] mx-auto border-x border-black/10 dark:border-white/10 min-h-[70vh] flex flex-col items-start justify-center gap-6 px-6 md:px-10 py-24">
-    <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black font-mono text-[10px] font-bold tracking-widest uppercase">
+    <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black font-mono text-[11px] font-bold tracking-widest uppercase">
       {page.status}
     </span>
     <h1 class="text-4xl md:text-6xl font-medium tracking-tight text-black dark:text-white">

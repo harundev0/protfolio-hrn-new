@@ -9,7 +9,7 @@ const fr: typeof en = {
       'Harun Bahrudin, ingénieur produit, UI/UX et frontend en Indonésie, avec sept ans d’expérience. Ouvert aux postes à temps plein ou partiel : sur site, hybride ou à distance.',
     aboutTitle: 'À propos — Harun Bahrudin',
     aboutDescription:
-      'Parcours, formation et méthode de travail. Près de sept ans à concevoir et développer des produits de visites virtuelles 360° et Google Street View pour GoThru.'
+      'Parcours, formation et méthode de travail. Sept ans à concevoir et développer des produits de visites virtuelles 360° et Google Street View pour GoThru.'
   },
   nav: {
     home: 'Accueil',
@@ -32,10 +32,10 @@ const fr: typeof en = {
     aboutTag: 'À propos // Harun',
     position: 'Position dans la page',
     home: {
-      projects: { label: 'Projets', sub: 'Projets choisis' },
-      work: { label: 'Expertise', sub: 'Produit · UI/UX · Frontend' },
-      about: { label: 'Approche', sub: 'Ma façon de travailler' },
-      proof: { label: 'Stack', sub: 'Outils du quotidien' },
+      work: { label: 'Projets', sub: 'Projets choisis' },
+      expertise: { label: 'Expertise', sub: 'Produit · UI/UX · Frontend' },
+      approach: { label: 'Approche', sub: 'Ma façon de travailler' },
+      stack: { label: 'Stack', sub: 'Outils du quotidien' },
       contact: { label: 'Contact', sub: 'Me contacter' }
     },
     aboutPage: {
@@ -48,7 +48,7 @@ const fr: typeof en = {
   hero: {
     titlePre: 'Je conçois et je développe',
     titleEm: 'des produits web.',
-    body: 'Ingénieur produit, UI/UX et frontend, avec sept ans d’expérience. Je prends une fonctionnalité depuis le premier croquis dans Figma jusqu’au code qui tourne en production.',
+    body: 'Ingénieur produit, UI/UX et frontend, avec sept ans d’expérience. Je prends une fonctionnalité depuis le premier croquis dans Figma jusqu’au code qui tourne en production. Je travaille en mode AI-native : Claude Code, Codex et Cursor accélèrent chaque étape, du prototype à la mise en production.',
     ctaPrimary: 'Voir mes projets',
     ctaSecondary: 'À propos'
   },
@@ -149,7 +149,7 @@ const fr: typeof en = {
     titlePost: '.',
     intro: [
       'Je suis ingénieur produit avec sept ans d’expérience, à distance, dans l’industrie créative et tech au Canada, là où le design UI/UX et le développement frontend se rejoignent. Pour moi, un produit est une histoire que l’utilisateur traverse. Je conçois ce parcours d’abord de son point de vue, puis je le développe avec le même soin dans le code, pour que rien ne se perde entre l’idée et ce que les gens utilisent vraiment.',
-      'Mon travail couvre des produits web, mobiles et desktop utilisés par des millions de personnes. Comme je conçois et je développe, je peux transformer des parcours complexes en interfaces simples à utiliser et solides techniquement.'
+      'Mon travail couvre des produits web, mobiles et desktop pour les clients de GoThru. Comme je conçois et je développe, je peux transformer des parcours complexes en interfaces simples à utiliser et solides techniquement.'
     ],
     openToWork: 'Ouvert aux postes à temps plein ou partiel',
     languages: 'Anglais (courant) · Indonésien (langue maternelle)',
@@ -158,10 +158,10 @@ const fr: typeof en = {
     highlights: {
       title: 'Points forts',
       items: [
-        { stat: '5/5', label: 'Satisfaction client', text: 'Sur des centaines de projets multiplateformes, et beaucoup de clients sont restés pour des collaborations sur le long terme.' },
-        { stat: '70%', label: 'Passation plus rapide', text: 'Des design systems qui vivent à la fois dans Figma et dans le code raccourcissent la passation entre design et développement et gardent le produit cohérent.' },
-        { stat: '#1', label: 'Engagement en 24 heures', text: 'Une refonte produit que j’ai menée de bout en bout est arrivée n°1 en engagement utilisateur dans les 24 heures suivant le lancement, loin devant l’ancienne version.' },
-        { stat: 'Multiplateforme', label: 'Desktop & réseaux sociaux', text: 'Livré sur des applications desktop et des plateformes de réseaux sociaux, avec un message de marque cohérent et des visuels forts.' }
+        { stat: '5/5', label: 'Satisfaction client', text: 'Maintenue depuis 2019 sur les projets GoThru, et beaucoup de clients sont restés sur le long terme.' },
+        { stat: '10', label: 'Produits', text: 'Interfaces conçues et développées pour 10 produits de la plateforme de visites virtuelles 360° et Google Street View de GoThru.' },
+        { stat: '95–100%', label: 'Livré à temps', text: 'Des projets livrés dans les délais, en télétravail sur plusieurs fuseaux horaires.' },
+        { stat: '7', label: 'Ans à distance', text: 'Chez GoThru, une entreprise canadienne, depuis novembre 2019.' }
       ]
     },
     story: {
@@ -259,7 +259,7 @@ const fr: typeof en = {
         {
           period: 'Diplômé en 2025',
           role: 'Licence en systèmes d’information',
-          company: 'Universitas Subang',
+          company: 'University of Subang',
           tag: 'Formation',
           deliverables: [
             'Moyenne (GPA) 3,65 / 4,00.',
@@ -317,6 +317,29 @@ const fr: typeof en = {
       email: 'M’écrire',
       back: 'Retour à l’accueil'
     }
+  },
+  cases: {
+    view: 'Voir l’étude de cas',
+    back: 'Tous les projets',
+    eyebrow: 'Étude de cas',
+    role: 'Rôle',
+    company: 'Entreprise',
+    companyVal: 'GoThru · Canada (à distance)',
+    platform: 'Plateforme',
+    live: 'Produit en ligne',
+    challenge: 'Le défi',
+    built: 'Ce que j’ai conçu',
+    process: 'Ma méthode',
+    outcome: 'Résultat',
+    next: 'Projet suivant',
+    processSteps: ['Recherche utilisateur et wireframes', 'Parcours utilisateur', 'UI haute fidélité dans Figma', 'Prototypes et passation aux développeurs'],
+    // challenge / outcome: empty means not written yet; the page stays a draft (noindex) until both are filled
+    items: [
+      { features: ['Un fil social conçu pour les photos 360°', 'Six modes d’affichage, de l’ultra grand-angle à la little planet', 'Changer de mode sans quitter la publication'], challenge: '', outcome: '' },
+      { features: ['Onglets For You, Recent et Map', 'Une visionneuse 360° plein écran', 'Des commentaires sur chaque publication'], challenge: '', outcome: '' },
+      { features: ['Recherche dans toutes les visites virtuelles d’un client', 'Filtres par hashtag et sélection multiple', 'Un statut de publication pour chaque visite', 'Mises en page desktop et mobile en mode sombre'], challenge: '', outcome: '' },
+      { features: ['Une vue en dossier des panoramas', 'Un aperçu 360° de chaque panorama', 'Une carte de localisation à côté de l’aperçu', 'Vérifier un panorama avant de le modifier ou de l’importer'], challenge: '', outcome: '' }
+    ]
   },
   error: {
     title: 'Page introuvable',

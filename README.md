@@ -1,56 +1,31 @@
-# sv
+# Harun Bahrudin — portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Personal portfolio at [harunbahrudin.vercel.app](https://harunbahrudin.vercel.app): selected work, expertise, and an about page with work history. SvelteKit 3 + Svelte 5 (runes), Tailwind CSS 3, deployed on Vercel.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Develop
 
 ```sh
-# create a new project
-npx sv create my-app
+npm install
+npm run dev      # http://localhost:5173
+npm run check    # svelte-check (types + a11y warnings)
+npm run build && npm run preview
 ```
 
-To recreate this project with the same configuration:
+## Where things live
 
-```sh
-# recreate this project
-npx sv@1.1.1 create --template minimal --types ts --no-install .
-```
+| What | Where |
+| --- | --- |
+| Contact links, email, CV path | `src/lib/site.ts` |
+| All copy, 5 languages (en, id, ja, fr, de-CH) | `src/lib/i18n/*.ts` — `en.ts` defines the shape, the others must match it |
+| Language detection (`?lang=` → cookie → `Accept-Language`) | `src/hooks.server.ts` |
+| SEO: meta, hreflang, JSON-LD | `src/routes/+layout.svelte`, `src/lib/seo.ts` |
+| `sitemap.xml`, `robots.txt`, `llms.txt` | `src/routes/*/+server.ts` (generated from the copy above) |
+| CSP and security headers | `vite.config.ts` (`csp`), `src/hooks.server.ts` |
+| Colors | `tailwind.config.js` — `paper` (light ground) and `ink` (dark ground) |
+| CV | `static/Harun-Bahrudin-CV.pdf` |
 
-## Adding features
+## Notes
 
-Add features to your project with `sv add`:
-
-```sh
-npx sv add
-```
-
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- Only the active language's dictionary reaches the browser: the server load sends it, and switching languages fetches the new one on demand.
+- The inline script in `src/app.html` is allowed by CSP through a sha256 computed in `vite.config.ts`, so editing it needs no manual hash update.
+- Every animation has a `prefers-reduced-motion` fallback, and loops pause when their section is off screen (`src/lib/reveal.ts`).

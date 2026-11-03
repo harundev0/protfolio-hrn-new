@@ -1,9 +1,5 @@
 import { getContext, setContext } from 'svelte';
-import en from './en';
-import id from './id';
-import ja from './ja';
-import fr from './fr';
-import deCH from './de-CH';
+import type en from './en';
 
 export type Dict = typeof en;
 
@@ -18,7 +14,16 @@ export const localeNames: Record<Locale, string> = {
   'de-CH': 'Deutsch (Schweiz)'
 };
 
-const dictionaries: Record<Locale, Dict> = { en, id, ja, fr, 'de-CH': deCH };
+// One chunk per language: the browser only downloads the dictionary it shows
+const loaders: Record<Locale, () => Promise<{ default: Dict }>> = {
+  en: () => import('./en'),
+  id: () => import('./id'),
+  ja: () => import('./ja'),
+  fr: () => import('./fr'),
+  'de-CH': () => import('./de-CH')
+};
+
+export const loadDict = async (l: Locale): Promise<Dict> => (await loaders[l]()).default;
 
 export const isLocale = (v: unknown): v is Locale => locales.includes(v as Locale);
 
@@ -40,13 +45,13 @@ type I18n = { readonly lang: Locale; readonly t: Dict; setLang: (l: Locale) => v
 const KEY = Symbol('i18n');
 
 // Context (not module state) so SSR requests never share a language.
-export function setI18n(get: () => Locale, set: (l: Locale) => void): I18n {
+export function setI18n(get: () => Locale, dict: () => Dict, set: (l: Locale) => void): I18n {
   return setContext(KEY, {
     get lang() {
       return get();
     },
     get t() {
-      return dictionaries[get()];
+      return dict();
     },
     setLang: set
   });

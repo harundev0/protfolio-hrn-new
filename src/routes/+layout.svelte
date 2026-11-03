@@ -8,17 +8,25 @@
   import ScrollRuler from '../lib/components/ScrollRuler.svelte';
   import Footer from '../lib/components/Footer.svelte';
   import LangPicker from '../lib/components/LangPicker.svelte';
-  import { setI18n, type Locale } from '#lib/i18n/index.ts';
+  import { setI18n, loadDict, type Locale, type Dict } from '#lib/i18n/index.ts';
   import { site } from '#lib/site.ts';
   import { alternates, localeUrl, ogLocale } from '#lib/seo.ts';
+  import { workIndex } from '#lib/work.ts';
 
-  let { children, data }: { children: Snippet; data: { lang: Locale } } = $props();
+  let { children, data }: { children: Snippet; data: { lang: Locale; dict: Dict } } = $props();
 
   // Server value seeds the state once; later switches are client-side only.
   let lang = $state<Locale>(untrack(() => data.lang));
+  let dict = $state.raw<Dict>(untrack(() => data.dict));
+  let wanted: Locale;
   const i18n = setI18n(
     () => lang,
-    (l) => {
+    () => dict,
+    async (l) => {
+      wanted = l;
+      const next = await loadDict(l);
+      if (wanted !== l) return; // a later pick won the race
+      dict = next;
       lang = l;
       document.cookie = `lang=${l}; path=/; max-age=31536000; samesite=lax`;
       document.documentElement.lang = l;
@@ -39,8 +47,12 @@
   let mobileMenuOpen = $state(false);
 
   let isAboutPage = $derived(page.url.pathname === '/about');
-  let metaTitle = $derived(page.error ? t.error.title : isAboutPage ? t.meta.aboutTitle : t.meta.title);
-  let metaDesc = $derived(isAboutPage ? t.meta.aboutDescription : t.meta.description);
+  let caseIndex = $derived(page.error ? -1 : workIndex(page.params.slug));
+  let caseItem = $derived(caseIndex >= 0 ? t.work.items[caseIndex] : null);
+  let metaTitle = $derived(page.error ? t.error.title : caseItem ? `${caseItem.name} (${caseItem.kind}) — ${site.name}` : isAboutPage ? t.meta.aboutTitle : t.meta.title);
+  let metaDesc = $derived(caseItem ? caseItem.desc : isAboutPage ? t.meta.aboutDescription : t.meta.description);
+  // unfinished case studies stay out of search until their challenge and outcome are written
+  let noindex = $derived(!!page.error || !!page.data.draft);
   let canonical = $derived(localeUrl(page.url.origin, page.url.pathname, lang));
 
   // Structured data: who this is, for search results and AI answer engines
@@ -58,9 +70,9 @@
       address: { '@type': 'PostalAddress', addressLocality: 'Subang', addressRegion: 'West Java', addressCountry: 'ID' },
       sameAs: [site.github, site.linkedin].filter(Boolean),
       worksFor: { '@type': 'Organization', name: 'GoThru' },
-      alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universitas Subang' },
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Subang', alternateName: 'Universitas Subang' },
       knowsLanguage: ['en', 'id'],
-      knowsAbout: ['Product engineering', 'UI/UX design', 'Frontend engineering', 'Design systems', 'Figma', 'React', 'Svelte', 'TypeScript', 'Tailwind CSS', 'Web accessibility', 'Web performance'],
+      knowsAbout: ['Product engineering', 'UI/UX design', 'Frontend engineering', 'Design systems', 'Figma', 'React', 'Svelte', 'TypeScript', 'Tailwind CSS', 'Web accessibility', 'Web performance', 'AI-assisted development', 'Prompt engineering'],
       hasOccupation: { '@type': 'Occupation', name: 'Product Engineer', skills: 'UI/UX design, frontend engineering, React, Svelte, TypeScript, Tailwind CSS, Figma' },
       ...(site.resume ? { subjectOf: { '@type': 'DigitalDocument', name: `${site.name} CV`, url: `${o}${site.resume}`, encodingFormat: 'application/pdf' } } : {})
     };
@@ -77,14 +89,14 @@
   });
 
   // Active nav id derived from route or scroll
-  let activeNav = $derived(isAboutPage ? 'about' : scrollSection);
+  let activeNav = $derived(isAboutPage ? 'about' : caseItem ? 'work' : scrollSection);
 
   let navLinks = $derived([
     { href: '/', id: 'hero', label: t.nav.home },
-    { href: '/#projects', id: 'projects', label: t.nav.work },
-    { href: '/#work', id: 'work', label: t.nav.expertise },
+    { href: '/#work', id: 'work', label: t.nav.work },
+    { href: '/#expertise', id: 'expertise', label: t.nav.expertise },
     { href: '/about', id: 'about', label: t.nav.about },
-    { href: '/#proof', id: 'proof', label: t.nav.stack },
+    { href: '/#stack', id: 'stack', label: t.nav.stack },
     { href: '/#contact', id: 'contact', label: t.nav.contact }
   ]);
 
@@ -101,7 +113,25 @@
       document.documentElement.classList.remove('dark');
       localStorage.theme = 'light';
     }
+    // browser chrome follows the chosen theme, not only the OS one
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', dark ? '#050505' : '#FAF9F8'));
   }
+
+  // Mobile drawer: focus its first link, make the page behind inert and stop it scrolling
+  let menuToggle: HTMLButtonElement;
+  let drawer = $state<HTMLElement>();
+  let pageWrap: HTMLElement;
+  $effect(() => {
+    if (!mobileMenuOpen) return;
+    drawer?.querySelector('a')?.focus();
+    pageWrap.inert = true;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      pageWrap.inert = false;
+      document.body.style.overflow = '';
+      if (drawer?.contains(document.activeElement) || document.activeElement === document.body) menuToggle?.focus();
+    };
+  });
 
   function scrollToSection(id: string) {
     scrollSection = id;
@@ -121,13 +151,13 @@
 
     // Scroll spy for navbar when on homepage
     const handleScroll = () => {
-      if (window.location.pathname === '/about') {
+      if (window.location.pathname !== '/') {
         return;
       }
 
       const scrollPos = window.scrollY + 160;
 
-      for (const id of ['contact', 'proof', 'work', 'projects', 'hero']) {
+      for (const id of ['contact', 'stack', 'expertise', 'work', 'hero']) {
         const el = document.getElementById(id);
         if (el && scrollPos >= el.offsetTop) {
           scrollSection = id;
@@ -148,7 +178,7 @@
   <link rel="canonical" href={canonical} />
   {#each alternates(page.url.origin, page.url.pathname) as alt}<link rel="alternate" hreflang={alt.hreflang} href={alt.href} />{/each}
   <meta name="author" content={site.name} />
-  <meta name="robots" content={page.error ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+  <meta name="robots" content={noindex ? 'noindex' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={site.name} />
   <meta property="og:title" content={metaTitle} />
@@ -165,13 +195,6 @@
   <meta name="twitter:description" content={metaDesc} />
   <meta name="twitter:image" content="{page.url.origin}/og.png" />
   {@html jsonLd}
-  <script>
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  </script>
 </svelte:head>
 
 {#snippet githubIcon()}
@@ -192,26 +215,28 @@
 <!-- ArtCraft aesthetic: razor-thin borders, deep backdrop, structural grid -->
 <a href="#content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-black focus:text-white dark:focus:bg-white dark:focus:text-black font-mono text-[11px] font-bold tracking-[0.12em] uppercase">{t.nav.skip}</a>
 <div class="min-h-[100dvh] w-full flex flex-col relative selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
-  <div class="fixed inset-0 pointer-events-none bg-[#FAF9F8] dark:bg-[#050505] -z-20"></div>
+  <div class="fixed inset-0 pointer-events-none bg-paper dark:bg-ink -z-20"></div>
 
   <!-- Subtle glowing core -->
-  <div class="fixed inset-0 pointer-events-none opacity-0 dark:opacity-100 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/[0.02] via-[#050505] to-[#050505] -z-10"></div>
+  <div class="fixed inset-0 pointer-events-none opacity-0 dark:opacity-100 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/[0.02] via-ink to-ink -z-10"></div>
 
   <!-- Subtle dot grid background -->
   <div class="fixed inset-0 pointer-events-none bg-dot-grid -z-10"></div>
 
   <!-- App Header - Portfolio Concept with Exact ArtCraft Visual Architecture -->
-  <nav id="site-nav" class="w-full h-12 border-b border-black/10 dark:border-white/10 flex items-stretch justify-between fixed top-0 z-50 bg-[#FAF9F8]/95 dark:bg-[#050505]/95 backdrop-blur-sm select-none">
+  <nav id="site-nav" class="w-full h-12 border-b border-black/10 dark:border-white/10 flex items-stretch justify-between fixed top-0 z-50 bg-paper/95 dark:bg-ink/95 backdrop-blur-sm select-none">
 
     <!-- Left Section: Mobile Menu Button + Logo + Desktop Portfolio Nav Items -->
     <div class="flex items-stretch min-w-0">
 
       <!-- Mobile Menu Toggle Button (Visible on screens < lg; tablets get the drawer too) -->
       <button
+        bind:this={menuToggle}
         onclick={() => mobileMenuOpen = !mobileMenuOpen}
         class="flex lg:hidden items-center justify-center px-3.5 border-r border-black/10 dark:border-white/10 text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer"
         aria-label={t.nav.toggleMenu}
         aria-expanded={mobileMenuOpen}
+        aria-controls="mobile-menu"
       >
         {#if mobileMenuOpen}
           <X weight="bold" aria-hidden="true" class="w-4 h-4" />
@@ -334,7 +359,7 @@
       <a
         href="/#contact"
         onclick={() => scrollToSection('contact')}
-        class="inline-flex items-center justify-center border-l border-black/10 dark:border-white/10 px-3.5 sm:px-4 xl:px-5 font-mono text-[10px] sm:text-[11px] font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase whitespace-nowrap bg-black text-white dark:bg-white dark:text-black hover:opacity-85 transition-opacity"
+        class="inline-flex items-center justify-center border-l border-black/10 dark:border-white/10 px-3.5 sm:px-4 xl:px-5 font-mono text-[11px] font-bold tracking-[0.1em] sm:tracking-[0.12em] uppercase whitespace-nowrap bg-black text-white dark:bg-white dark:text-black hover:opacity-85 transition-opacity"
       >
         {t.nav.getInTouch}
       </a>
@@ -349,7 +374,9 @@
       role="presentation"
     >
       <div
-        class="w-full bg-[#FAF9F8] dark:bg-[#050505] border-b border-black/10 dark:border-white/10 shadow-2xl flex flex-col divide-y divide-black/10 dark:divide-white/10 animate-in fade-in slide-in-from-top-4 duration-200"
+        bind:this={drawer}
+        id="mobile-menu"
+        class="w-full bg-paper dark:bg-ink border-b border-black/10 dark:border-white/10 shadow-2xl flex flex-col divide-y divide-black/10 dark:divide-white/10 animate-in fade-in slide-in-from-top-4 duration-200"
         onclick={(e) => e.stopPropagation()}
         role="presentation"
       >
@@ -367,7 +394,7 @@
             >
               <span>{item.label}</span>
               {#if activeNav === item.id}
-                <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black text-[10px]">
+                <span class="px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black text-[11px]">
                   {t.nav.active}
                 </span>
               {/if}
@@ -417,7 +444,7 @@
   {/if}
 
   <!-- MAIN WRAPPER -->
-  <div class="w-full flex-1 pt-12 relative flex flex-col">
+  <div bind:this={pageWrap} class="w-full flex-1 pt-12 relative flex flex-col">
     <!-- Exact 1:1 ArtCraft Scroll Ruler HUD Component (hidden on mobile, cleanly positioned on desktop) -->
     <ScrollRuler />
 

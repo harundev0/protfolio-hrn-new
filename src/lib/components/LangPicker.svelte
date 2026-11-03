@@ -65,11 +65,11 @@
       role="listbox"
       aria-label={i18n.t.nav.language}
       transition:scale={{ start: 0.96, duration: 140, easing: cubicOut }}
-      class="absolute right-0 z-50 w-56 border border-black/10 dark:border-white/10 bg-[#FAF9F8] dark:bg-[#0b0b0b] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.25)] dark:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.8)] {placement === 'down'
+      class="absolute right-0 z-50 w-56 border border-black/10 dark:border-white/10 bg-paper dark:bg-[#0b0b0b] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.25)] dark:shadow-[0_12px_32px_-12px_rgba(0,0,0,0.8)] {placement === 'down'
         ? 'top-full mt-px origin-top-right'
         : 'bottom-full mb-2 origin-bottom-right'}"
     >
-      <div class="px-3.5 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[9px] tracking-[0.2em] uppercase text-black/55 dark:text-white/50">
+      <div class="px-3.5 py-2 border-b border-black/10 dark:border-white/10 font-mono text-[11px] tracking-[0.2em] uppercase text-black/55 dark:text-white/50">
         {i18n.t.nav.language}
       </div>
       <div class="py-1">
@@ -81,9 +81,9 @@
             aria-selected={active}
             lang={l}
             onclick={() => pick(l)}
-            class="group w-full flex items-center gap-3 px-3.5 py-2.5 text-left cursor-pointer outline-none transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06] focus-visible:bg-black/[0.04] dark:focus-visible:bg-white/[0.06]"
+            class="group w-full flex items-center gap-3 px-3.5 py-2.5 text-left cursor-pointer outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#2D81FF] transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06] focus-visible:bg-black/[0.04] dark:focus-visible:bg-white/[0.06]"
           >
-            <span class="w-11 shrink-0 font-mono text-[10px] font-bold tracking-[0.12em] uppercase {active ? 'text-[#1D63D8] dark:text-[#2D81FF]' : 'text-black/55 dark:text-white/50'}">
+            <span class="w-11 shrink-0 font-mono text-[11px] font-bold tracking-[0.12em] uppercase {active ? 'text-[#1D63D8] dark:text-[#2D81FF]' : 'text-black/55 dark:text-white/50'}">
               {l}
             </span>
             <span class="flex-1 text-[13px] {active ? 'text-black dark:text-white font-medium' : 'text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white'}">
