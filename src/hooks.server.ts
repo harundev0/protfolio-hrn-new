@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit/hooks';
 import { createHash } from 'node:crypto';
-import { isLocale, matchLocale } from '#lib/i18n/index.ts';
+import { isLocale } from '#lib/i18n/index.ts';
 
 // SvelteKit's boot script (start of the hydration import) and its module preload hints
 const BOOT = /import\("([^"]+\/_app\/immutable\/entry\/start\.[\w-]+\.js)"\)\.then\(async \(kit\) => \{/;
@@ -35,20 +35,23 @@ function csp(html: string) {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-  // ?lang= gives each language its own crawlable URL (used by hreflang); then cookie, then browser language
+  // The language comes from the URL alone (?lang=, English when absent), so every response can be cached
+  // at the CDN per URL. Saved choice (cookie) and browser language redirect to ?lang= at the edge: vercel.json.
   const query = event.url.searchParams.get('lang');
-  const saved = event.cookies.get('lang');
-  const lang = isLocale(query) ? query : isLocale(saved) ? saved : matchLocale(event.request.headers.get('accept-language'));
+  const lang = isLocale(query) ? query : 'en';
   event.locals.lang = lang;
 
   let response = await resolve(event, { transformPageChunk: ({ html }) => html.replace('%lang%', lang) });
   if (response.headers.get('content-type')?.startsWith('text/html')) {
-    const html = hydrateAfterPaint(await response.text());
+    let html = hydrateAfterPaint(await response.text());
+    // home LCP: the hero poster sits after ~60 KB of inline CSS, so announce it right at the top of <head>
+    if (event.url.pathname === '/') html = html.replace('<meta charset="utf-8" />', '<meta charset="utf-8" />\n\t\t<link rel="preload" as="image" href="/assets/videos/hero-poster.webp" fetchpriority="high" />');
     response = new Response(html, { status: response.status, statusText: response.statusText, headers: response.headers });
     response.headers.delete('content-length'); // body was rewritten
-    response.headers.set('vary', 'Accept-Language, Cookie');
     response.headers.set('content-security-policy', csp(html));
   }
+  // Responses depend on the URL only: Vercel's CDN keeps them until the next deploy purges it; browsers revalidate
+  if (event.request.method === 'GET' && response.status === 200) response.headers.set('vercel-cdn-cache-control', 'max-age=31536000');
   response.headers.set('x-content-type-options', 'nosniff');
   response.headers.set('referrer-policy', 'strict-origin-when-cross-origin');
   response.headers.set('permissions-policy', 'camera=(), microphone=(), geolocation=()');

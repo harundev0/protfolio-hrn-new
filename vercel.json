@@ -2,7 +2,200 @@
 	"headers": [
 		{
 			"source": "/assets/(.*)",
-			"headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=31536000, immutable"
+				}
+			]
+		}
+	],
+	"redirects": [
+		{
+			"source": "/",
+			"has": [
+				{
+					"type": "cookie",
+					"key": "lang",
+					"value": "^(?<l>id|ja|fr|de-CH)$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				}
+			],
+			"destination": "/?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/about",
+			"has": [
+				{
+					"type": "cookie",
+					"key": "lang",
+					"value": "^(?<l>id|ja|fr|de-CH)$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				}
+			],
+			"destination": "/about?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/work/:slug",
+			"has": [
+				{
+					"type": "cookie",
+					"key": "lang",
+					"value": "^(?<l>id|ja|fr|de-CH)$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				}
+			],
+			"destination": "/work/:slug?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^(?<l>id|ja|fr)(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^de(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/?lang=de-CH",
+			"permanent": false
+		},
+		{
+			"source": "/about",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^(?<l>id|ja|fr)(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/about?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/about",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^de(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/about?lang=de-CH",
+			"permanent": false
+		},
+		{
+			"source": "/work/:slug",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^(?<l>id|ja|fr)(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/work/:slug?lang=:l",
+			"permanent": false
+		},
+		{
+			"source": "/work/:slug",
+			"has": [
+				{
+					"type": "header",
+					"key": "accept-language",
+					"value": "^de(?:-[A-Za-z0-9]+)?(?:[,;].*)?$"
+				}
+			],
+			"missing": [
+				{
+					"type": "query",
+					"key": "lang"
+				},
+				{
+					"type": "cookie",
+					"key": "lang"
+				}
+			],
+			"destination": "/work/:slug?lang=de-CH",
+			"permanent": false
 		}
 	]
 }

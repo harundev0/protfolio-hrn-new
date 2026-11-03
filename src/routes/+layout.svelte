@@ -31,13 +31,11 @@
       lang = l;
       document.cookie = `lang=${l}; path=/; max-age=31536000; samesite=lax`;
       document.documentElement.lang = l;
-      // keep a ?lang= URL in step with the picker, otherwise a reload would switch back
+      // the URL carries the language (pages are cached per URL), so a reload or shared link keeps it
       const url = new URL(location.href);
-      if (url.searchParams.has('lang')) {
-        if (l === 'en') url.searchParams.delete('lang');
-        else url.searchParams.set('lang', l);
-        replaceState(url, {});
-      }
+      if (l === 'en') url.searchParams.delete('lang');
+      else url.searchParams.set('lang', l);
+      replaceState(url, {});
     }
   );
   let t = $derived(i18n.t);
@@ -241,6 +239,7 @@
       >
         <img
           src="/assets/logo/logo-light.webp"
+          loading="lazy"
           alt=""
           width="28"
           height="28"
@@ -248,6 +247,7 @@
         />
         <img
           src="/assets/logo/logo-dark.webp"
+          loading="lazy"
           alt=""
           width="28"
           height="28"

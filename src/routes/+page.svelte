@@ -202,14 +202,14 @@
   <div class="w-full border-b border-black/10 dark:border-white/10">
     <div class="max-w-[1280px] mx-auto border-x border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] uppercase font-mono tracking-widest text-black/55 dark:text-white/50 py-2.5 px-6 md:px-10">
       <div class="flex items-center gap-3 sm:gap-4">
-        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/nodejs.svg" alt="" class="w-3.5 h-3.5 object-contain" /><span>NODE.JS</span></span>
+        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/nodejs.svg" alt="" fetchpriority="low" class="w-3.5 h-3.5 object-contain" /><span>NODE.JS</span></span>
         <span>•</span>
-        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/svelte.svg" alt="" class="w-3.5 h-3.5 object-contain" /><span>SVELTE</span></span>
+        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/svelte.svg" alt="" fetchpriority="low" class="w-3.5 h-3.5 object-contain" /><span>SVELTE</span></span>
         <span>•</span>
-        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/tailwind.svg" alt="" class="w-3.5 h-3.5 object-contain" /><span>TAILWIND</span></span>
+        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/tailwind.svg" alt="" fetchpriority="low" class="w-3.5 h-3.5 object-contain" /><span>TAILWIND</span></span>
       </div>
       <div class="hidden md:flex items-center gap-4">
-        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/figma.svg" alt="" class="w-3.5 h-3.5 object-contain" /><span>FIGMA</span></span>
+        <span class="flex items-center gap-1.5"><img src="/assets/icons/tech/figma.svg" alt="" fetchpriority="low" class="w-3.5 h-3.5 object-contain" /><span>FIGMA</span></span>
       </div>
     </div>
   </div>
@@ -502,7 +502,7 @@
                   <span class="text-[clamp(1.25rem,7.5vw,3rem)] font-medium tracking-[-0.03em] transition-colors duration-200 {active ? 'text-black dark:text-white' : 'text-black/55 dark:text-white/50 group-hover:text-black/60 dark:group-hover:text-white/60'}">
                     {tool.name}
                   </span>
-                  <img src={tool.icon} alt="" class="w-6 h-6 md:w-7 md:h-7 object-contain transition-[opacity,transform] duration-300 ease-out {active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}" />
+                  <img src={tool.icon} alt="" loading="lazy" class="w-6 h-6 md:w-7 md:h-7 object-contain transition-[opacity,transform] duration-300 ease-out {active ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}" />
                 </span>
                 <span class="hidden sm:block font-mono text-[11px] uppercase tracking-widest text-right transition-colors duration-200 {active ? 'text-black/60 dark:text-white/60' : 'text-black/55 dark:text-white/50'}">
                   {t.stack.tools[i].role}
@@ -531,7 +531,7 @@
                 </div>
 
                 <div class="relative mt-10 w-20 h-20 p-4 flex items-center justify-center border border-black/10 dark:border-white/10 bg-paper dark:bg-[#0b0b0b]">
-                  <img src={tool.icon} alt="" class="w-full h-full object-contain" />
+                  <img src={tool.icon} alt="" loading="lazy" class="w-full h-full object-contain" />
                 </div>
 
                 <h3 class="relative mt-6 text-4xl font-medium tracking-tight text-black dark:text-white">{tool.name}</h3>

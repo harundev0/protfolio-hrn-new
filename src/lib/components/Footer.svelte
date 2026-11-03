@@ -60,6 +60,7 @@
           <a href="/" class="inline-flex items-center gap-3 group">
             <img
               src="/assets/logo/logo-light.webp"
+              loading="lazy"
               alt="HRN Logo"
               width="40"
               height="40"
@@ -67,6 +68,7 @@
             />
             <img
               src="/assets/logo/logo-dark.webp"
+              loading="lazy"
               alt="HRN Logo"
               width="40"
               height="40"
